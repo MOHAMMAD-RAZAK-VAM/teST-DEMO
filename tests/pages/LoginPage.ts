@@ -32,26 +32,27 @@ export class LoginPage extends BasePage {
       await this.page.goto(config.appUrl);
       await this.waitForPageReady();
       
-      // Wait for URL to indicate we're on login page
-      await this.page.waitForURL(/.*\/Account\/Login.*/, { timeout: 30000 });
-      console.log('Reached login page');
+      // Check if we need to login
+      if (await this.isLoginPage()) {
+        console.log('On login page, proceeding with login');
+        await this.usernameInput.waitFor({ state: 'visible' });
+        await this.passwordInput.waitFor({ state: 'visible' });
+        
+        console.log('Entering login credentials');
+        await this.usernameInput.fill(username);
+        await this.passwordInput.fill(password);
+        
+        console.log('Clicking login button');
+        await this.loginButton.click();
 
-      // Wait for and fill credentials
-      await this.usernameInput.waitFor({ state: 'visible' });
-      await this.passwordInput.waitFor({ state: 'visible' });
+        console.log('Waiting for authentication flow');
+        await this.page.waitForURL(/.*callback\.html.*/, { timeout: 30000 });
+        console.log('Reached callback page');
+      } else {
+        console.log('Already logged in, skipping login flow');
+      }
       
-      console.log('Entering login credentials');
-      await this.usernameInput.fill(username);
-      await this.passwordInput.fill(password);
-      
-      // Click login and wait for auth flow
-      console.log('Clicking login button');
-      await this.loginButton.click();
-
-      console.log('Waiting for authentication flow');
-      await this.page.waitForURL(/.*callback\.html.*/, { timeout: 30000 });
-      console.log('Reached callback page');
-      
+      // Wait for final navigation regardless of login path
       await this.page.waitForURL(/.*Index\.html#\/home.*/, { timeout: 30000 });
       console.log('Authentication complete - reached home page');
       

@@ -153,8 +153,29 @@ export class AccountsPage extends BasePage {
             throw error;
         }
     }
-    waitForLoadingComplete() {
-        throw new Error('Method not implemented.');
+    async waitForLoadingComplete() {
+        try {
+            // Wait for loading overlay to disappear (if present)
+            const loadingOverlay = this.page.locator('.loader-overlay');
+            if (await loadingOverlay.isVisible()) {
+                await loadingOverlay.waitFor({ state: 'hidden', timeout: 30000 });
+                console.log('Loading overlay disappeared');
+            }
+
+            // Wait for Angular bindings to initialize
+            await this.page.waitForSelector('[ng-model]', { state: 'attached', timeout: 30000 });
+            console.log('Angular bindings initialized');
+
+            // Wait for network idle to ensure all data is loaded
+            await this.page.waitForLoadState('networkidle', { timeout: 30000 });
+            console.log('Network is idle');
+
+            // Small delay for stability
+            await this.page.waitForTimeout(1000);
+        } catch (error) {
+            console.error('Failed while waiting for loading to complete:', error.message);
+            throw error;
+        }
     }
 
     async applyFilter() {
@@ -174,6 +195,79 @@ export class AccountsPage extends BasePage {
         await this.page.waitForLoadState('networkidle');
         await this.page.waitForTimeout(3000);
         console.log('Filter applied');
+    }
+
+    async fillNameOfApplicant(name: string) {
+        console.log('Filling Name of Applicant...');
+        const nameInput = this.page.getByRole('textbox', { name: 'Name of the Applicant*' });
+        await nameInput.waitFor({ state: 'visible', timeout: 10000 });
+        await nameInput.focus();
+        
+        // Type slowly to simulate human input
+        for (const char of name) {
+            await nameInput.type(char, { delay: 100 });
+        }
+        
+        // Wait for suggestions and select first one
+        await this.page.waitForTimeout(1000);
+        await this.page.keyboard.press('ArrowDown');
+        await this.page.waitForTimeout(500);
+        await this.page.keyboard.press('Enter');
+        
+        // Handle confirmation popup
+        const popup = this.page.locator('.sweet-alert.showSweetAlert.visible');
+        await popup.waitFor({ state: 'visible', timeout: 5000 });
+        const yesButton = popup.locator('button.confirm');
+        await yesButton.click();
+        await popup.waitFor({ state: 'hidden', timeout: 5000 });
+    }
+
+    async fillSicCode(code: string) {
+        console.log('Filling SIC Code...');
+        const sicCodeInput = this.page.getByRole('textbox', { name: 'SIC Code/Description*' });
+        await sicCodeInput.waitFor({ state: 'visible', timeout: 10000 });
+        
+        // Ensure form section is visible
+        await this.page.locator('.form-group', { 
+            has: this.page.locator('label', { hasText: 'SIC Code/Description' })
+        }).scrollIntoViewIfNeeded();
+
+        await sicCodeInput.focus();
+        for (const char of code) {
+            await sicCodeInput.type(char, { delay: 100 });
+        }
+        
+        // Wait for suggestions
+        await this.page.waitForTimeout(1000);
+        await this.page.keyboard.press('ArrowDown');
+        await this.page.waitForTimeout(500);
+        await this.page.keyboard.press('Enter');
+        await this.page.waitForTimeout(1000);
+    }
+
+    async selectLegalEntry(option: string) {
+        console.log('Selecting Legal Entity...');
+        const section = this.page.locator('.form-group', {
+            has: this.page.locator('label', { hasText: 'Legal Entity' })
+        });
+        
+        const dropdown = section.locator('span.k-dropdown-wrap').first();
+        await dropdown.waitFor({ state: 'visible', timeout: 10000 });
+        await dropdown.click();
+        
+        // Use keyboard navigation
+        await this.page.keyboard.press('ArrowDown');
+        await this.page.keyboard.press('Enter');
+        await this.page.waitForTimeout(1000);
+        await this.page.waitForLoadState('networkidle');
+    }
+
+    async proceedToApplication() {
+        console.log('Proceeding to Application...');
+        const button = this.page.getByRole('button', { name: 'Proceed to Application' });
+        await button.waitFor({ state: 'visible', timeout: 10000 });
+        await button.click();
+        await this.page.waitForURL(/.*\/BD\/McKee\/index\.html.*#\/Location/, { timeout: 30000 });
     }
 
     async verifyFilterResults(expectedData?: {

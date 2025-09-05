@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { AccountPage } from './pages/AccountPage';
+import { AccountsPage } from './pages/AccountsPage';
 import { LoginPage } from './pages/LoginPage';
 import { HomePage } from './pages/HomePage';
 import config from '../config.json';
@@ -8,7 +8,7 @@ test('TS003 - Verify Account Form Fill and Proceed to Application', async ({ pag
     console.log('Starting Account Form Fill test...');
     const loginPage = new LoginPage(page);
     const homePage = new HomePage(page);
-    const accountPage = new AccountPage(page);
+    const accountPage = new AccountsPage(page);
     
     try {
         // First handle login
