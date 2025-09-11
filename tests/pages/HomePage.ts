@@ -1,4 +1,5 @@
-import { Page, expect } from '@playwright/test';
+// Removed unused import for 'Page'
+import { expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class HomePage extends BasePage {
@@ -9,6 +10,7 @@ export class HomePage extends BasePage {
   private hamburgerMenu = this.page.locator('#hamburger');
   private customerAccountsLink = this.page.getByRole('link', { name: 'Customer Accounts' });
   private quotesLink = this.page.getByRole('link', { name: 'Quotes' });
+  private newQuoteButton = this.page.getByRole('link', { name: 'New Quote' });
 
   async waitForPageLoad() {
     await this.searchTypeCombobox.waitFor({ state: 'visible', timeout: 15000 });
@@ -20,7 +22,7 @@ export class HomePage extends BasePage {
     
     // Wait for any loading to complete
     await this.page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: 10000 })
-      .catch(e => console.log('Initial loading state already completed'));
+      .catch(() => console.log('Initial loading state already completed'));
     
     // Wait for and click the dropdown
     await this.searchTypeCombobox.waitFor({ state: 'visible', timeout: 10000 });
@@ -64,7 +66,11 @@ export class HomePage extends BasePage {
         await locator.click({ timeout: 30000 });
         return true;
       } catch (error) {
-        console.log(`Click attempt ${attempt} failed: ${error.message}`);
+        if (error instanceof Error) {
+          console.log(`Click attempt ${attempt} failed: ${error.message}`);
+        } else {
+          console.log(`Click attempt ${attempt} failed with unknown error`);
+        }
         if (attempt === maxAttempts) throw error;
         await this.page.waitForTimeout(1000); // Wait before retry
       }
@@ -109,8 +115,6 @@ export class HomePage extends BasePage {
     // Wait for loading to finish
     await this.waitForLoadingComplete();
     
-    // Get the table text and verify
-    const tableContent = await this.resultsTable.textContent();
     console.log('Table content loaded, checking for expected text');
     
     await expect(this.resultsTable).toContainText(new RegExp(expectedText, 'i'), {
@@ -178,5 +182,22 @@ export class HomePage extends BasePage {
     await this.page.waitForTimeout(500);
     
     console.log('Successfully navigated to Quotes page');
+  }
+
+  async navigateToNewQuote() {
+    console.log('Attempting to navigate to New Quote');
+    
+    // Navigate to Quotes page first
+    await this.navigateToQuotes();
+    
+    // Wait for and click New Quote button
+    await expect(this.newQuoteButton).toBeVisible({ timeout: 10000 });
+    await this.newQuoteButton.click();
+    
+    // Wait for navigation
+    await expect(this.page).toHaveURL(/Index\.html#\/quote\/new/);
+    await this.page.waitForSelector('body:not(.pace-running)', { timeout: 60000 });
+    
+    console.log('Successfully navigated to New Quote page');
   }
 }

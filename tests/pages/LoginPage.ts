@@ -1,8 +1,12 @@
-import { Page, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 import config from '../../config.json';
 
 export class LoginPage extends BasePage {
+  constructor(page: Page) {
+    super(page);
+  }
+
   private usernameInput = this.page.getByRole('textbox', { name: 'User Name' });
   private passwordInput = this.page.getByRole('textbox', { name: 'Password' });
   private loginButton = this.page.getByRole('button', { name: 'LOGIN' });
@@ -20,7 +24,11 @@ export class LoginPage extends BasePage {
       console.log(`Login page check: ${isVisible ? 'Yes' : 'No'}`);
       return isVisible;
     } catch (error) {
-      console.log('Login page check failed:', error.message);
+      if (error instanceof Error) {
+        console.log('Login page check failed:', error.message);
+      } else {
+        console.log('Login page check failed with unknown error');
+      }
       return false;
     }
   }
@@ -58,7 +66,11 @@ export class LoginPage extends BasePage {
       
       await this.waitForPageReady();
     } catch (error) {
-      console.error('Login failed:', error.message);
+      if (error instanceof Error) {
+        console.error('Login failed:', error.message);
+      } else {
+        console.error('Login failed with unknown error');
+      }
       throw error;
     }
   }

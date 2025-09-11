@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 import { AccountsPage } from './pages/AccountsPage';
 import { LoginPage } from './pages/LoginPage';
 import { HomePage } from './pages/HomePage';
-import config from '../config.json';
 
 test('TS003 - Verify Account Form Fill and Proceed to Application', async ({ page }) => {
     console.log('Starting Account Form Fill test...');
@@ -42,7 +41,8 @@ test('TS003 - Verify Account Form Fill and Proceed to Application', async ({ pag
         console.log('Account Form Fill test completed successfully');
         
     } catch (error) {
-        console.error('Account Form Fill test failed:', error.message);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.error('Account Form Fill test failed:', errorMessage);
         throw error;
     }
 });

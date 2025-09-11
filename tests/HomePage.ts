@@ -1,7 +1,11 @@
-import { Page, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class HomePage extends BasePage {
+    constructor(page: Page) {
+        super(page);
+    }
   private searchTypeCombobox = this.page.locator('select.form-control');
   private searchInput = this.page.getByRole('textbox', { name: /Search By/i });
   private searchButton = this.page.getByRole('button', { name: /Search/i });
@@ -20,7 +24,7 @@ export class HomePage extends BasePage {
     
     // Wait for any loading to complete
     await this.page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: 10000 })
-      .catch(e => console.log('Initial loading state already completed'));
+      .catch(() => console.log('Initial loading state already completed'));
     
     // Wait for and click the dropdown
     await this.searchTypeCombobox.waitFor({ state: 'visible', timeout: 10000 });
@@ -64,7 +68,11 @@ export class HomePage extends BasePage {
         await locator.click({ timeout: 30000 });
         return true;
       } catch (error) {
-        console.log(`Click attempt ${attempt} failed: ${error.message}`);
+        if (error instanceof Error) {
+          console.log(`Click attempt ${attempt} failed: ${error.message}`);
+        } else {
+          console.log(`Click attempt ${attempt} failed with unknown error`);
+        }
         if (attempt === maxAttempts) throw error;
         await this.page.waitForTimeout(1000); // Wait before retry
       }
@@ -109,8 +117,6 @@ export class HomePage extends BasePage {
     // Wait for loading to finish
     await this.waitForLoadingComplete();
     
-    // Get the table text and verify
-    const tableContent = await this.resultsTable.textContent();
     console.log('Table content loaded, checking for expected text');
     
     await expect(this.resultsTable).toContainText(new RegExp(expectedText, 'i'), {

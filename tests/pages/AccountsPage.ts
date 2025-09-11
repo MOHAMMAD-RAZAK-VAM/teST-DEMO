@@ -1,7 +1,11 @@
-import { Page, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class AccountsPage extends BasePage {
+    constructor(page: Page) {
+        super(page);
+    }
     // Form inputs with multiple selector strategies
     private zipCodeInput = this.page.locator([
         'input#zipdisable',
@@ -77,7 +81,8 @@ export class AccountsPage extends BasePage {
 
             console.log('Customer Accounts page fully loaded');
         } catch (error) {
-            console.error('Failed while waiting for page load:', error.message);
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.error('Failed while waiting for page load:', errorMessage);
             throw error;
         }
     }
@@ -104,7 +109,8 @@ export class AccountsPage extends BasePage {
                 await locator.fill(value);
                 console.log(`Successfully filled ${label}`);
             } catch (error) {
-                console.error(`Failed to fill ${label}:`, error.message);
+                const errorMessage = error instanceof Error ? error.message : String(error);
+                console.error(`Failed to fill ${label}:`, errorMessage);
                 throw error;
             }
         };
@@ -118,7 +124,8 @@ export class AccountsPage extends BasePage {
                 await this.waitForLoadingComplete();
                 console.log(`Successfully selected ${label}`);
             } catch (error) {
-                console.error(`Failed to select ${label}:`, error.message);
+                const errorMessage = error instanceof Error ? error.message : String(error);
+                console.error(`Failed to select ${label}:`, errorMessage);
                 throw error;
             }
         };
@@ -149,7 +156,8 @@ export class AccountsPage extends BasePage {
 
             console.log('Successfully filled all form fields');
         } catch (error) {
-            console.error('Failed to fill filter form:', error.message);
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.error('Failed to fill filter form:', errorMessage);
             throw error;
         }
     }
@@ -173,7 +181,8 @@ export class AccountsPage extends BasePage {
             // Small delay for stability
             await this.page.waitForTimeout(1000);
         } catch (error) {
-            console.error('Failed while waiting for loading to complete:', error.message);
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            console.error('Failed while waiting for loading to complete:', errorMessage);
             throw error;
         }
     }
@@ -245,7 +254,7 @@ export class AccountsPage extends BasePage {
         await this.page.waitForTimeout(1000);
     }
 
-    async selectLegalEntry(option: string) {
+    async selectLegalEntry(_entityType: string) {
         console.log('Selecting Legal Entity...');
         const section = this.page.locator('.form-group', {
             has: this.page.locator('label', { hasText: 'Legal Entity' })

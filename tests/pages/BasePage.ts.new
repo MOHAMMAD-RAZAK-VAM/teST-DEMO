@@ -1,0 +1,68 @@
+import { Page, Locator } from '@playwright/test';
+
+export class BasePage {
+    protected readonly page: Page;
+
+    constructor(page: Page) {
+        this.page = page;
+    }
+
+    protected async waitForElement(locator: Locator, options = { state: 'visible' as const, timeout: 30000 }) {
+        console.log(`Waiting for element to be ${options.state}...`);
+        await locator.waitFor(options);
+    }
+
+    protected async fillField(locator: Locator, value: string, options = { delay: 100 }) {
+        console.log(`Filling field with: ${value}`);
+        await this.waitForElement(locator);
+        await locator.click();
+        await locator.fill('');
+        for (const char of value) {
+            await locator.type(char, { delay: options.delay });
+        }
+    }
+
+    protected async selectDropdownByKeyboard(dropdown: Locator, direction: 'up' | 'down' = 'down') {
+        console.log('Selecting dropdown option using keyboard...');
+        await this.waitForElement(dropdown);
+        await dropdown.click();
+        await this.page.waitForTimeout(500);
+        await this.page.keyboard.press(direction === 'up' ? 'ArrowUp' : 'ArrowDown');
+        await this.page.waitForTimeout(500);
+        await this.page.keyboard.press('Enter');
+        await this.page.waitForTimeout(500);
+    }
+
+    protected async handleAlert(action: 'accept' | 'dismiss' = 'accept') {
+        console.log(`Handling alert - ${action}...`);
+        const alert = this.page.locator('.sweet-alert.showSweetAlert.visible');
+        await this.waitForElement(alert);
+        const button = alert.locator(action === 'accept' ? 'button.confirm' : 'button.cancel');
+        await button.click();
+        await alert.waitFor({ state: 'hidden' });
+    }
+
+    protected async clickAndWaitForNavigation(locator: Locator, expectedUrl: string | RegExp) {
+        console.log(`Clicking and waiting for navigation to: ${expectedUrl}`);
+        await this.waitForElement(locator);
+        await Promise.all([
+            this.page.waitForURL(expectedUrl, { timeout: 30000 }),
+            locator.click()
+        ]);
+    }
+
+    protected async waitForLoading() {
+        console.log('Waiting for loading to complete...');
+        const loader = this.page.locator('.loader-overlay');
+        if (await loader.isVisible()) {
+            await loader.waitFor({ state: 'hidden', timeout: 30000 });
+        }
+        await this.page.waitForLoadState('networkidle');
+    }
+
+    async waitForPageLoad() {
+        console.log('Waiting for page to load...');
+        await this.page.waitForLoadState('domcontentloaded');
+        await this.waitForLoading();
+    }
+}
