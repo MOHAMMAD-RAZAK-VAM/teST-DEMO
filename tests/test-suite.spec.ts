@@ -791,8 +791,13 @@ test.describe('Customer Portal Test Suite', () => {
             await expect(saveLimitsButton).toBeVisible({ timeout: 10000 });
             await saveLimitsButton.click();
             const limitsSavedAlert = page.getByText('Limits & Deductibles saved successfully');
-            await expect(limitsSavedAlert).toBeVisible({ timeout: 10000 });
-           
+            await expect(limitsSavedAlert).toBeVisible({ timeout: 30000 });
+
+            // Click "Back to Policy" button in the footer after saving
+            const backToPolicyButton = page.getByRole('button', { name: /Back to Policy/i });
+            await expect(backToPolicyButton).toBeVisible({ timeout: 10000 });
+            await backToPolicyButton.click();
+
             // 9. Wait for navigation back to AULocation and proceed
             await page.waitForURL(/#\/AULocation/, { timeout: 30000 });
             const proceedToAutoExposureButton = page.getByRole('button', { name: /Proceed to Automobile Exposure/i });

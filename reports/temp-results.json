@@ -3,14 +3,14 @@
     "testId": "authenticate",
     "testName": "authenticate",
     "status": "passed",
-    "duration": 29839,
-    "timestamp": "2025-09-11T07:49:50.515Z"
+    "duration": 32598,
+    "timestamp": "2025-09-11T08:02:30.048Z"
   },
   {
     "testId": "TS002",
     "testName": "Verify New Quote Creation Flow",
-    "status": "failed",
-    "duration": 167234,
-    "timestamp": "2025-09-11T07:52:46.516Z"
+    "status": "passed",
+    "duration": 176587,
+    "timestamp": "2025-09-11T08:05:37.320Z"
   }
 ]
