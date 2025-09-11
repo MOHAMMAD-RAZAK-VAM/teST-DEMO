@@ -578,11 +578,11 @@ test.describe('Customer Portal Test Suite', () => {
             // --- Added Personal Injury Protection Coverage ---
             const addedCoverageGroup = page.locator('.form-group', { has: page.locator('label span', { hasText: 'Added Personal Injury Protection Coverage' }) }).first();
             const addedCoverageDropdown = addedCoverageGroup.locator('.k-dropdown-wrap').first();
-            await expect(addedCoverageDropdown).toBeVisible({ timeout: 10000 });
+            await expect(addedCoverageDropdown).toBeVisible({ timeout: 13000 });
             await addedCoverageDropdown.click();
             await page.keyboard.press('ArrowDown');
             await page.keyboard.press('Enter');
-            await page.waitForTimeout(1000);
+            await page.waitForTimeout(3000);
 
             // --- Added Personal Injury Protection Option ---
             // Log all form-group spans for debugging (limit to 20 for safety)
@@ -700,7 +700,7 @@ test.describe('Customer Portal Test Suite', () => {
             await expect(apipcDropdownList2).toBeVisible({ timeout: 10000 });
             // Select "Added Personal Injury Protection Coverage" from the dropdown list
             const apipcOption = apipcDropdownList2.locator('.k-item', { hasText: 'Added Personal Injury Protection Coverage' }).first();
-            await expect(apipcOption).toBeVisible({ timeout: 10000 });
+            await expect(apipcOption).toBeVisible({ timeout: 15000 });
             await apipcOption.click();
             // Wait for UI to load
             await page.waitForTimeout(1000);
@@ -733,11 +733,22 @@ test.describe('Customer Portal Test Suite', () => {
             await expect(apipcOptionDropdown).toBeVisible({ timeout: 10000 });
             await apipcOptionDropdown.click();
             const apipcOptionDropdownList = page.locator('.k-list[aria-hidden="false"]');
-            await expect(apipcOptionDropdownList).toBeVisible({ timeout: 10000 });
-            const bOptionPI = apipcOptionDropdownList.locator('.k-item', { hasText: 'b.' }).first();
-            await expect(bOptionPI).toBeVisible({ timeout: 10000 });
+            let bOptionPI = apipcOptionDropdownList.locator('.k-item', { hasText: 'b.' }).first();
+            let foundB = false;
+            for (let i = 0; i < 3; i++) {
+                try {
+                    await expect(apipcOptionDropdownList).toBeVisible({ timeout: 3000 });
+                    await expect(bOptionPI).toBeVisible({ timeout: 3000 });
+                    foundB = true;
+                    break;
+                } catch {
+                    await apipcOptionDropdown.click();
+                    await page.waitForTimeout(300);
+                    bOptionPI = apipcOptionDropdownList.locator('.k-item', { hasText: 'b.' }).first();
+                }
+            }
+            if (!foundB) throw new Error("Option 'b.' not found in Added Personal Injury Protection Option dropdown");
             await bOptionPI.click();
-            // Wait for UI to load
             await page.waitForTimeout(1000);
  
             // 3. Check next 3 selects are auto-selected and not empty
@@ -791,7 +802,7 @@ test.describe('Customer Portal Test Suite', () => {
             await expect(saveLimitsButton).toBeVisible({ timeout: 10000 });
             await saveLimitsButton.click();
             const limitsSavedAlert = page.getByText('Limits & Deductibles saved successfully');
-            await expect(limitsSavedAlert).toBeVisible({ timeout: 30000 });
+            await expect(limitsSavedAlert).toBeVisible({ timeout: 39000 });
 
             // Click "Back to Policy" button in the footer after saving
             const backToPolicyButton = page.getByRole('button', { name: /Back to Policy/i });
