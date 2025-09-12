@@ -638,7 +638,7 @@ test.describe('Customer Portal Test Suite', () => {
             await addedOptionDropdown.click();
             await page.keyboard.press('ArrowDown');
             await page.keyboard.press('Enter');
-            await page.waitForTimeout(1000);
+            // await page.waitForTimeout(1000);
            
             // 7. Select valid options in all dropdowns
             const dropdowns = await page.locator('select').elementHandles();
