@@ -56,7 +56,8 @@ test.describe('Customer Accounts Filter Tests', () => {
                         break;
                     } catch (error) {
                         retryCount++;
-                        console.log(`Navigation attempt ${retryCount} failed: ${error.message}`);
+                        const msg = error instanceof Error ? error.message : String(error);
+                        console.log(`Navigation attempt ${retryCount} failed: ${msg}`);
                         if (retryCount === maxRetries) throw error;
                         await page.waitForTimeout(2000); // Wait before retry
                     }
@@ -85,7 +86,8 @@ test.describe('Customer Accounts Filter Tests', () => {
 
             console.log('Customer Accounts Filter Search test completed successfully');
         } catch (error) {
-            console.error('Test failed:', error.message);
+            const msg = error instanceof Error ? error.message : String(error);
+            console.error('Test failed:', msg);
             throw error;
         }
     });
