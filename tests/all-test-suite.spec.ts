@@ -571,34 +571,105 @@ class TestHelpers {
     await page.waitForURL(/#\/AULocation/, { timeout: TIMEOUTS.PAGE_LOAD });
 
     // =========================
-    // STEP 5: AULocation Switch and Add/Edit
+    // STEP 5: Non-Owned Auto Coverage
     // =========================
     
-    console.log('=== Configuring AULocation Settings ===');
+    console.log('=== Configuring Non-Owned Auto Coverage ===');
 
-    // Select "yes" to the switch-box and wait for load
-    const switchBox = page.locator('input[type="checkbox"], .switch, .toggle, [role="switch"]').first();
-    await expect(switchBox).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+const nonOwnedAutoRow = page.locator('text="Non-Owned Auto Coverage"').locator('..').locator('..').locator('..').locator('..');
+await expect(nonOwnedAutoRow).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Scroll the row into view
+await nonOwnedAutoRow.scrollIntoViewIfNeeded();
+
+// Click the switch label to properly trigger the change event
+const switchLabel = nonOwnedAutoRow.locator('.switch-label');
+await expect(switchLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Check if switch is already on, if not, click to enable
+const switchOn = nonOwnedAutoRow.locator('.switch-on');
+const isSwitchOn = await switchOn.isVisible();
+
+if (!isSwitchOn) {
+  await switchLabel.click();
+  // Wait for the data binding to update
+  await page.waitForTimeout(1000);
+}
+
+// Verify switch is now on
+await expect(switchOn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Wait for any loading processes to complete
+await page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: TIMEOUTS.LONG })
+  .catch(() => console.log('Loading state check completed'));
+
+// Additional wait for data binding
+await page.waitForTimeout(TIMEOUTS.SHORT);
+
+// Wait for button to be enabled (data binding needs time to update)
+const addEditButton = nonOwnedAutoRow.locator('button').filter({ hasText: 'Add/Edit' });
+await expect(addEditButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Force refresh the button state by clicking the switch again if button is not enabled
+let retryCount = 0;
+while (retryCount < 3) {
+  const isEnabled = await addEditButton.isEnabled().catch(() => false);
+  if (isEnabled) {
+    break;
+  }
+  
+  console.log(`Button not enabled, retry ${retryCount + 1}/3`);
+  await switchLabel.click(); // Click switch again
+  await page.waitForTimeout(2000);
+  retryCount++;
+}
+
+await expect(addEditButton).toBeEnabled({ timeout: TIMEOUTS.LONG });
+await addEditButton.click();    await page.waitForURL(/\/NonOwnedAuto/, { timeout: TIMEOUTS.PAGE_LOAD });
+
+    // Fill Number of Employees using span and arrow keys
+    console.log('Looking for Number of Employees field...');
+    const numEmployeesLabel = page.getByText('Number Of Employees');
+    await expect(numEmployeesLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
     
-    // Check if it's already enabled/checked, if not, click to enable it
-    const isChecked = await switchBox.isChecked().catch(() => false);
-    if (!isChecked) {
-      await switchBox.click();
-      console.log('Switch box selected to "yes"');
+    // Find the span with up arrow near the Number of Employees field
+    const upArrowSpan = page.locator('span.k-icon.k-i-arrow-n').first();
+    await expect(upArrowSpan).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    
+    // Click the up arrow span twice to set value to 2
+    await upArrowSpan.click();
+    await page.waitForTimeout(300);
+    await upArrowSpan.click();
+    console.log('Set Number of Employees to 2 using up arrow');
+
+    // Select Garaging Location
+    console.log('Looking for Garaging Location dropdown...');
+    // Target the dropdown select element specifically to avoid strict mode violation
+    const garagingLocationDropdown = page.locator('select[data-bind*="GaragingLocation"]').first();
+    await helpers.selectFromKendoDropdown(garagingLocationDropdown, TEST_DATA.nonOwnedAuto.garagingLocation);
+
+    // Select all coverage checkboxes
+    const coverageCheckboxes = page.locator('label', { hasText: 'Select Coverage' })
+      .locator('..')
+      .locator('input[type="checkbox"]');
+    
+    const count = await coverageCheckboxes.count();
+    for (let i = 0; i < count; i++) {
+      const checkbox = coverageCheckboxes.nth(i);
+      if (!(await checkbox.isChecked())) {
+        await checkbox.check({ force: true });
+      }
     }
-    
-    // Wait for the page to load after switch selection
-    await page.waitForTimeout(TIMEOUTS.SHORT);
-    
-    // Click "Add/Edit" button and wait for navigation to "/HiredAuto"
-    const addEditButton = page.getByRole('button', { name: /Add\/Edit|Add Edit/i });
-    await expect(addEditButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await addEditButton.click();
-    console.log('Clicked Add/Edit button');
-    
-    // Wait for navigation to HiredAuto page
-    await page.waitForURL(/.*\/HiredAuto/, { timeout: TIMEOUTS.PAGE_LOAD });
-    console.log('Successfully navigated to HiredAuto page');
+
+    // Save Non-Owned Auto
+    const nonOwnedSaveButton = page.getByRole('button', { name: 'Save', exact: true });
+    await expect(nonOwnedSaveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await nonOwnedSaveButton.click();
+
+    // Return to AULocation and save
+    const saveButton = page.getByRole('button', { name: 'Save', exact: true });
+    await expect(saveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await saveButton.click();
 
     // =========================
     // STEP 6: Automobile Exposure and Vehicle Details
@@ -623,6 +694,11 @@ class TestHelpers {
     // Handle Vehicle Type popup
     const vehicleTypePopup = page.getByText('Choose the Vehicle Type', { exact: false });
     await expect(vehicleTypePopup).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    // Select Truck vehicle type
+    const truckOption = page.locator('h5').filter({ hasText: 'Truck' });
+    await expect(truckOption).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await truckOption.click();
 
     const addVehicleBtn = page.getByRole('button', { name: /Add Vehicle/i });
     await expect(addVehicleBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
