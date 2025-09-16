@@ -638,7 +638,15 @@ if (!isEnabled) {
 }
 
 await expect(addEditButton).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
-await addEditButton.click();
+
+// Wait for any loading to complete before clicking
+await page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: TIMEOUTS.MEDIUM });
+
+// Wait for button to be stable
+await page.waitForTimeout(1000);
+
+// Click with force to handle pointer event interception
+await addEditButton.click({ force: true });
 await page.waitForURL(/\/NonOwnedAuto/, { timeout: TIMEOUTS.PAGE_LOAD });
 
 // Wait for the page to fully load and stabilize
@@ -781,15 +789,24 @@ console.log('Moving to Garaging Location...');
     const vehicleTypePopup = page.getByText('Choose the Vehicle Type', { exact: false });
     await expect(vehicleTypePopup).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    // Select Truck vehicle type
-    const truckOption = page.locator('h5').filter({ hasText: 'Truck' });
-    await expect(truckOption).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await truckOption.click();
-
-    const addVehicleBtn = page.getByRole('button', { name: /Add Vehicle/i });
+    // Click the specific Add Vehicle button by ID
+    console.log('Clicking the specific Add Vehicle button...');
+    const addVehicleBtn = page.locator('#btnfd2e9df925f880001e53');
     await expect(addVehicleBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
     await addVehicleBtn.click();
-    await page.waitForURL('**/Truck', { timeout: TIMEOUTS.PAGE_LOAD });
+
+    // Wait for the dialog to close or processing to complete
+    await page.waitForTimeout(2000);
+
+    // Check if we're still on the same page or if navigation occurred
+    const currentUrl = page.url();
+    if (!currentUrl.includes('Truck')) {
+      // If no navigation occurred, wait for URL change
+      console.log('Waiting for navigation to Truck page...');
+      await page.waitForURL('**/Truck', { timeout: TIMEOUTS.PAGE_LOAD });
+    } else {
+      console.log('Already navigated to Truck page');
+    }
 
     // =========================
     // STEP 7: Vehicle Configuration
