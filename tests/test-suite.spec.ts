@@ -789,24 +789,29 @@ console.log('Moving to Garaging Location...');
     const vehicleTypePopup = page.getByText('Choose the Vehicle Type', { exact: false });
     await expect(vehicleTypePopup).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    // Click the specific Add Vehicle button by ID
+    // Select Truck vehicle type
+    // console.log('Selecting Truck vehicle type...');
+    // const truckRadio = page.locator('input[name="risksummary"][value="Truck"]');
+    // await expect(truckRadio).toBeVisible({ timeout: TIMEOUTS.SHORT });
+    // await truckRadio.check();
+
+    // Click the specific Add Vehicle button by ID using force click
     console.log('Clicking the specific Add Vehicle button...');
     const addVehicleBtn = page.locator('#btnfd2e9df925f880001e53');
     await expect(addVehicleBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await addVehicleBtn.click();
+    
+    // Wait 3 seconds before clicking
+    await page.waitForTimeout(5000);
+    
+    await addVehicleBtn.click({ force: true });
 
     // Wait for the dialog to close or processing to complete
     await page.waitForTimeout(2000);
 
-    // Check if we're still on the same page or if navigation occurred
-    const currentUrl = page.url();
-    if (!currentUrl.includes('Truck')) {
-      // If no navigation occurred, wait for URL change
-      console.log('Waiting for navigation to Truck page...');
-      await page.waitForURL('**/Truck', { timeout: TIMEOUTS.PAGE_LOAD });
-    } else {
-      console.log('Already navigated to Truck page');
-    }
+    // Wait for navigation to Truck page with more flexible URL pattern
+    console.log('Waiting for navigation to Truck page...');
+    await page.waitForURL((url) => url.toString().includes('Truck'), { timeout: TIMEOUTS.PAGE_LOAD });
+    console.log('Successfully navigated to Truck page');
 
     // =========================
     // STEP 7: Vehicle Configuration
@@ -814,9 +819,9 @@ console.log('Moving to Garaging Location...');
     
     console.log('=== Configuring Vehicle Details ===');
 
-    // Select Territory
-    const territoryInput = page.getByLabel('Territory');
-  await helpers.selectFromKendoDropdown(territoryInput, TEST_DATA.vehicle.territory);
+    // Select Territory - use more specific selector to avoid multiple matches
+    const territoryInput = page.locator('select[data-bind*="CommercialAutoTruck.Territory"]').first();
+    await helpers.selectFromKendoDropdown(territoryInput, TEST_DATA.vehicle.territory);
 
     // Scroll to Vehicle Characteristics
     const vehicleCharText = page.getByText('Vehicle Characteristics', { exact: false });
