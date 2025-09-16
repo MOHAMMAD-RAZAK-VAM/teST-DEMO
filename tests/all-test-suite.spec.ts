@@ -625,51 +625,92 @@ while (retryCount < 3) {
 }
 
 await expect(addEditButton).toBeEnabled({ timeout: TIMEOUTS.LONG });
-await addEditButton.click();    await page.waitForURL(/\/NonOwnedAuto/, { timeout: TIMEOUTS.PAGE_LOAD });
+await addEditButton.click();
 
-    // Fill Number of Employees using span and arrow keys
-    console.log('Looking for Number of Employees field...');
-    const numEmployeesLabel = page.getByText('Number Of Employees');
-    await expect(numEmployeesLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    
-    // Find the span with up arrow near the Number of Employees field
-    const upArrowSpan = page.locator('span.k-icon.k-i-arrow-n').first();
-    await expect(upArrowSpan).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    
-    // Click the up arrow span twice to set value to 2
-    await upArrowSpan.click();
-    await page.waitForTimeout(300);
-    await upArrowSpan.click();
-    console.log('Set Number of Employees to 2 using up arrow');
+await page.waitForURL(/\/NonOwnedAuto/, { timeout: TIMEOUTS.PAGE_LOAD });
+console.log('Successfully navigated to NonOwnedAuto page');
 
-    // Select Garaging Location
-    console.log('Looking for Garaging Location dropdown...');
-    // Target the dropdown select element specifically to avoid strict mode violation
-    const garagingLocationDropdown = page.locator('select[data-bind*="GaragingLocation"]').first();
-    await helpers.selectFromKendoDropdown(garagingLocationDropdown, TEST_DATA.nonOwnedAuto.garagingLocation);
+// Give time for page to load completely
+console.log('Waiting for page to load completely...');
+await page.waitForTimeout(TIMEOUTS.MEDIUM);
+await page.waitForLoadState('networkidle');
 
-    // Select all coverage checkboxes
-    const coverageCheckboxes = page.locator('label', { hasText: 'Select Coverage' })
-      .locator('..')
-      .locator('input[type="checkbox"]');
-    
-    const count = await coverageCheckboxes.count();
-    for (let i = 0; i < count; i++) {
-      const checkbox = coverageCheckboxes.nth(i);
-      if (!(await checkbox.isChecked())) {
-        await checkbox.check({ force: true });
-      }
-    }
+// Fill Number of Employees using up arrow key
+console.log('Looking for Number of Employees field...');
 
-    // Save Non-Owned Auto
-    const nonOwnedSaveButton = page.getByRole('button', { name: 'Save', exact: true });
-    await expect(nonOwnedSaveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await nonOwnedSaveButton.click();
+// Find the Kendo numeric textbox wrapper (the visible part)
+const numericWrapper = page.locator('.k-numerictextbox').filter({
+  has: page.locator('input[data-bind*="NumberOfEmployees"]')
+});
+await expect(numericWrapper).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    // Return to AULocation and save
-    const saveButton = page.getByRole('button', { name: 'Save', exact: true });
-    await expect(saveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await saveButton.click();
+// Click on the numeric wrapper to focus it
+await numericWrapper.click();
+console.log('Clicked on Number of Employees numeric wrapper');
+
+// Give time after clicking
+await page.waitForTimeout(1000);
+
+// Use up arrow key twice to increase from 0 to 2
+await page.keyboard.press('ArrowUp');
+console.log('Pressed up arrow key - count should be 1');
+await page.waitForTimeout(500);
+
+await page.keyboard.press('ArrowUp');
+console.log('Pressed up arrow key - count should be 2');
+await page.waitForTimeout(1000);
+
+// Click on a blank area to confirm the value and blur the field
+console.log('Clicking on blank area to confirm value...');
+await page.locator('body').click({ position: { x: 100, y: 100 } });
+await page.waitForTimeout(1000);
+
+// Select Garaging Location
+console.log('Looking for Garaging Location dropdown...');
+
+// Find the Kendo dropdown wrapper using the specific ID (ddl5a9264716a77d39fa1cb)
+const garagingDropdownWrap = page.locator('.k-dropdown').filter({
+  has: page.locator('input#ddl5a9264716a77d39fa1cb')
+});
+
+await expect(garagingDropdownWrap).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+await garagingDropdownWrap.click();
+console.log('Clicked on Garaging Location dropdown');
+
+// Give time for dropdown to open
+await page.waitForTimeout(1000);
+
+// Select "Adams" from the dropdown list
+const adamsOption = page.locator('.k-list .k-item').filter({ hasText: 'Adams' }).first();
+await expect(adamsOption).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+await adamsOption.click();
+console.log('Selected Adams from Garaging Location dropdown');
+
+// Give time after selection
+await page.waitForTimeout(1000);
+
+// Select all coverage checkboxes
+const coverageCheckboxes = page.locator('label', { hasText: 'Select Coverage' })
+  .locator('..')
+  .locator('input[type="checkbox"]');
+
+const count = await coverageCheckboxes.count();
+for (let i = 0; i < count; i++) {
+  const checkbox = coverageCheckboxes.nth(i);
+  if (!(await checkbox.isChecked())) {
+    await checkbox.check({ force: true });
+  }
+}
+
+// Save Non-Owned Auto
+const nonOwnedSaveButton = page.getByRole('button', { name: 'Save', exact: true });
+await expect(nonOwnedSaveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+await nonOwnedSaveButton.click();
+
+// Return to AULocation and save
+const saveButton = page.getByRole('button', { name: 'Save', exact: true });
+await expect(saveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+await saveButton.click();
 
     // =========================
     // STEP 6: Automobile Exposure and Vehicle Details
