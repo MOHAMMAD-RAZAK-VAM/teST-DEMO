@@ -571,7 +571,74 @@ class TestHelpers {
     await page.waitForURL(/#\/AULocation/, { timeout: TIMEOUTS.PAGE_LOAD });
 
     // =========================
-    // STEP 5: Automobile Exposure and Vehicle Details
+    // STEP 5: Non-Owned Auto Coverage
+    // =========================
+    
+    console.log('=== Configuring Non-Owned Auto Coverage ===');
+
+const nonOwnedAutoRow = page.locator('text="Non-Owned Auto Coverage"').locator('..').locator('..').locator('..').locator('..');
+await expect(nonOwnedAutoRow).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Scroll the row into view
+await nonOwnedAutoRow.scrollIntoViewIfNeeded();
+
+// Click the switch label to properly trigger the change event
+const switchLabel = nonOwnedAutoRow.locator('.switch-label');
+await expect(switchLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Check if switch is already on, if not, click to enable
+const switchOn = nonOwnedAutoRow.locator('.switch-on');
+const isSwitchOn = await switchOn.isVisible();
+
+if (!isSwitchOn) {
+  await switchLabel.click();
+  // Wait for the data binding to update
+  await page.waitForTimeout(1000);
+}
+
+// Verify switch is now on
+await expect(switchOn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Wait for button to be enabled (data binding needs time to update)
+const addEditButton = nonOwnedAutoRow.locator('button').filter({ hasText: 'Add/Edit' });
+await expect(addEditButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+await expect(addEditButton).toBeEnabled({ timeout: TIMEOUTS.LONG }); // Longer timeout for data binding
+await addEditButton.click();    await page.waitForURL(/\/NonOwnedAuto/, { timeout: TIMEOUTS.PAGE_LOAD });
+
+    // Fill Number of Employees
+    const numEmployeesInput = page.getByLabel('Number Of Employees');
+    await expect(numEmployeesInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await numEmployeesInput.fill(TEST_DATA.nonOwnedAuto.employees);
+
+    // Select Garaging Location
+    const garagingLocationInput = page.getByLabel('Garaging Location');
+    await helpers.selectFromKendoDropdown(garagingLocationInput, TEST_DATA.nonOwnedAuto.garagingLocation);
+
+    // Select all coverage checkboxes
+    const coverageCheckboxes = page.locator('label', { hasText: 'Select Coverage' })
+      .locator('..')
+      .locator('input[type="checkbox"]');
+    
+    const count = await coverageCheckboxes.count();
+    for (let i = 0; i < count; i++) {
+      const checkbox = coverageCheckboxes.nth(i);
+      if (!(await checkbox.isChecked())) {
+        await checkbox.check({ force: true });
+      }
+    }
+
+    // Save Non-Owned Auto
+    const nonOwnedSaveButton = page.getByRole('button', { name: 'Save', exact: true });
+    await expect(nonOwnedSaveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await nonOwnedSaveButton.click();
+
+    // Return to AULocation and save
+    const saveButton = page.getByRole('button', { name: 'Save', exact: true });
+    await expect(saveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await saveButton.click();
+
+    // =========================
+    // STEP 6: Automobile Exposure and Vehicle Details
     // =========================
     
     console.log('=== Processing Automobile Exposure ===');
@@ -594,13 +661,18 @@ class TestHelpers {
     const vehicleTypePopup = page.getByText('Choose the Vehicle Type', { exact: false });
     await expect(vehicleTypePopup).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
+    // Select Truck vehicle type
+    const truckOption = page.locator('h5').filter({ hasText: 'Truck' });
+    await expect(truckOption).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await truckOption.click();
+
     const addVehicleBtn = page.getByRole('button', { name: /Add Vehicle/i });
     await expect(addVehicleBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
     await addVehicleBtn.click();
     await page.waitForURL('**/Truck', { timeout: TIMEOUTS.PAGE_LOAD });
 
     // =========================
-    // STEP 6: Vehicle Configuration
+    // STEP 7: Vehicle Configuration
     // =========================
     
     console.log('=== Configuring Vehicle Details ===');
