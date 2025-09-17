@@ -845,6 +845,27 @@ console.log('Moving to Garaging Location...');
     // Wait for selection to process
     await page.waitForTimeout(2000);
 
+    // Find and fill the Year input field
+    console.log('Looking for Year input field...');
+    const yearLabel = page.locator('label').filter({ hasText: /Year/i });
+    await expect(yearLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    // Find the input field associated with the Year label
+    const yearInput = yearLabel.locator('xpath=following-sibling::input').first();
+    
+    // If not found as sibling, try finding by form group
+    if (!(await yearInput.isVisible({ timeout: 1000 }).catch(() => false))) {
+      const yearFormGroup = yearLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]');
+      const yearInputAlt = yearFormGroup.locator('input').first();
+      if (await yearInputAlt.isVisible({ timeout: 1000 }).catch(() => false)) {
+        await yearInputAlt.fill('2024');
+        console.log('Filled Year input with 2024');
+      }
+    } else {
+      await yearInput.fill('2024');
+      console.log('Filled Year input with 2024');
+    }
+
     // Scroll to Vehicle Characteristics
     const vehicleCharText = page.getByText('Vehicle Characteristics', { exact: false });
     await vehicleCharText.scrollIntoViewIfNeeded();
