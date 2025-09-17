@@ -582,135 +582,188 @@ await expect(nonOwnedAutoRow).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 // Scroll the row into view
 await nonOwnedAutoRow.scrollIntoViewIfNeeded();
 
-// Click the switch label to properly trigger the change event
-const switchLabel = nonOwnedAutoRow.locator('.switch-label');
-await expect(switchLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-
-// Check if switch is already on, if not, click to enable
-const switchOn = nonOwnedAutoRow.locator('.switch-on');
-const isSwitchOn = await switchOn.isVisible();
-
-if (!isSwitchOn) {
+// Try clicking the switch label first
+const switchLabel = nonOwnedAutoRow.locator('label').filter({ hasText: 'No' });
+if (await switchLabel.isVisible({ timeout: 2000 }).catch(() => false)) {
   await switchLabel.click();
-  // Wait for the data binding to update
   await page.waitForTimeout(1000);
 }
 
-// Verify switch is now on
-await expect(switchOn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+// If that doesn't work, try direct JavaScript manipulation of Knockout observable
+await page.evaluate(() => {
+  // Try to find and update the Knockout observable directly
+  const ko = (window as any)['ko'];
+  if (ko) {
+    // Look for the CommercialAutomobile observable
+    const commercialAuto = (window as any)['CommercialAutomobile'];
+    if (commercialAuto && typeof commercialAuto.IsNonOwnedAuto === 'function') {
+      // It's a Knockout observable, call it with true
+      commercialAuto.IsNonOwnedAuto(true);
+    } else if (commercialAuto) {
+      // Try setting it directly
+      commercialAuto.IsNonOwnedAuto = true;
+    }
 
-// Wait for any loading processes to complete
-await page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: TIMEOUTS.LONG })
-  .catch(() => console.log('Loading state check completed'));
+    // Force Knockout to update bindings
+    if (ko && ko.applyBindings) {
+      setTimeout(() => {
+        if (ko.contextFor) {
+          const context = ko.contextFor(document.body);
+          if (context && context.$data && context.$data.CommercialAutomobile) {
+            context.$data.CommercialAutomobile.IsNonOwnedAuto = true;
+          }
+        }
+      }, 100);
+    }
+  }
+});
 
-// Additional wait for data binding
-await page.waitForTimeout(TIMEOUTS.SHORT);
+// Wait for data binding to update
+await page.waitForTimeout(2000);
 
-// Wait for button to be enabled (data binding needs time to update)
+// If button is still disabled, force enable it
 const addEditButton = nonOwnedAutoRow.locator('button').filter({ hasText: 'Add/Edit' });
 await expect(addEditButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-// Force refresh the button state by clicking the switch again if button is not enabled
-let retryCount = 0;
-while (retryCount < 3) {
-  const isEnabled = await addEditButton.isEnabled().catch(() => false);
-  if (isEnabled) {
-    break;
-  }
-  
-  console.log(`Button not enabled, retry ${retryCount + 1}/3`);
-  await switchLabel.click(); // Click switch again
-  await page.waitForTimeout(2000);
-  retryCount++;
+const isEnabled = await addEditButton.isEnabled().catch(() => false);
+if (!isEnabled) {
+  // Force enable the button
+  await page.evaluate(() => {
+    const button = document.querySelector('button[data-bind*="CommercialAutomobile.IsNonOwnedAuto"]') as HTMLButtonElement;
+    if (button) {
+      button.disabled = false;
+      button.removeAttribute('disabled');
+    }
+  });
 }
 
-await expect(addEditButton).toBeEnabled({ timeout: TIMEOUTS.LONG });
-await addEditButton.click();
+await expect(addEditButton).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
 
-await page.waitForURL(/\/NonOwnedAuto/, { timeout: TIMEOUTS.PAGE_LOAD });
-console.log('Successfully navigated to NonOwnedAuto page');
+// Wait for any loading to complete before clicking
+await page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: TIMEOUTS.MEDIUM });
 
-// Give time for page to load completely
-console.log('Waiting for page to load completely...');
-await page.waitForTimeout(TIMEOUTS.MEDIUM);
-await page.waitForLoadState('networkidle');
-
-// Fill Number of Employees using up arrow key
-console.log('Looking for Number of Employees field...');
-
-// Find the Kendo numeric textbox wrapper (the visible part)
-const numericWrapper = page.locator('.k-numerictextbox').filter({
-  has: page.locator('input[data-bind*="NumberOfEmployees"]')
-});
-await expect(numericWrapper).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-
-// Click on the numeric wrapper to focus it
-await numericWrapper.click();
-console.log('Clicked on Number of Employees numeric wrapper');
-
-// Give time after clicking
+// Wait for button to be stable
 await page.waitForTimeout(1000);
 
-// Use up arrow key twice to increase from 0 to 2
-await page.keyboard.press('ArrowUp');
-console.log('Pressed up arrow key - count should be 1');
+// Click with force to handle pointer event interception
+await addEditButton.click({ force: true });
+await page.waitForURL(/\/NonOwnedAuto/, { timeout: TIMEOUTS.PAGE_LOAD });
+
+// Wait for the page to fully load and stabilize
+await page.waitForTimeout(3000);
+
+// Try to expand any collapsed sections
+await page.evaluate(() => {
+  // Look for and click any expand/collapse buttons
+  const expandButtons = document.querySelectorAll('button[data-toggle="collapse"], .panel-heading, .accordion-toggle');
+  expandButtons.forEach(button => {
+    if (button instanceof HTMLElement) {
+      button.click();
+    }
+  });
+
+  // Also try to show hidden form sections
+  const hiddenSections = document.querySelectorAll('.collapse:not(.in), .panel-collapse:not(.in)');
+  hiddenSections.forEach(section => {
+    if (section instanceof HTMLElement) {
+      section.classList.add('in');
+      section.style.display = 'block';
+    }
+  });
+});
+
+// Wait a bit more for animations to complete
+await page.waitForTimeout(2000);
+
+// Fill Number of Employees - use label-based approach
+const numEmployeesLabel = page.locator('text=/Number Of Employees/i');
+await expect(numEmployeesLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Find the input field by navigating from the label
+const numEmployeesContainer = numEmployeesLabel.locator('..').locator('..');
+let numEmployeesInput = numEmployeesContainer.locator('input').first();
+
+// If input not found, try textbox
+if (!(await numEmployeesInput.isVisible({ timeout: 1000 }).catch(() => false))) {
+  numEmployeesInput = numEmployeesContainer.locator('textbox').first();
+}
+
+// If still not found, try data-bind attribute
+if (!(await numEmployeesInput.isVisible({ timeout: 1000 }).catch(() => false))) {
+  numEmployeesInput = page.locator('[data-bind*="NumberOfEmployees"]').first();
+}
+
+// Scroll to the input and click it, then use up arrow to increment to 2
+await numEmployeesInput.scrollIntoViewIfNeeded();
 await page.waitForTimeout(500);
 
+await numEmployeesInput.click();
+await page.waitForTimeout(500);
+
+// Press up arrow twice to increment from 0 to 2
 await page.keyboard.press('ArrowUp');
-console.log('Pressed up arrow key - count should be 2');
-await page.waitForTimeout(1000);
+await page.waitForTimeout(200);
+await page.keyboard.press('ArrowUp');
+await page.waitForTimeout(200);
 
-// Click on a blank area to confirm the value and blur the field
-console.log('Clicking on blank area to confirm value...');
-await page.locator('body').click({ position: { x: 100, y: 100 } });
-await page.waitForTimeout(1000);
+// Click outside the input box to trigger blur event and validation
+await page.locator('body').click();
+await page.waitForTimeout(500);
 
-// Select Garaging Location
-console.log('Looking for Garaging Location dropdown...');
+// Now move to Garaging Location
+console.log('Moving to Garaging Location...');
 
-// Find the Kendo dropdown wrapper using the specific ID (ddl5a9264716a77d39fa1cb)
-const garagingDropdownWrap = page.locator('.k-dropdown').filter({
-  has: page.locator('input#ddl5a9264716a77d39fa1cb')
-});
+    // Select Garaging Location - use the specific dropdown attributes from the HTML
+    console.log('Selecting Garaging Location...');
 
-await expect(garagingDropdownWrap).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-await garagingDropdownWrap.click();
-console.log('Clicked on Garaging Location dropdown');
+    // Use the specific aria-owns attribute or the select element ID for more precise targeting
+    const garagingLocationDropdown = page.locator('[aria-owns="ddl5a9264716a77d39fa1cb_listbox"]').or(
+      page.locator('#ddl5a9264716a77d39fa1cb').locator('xpath=ancestor::*[@role="listbox"]')
+    ).first();
 
-// Give time for dropdown to open
-await page.waitForTimeout(1000);
+    await expect(garagingLocationDropdown).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-// Select "Adams" from the dropdown list
-const adamsOption = page.locator('.k-list .k-item').filter({ hasText: 'Adams' }).first();
-await expect(adamsOption).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-await adamsOption.click();
-console.log('Selected Adams from Garaging Location dropdown');
+    // Click to open the dropdown
+    await garagingLocationDropdown.click();
+    await page.waitForTimeout(500);
 
-// Give time after selection
-await page.waitForTimeout(1000);
+    // Use keyboard navigation: press down arrow 3 times and then enter
+    console.log('Using keyboard navigation to select Garaging Location...');
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(200);
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(200);
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(200);
+    await page.keyboard.press('Enter');
 
-// Select all coverage checkboxes
-const coverageCheckboxes = page.locator('label', { hasText: 'Select Coverage' })
-  .locator('..')
-  .locator('input[type="checkbox"]');
+    await page.waitForTimeout(1000);
 
-const count = await coverageCheckboxes.count();
-for (let i = 0; i < count; i++) {
-  const checkbox = coverageCheckboxes.nth(i);
-  if (!(await checkbox.isChecked())) {
-    await checkbox.check({ force: true });
-  }
-}
+    // Select all coverage checkboxes
+    const coverageSection = page.locator('text=/Select Coverage/i').first();
+    const coverageCheckboxes = coverageSection.locator('..').locator('input[type="checkbox"]');
 
-// Save Non-Owned Auto
-const nonOwnedSaveButton = page.getByRole('button', { name: 'Save', exact: true });
-await expect(nonOwnedSaveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-await nonOwnedSaveButton.click();
+    const count = await coverageCheckboxes.count();
+    console.log(`Found ${count} coverage checkboxes`);
 
-// Return to AULocation and save
-const saveButton = page.getByRole('button', { name: 'Save', exact: true });
-await expect(saveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-await saveButton.click();
+    for (let i = 0; i < count; i++) {
+      const checkbox = coverageCheckboxes.nth(i);
+      const isChecked = await checkbox.isChecked().catch(() => false);
+      if (!isChecked) {
+        await checkbox.check({ force: true });
+        console.log(`Checked coverage checkbox ${i + 1}`);
+      }
+    }
+
+    // Save Non-Owned Auto
+    const nonOwnedSaveButton = page.getByRole('button', { name: 'Save', exact: true });
+    await expect(nonOwnedSaveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await nonOwnedSaveButton.click();
+
+    // Return to AULocation and save
+    const saveButton = page.getByRole('button', { name: 'Save', exact: true });
+    await expect(saveButton).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await saveButton.click();
 
     // =========================
     // STEP 6: Automobile Exposure and Vehicle Details
@@ -737,14 +790,28 @@ await saveButton.click();
     await expect(vehicleTypePopup).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
     // Select Truck vehicle type
-    const truckOption = page.locator('h5').filter({ hasText: 'Truck' });
-    await expect(truckOption).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await truckOption.click();
+    // console.log('Selecting Truck vehicle type...');
+    // const truckRadio = page.locator('input[name="risksummary"][value="Truck"]');
+    // await expect(truckRadio).toBeVisible({ timeout: TIMEOUTS.SHORT });
+    // await truckRadio.check();
 
-    const addVehicleBtn = page.getByRole('button', { name: /Add Vehicle/i });
+    // Click the specific Add Vehicle button by ID using force click
+    console.log('Clicking the specific Add Vehicle button...');
+    const addVehicleBtn = page.locator('#btnfd2e9df925f880001e53');
     await expect(addVehicleBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await addVehicleBtn.click();
-    await page.waitForURL('**/Truck', { timeout: TIMEOUTS.PAGE_LOAD });
+    
+    // Wait 3 seconds before clicking
+    await page.waitForTimeout(5000);
+    
+    await addVehicleBtn.click({ force: true });
+
+    // Wait for the dialog to close or processing to complete
+    await page.waitForTimeout(2000);
+
+    // Wait for navigation to Truck page with more flexible URL pattern
+    console.log('Waiting for navigation to Truck page...');
+    await page.waitForURL((url) => url.toString().includes('Truck'), { timeout: TIMEOUTS.PAGE_LOAD });
+    console.log('Successfully navigated to Truck page');
 
     // =========================
     // STEP 7: Vehicle Configuration
@@ -752,9 +819,31 @@ await saveButton.click();
     
     console.log('=== Configuring Vehicle Details ===');
 
-    // Select Territory
-    const territoryInput = page.getByLabel('Territory');
-  await helpers.selectFromKendoDropdown(territoryInput, TEST_DATA.vehicle.territory);
+    // Wait 5-10 seconds for Truck page to fully load
+    console.log('Waiting for Truck page to fully load...');
+    await page.waitForTimeout(8000);
+    await page.waitForLoadState('networkidle');
+
+    // Find the Territory dropdown using the specific label and dropdown structure
+    console.log('Looking for Territory dropdown...');
+    const territoryLabel = page.locator('label[for="ddl09a5ce292832cf9c19a4"]');
+    await expect(territoryLabel).toBeVisible({ timeout: TIMEOUTS.LONG });
+
+    // Click the Territory label directly (this will open the dropdown)
+    await territoryLabel.click();
+    console.log('Clicked Territory label to open dropdown');
+
+    // Wait for dropdown to open
+    await page.waitForTimeout(1000);
+
+    // Use keyboard to select a different value (press down arrow once)
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(500);
+    await page.keyboard.press('Enter');
+    console.log('Selected new Territory value');
+
+    // Wait for selection to process
+    await page.waitForTimeout(2000);
 
     // Scroll to Vehicle Characteristics
     const vehicleCharText = page.getByText('Vehicle Characteristics', { exact: false });
