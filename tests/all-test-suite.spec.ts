@@ -845,60 +845,142 @@ console.log('Moving to Garaging Location...');
     // Wait for selection to process
     await page.waitForTimeout(2000);
 
-    // Find and fill the Year input field
-    console.log('Looking for Year input field...');
-    const yearLabel = page.locator('label').filter({ hasText: /Year/i });
+    // Scroll down a bit to see the Year section
+    console.log('Scrolling down to find Year section...');
+    await page.evaluate(() => {
+      window.scrollBy(0, 300); // Scroll down by 300 pixels
+    });
+    await page.waitForTimeout(1000);
+
+    // Find Year label
+    console.log('Looking for Year label...');
+    const yearLabel = page.locator('label[for="num331402d53331705354df"]');
+    await yearLabel.scrollIntoViewIfNeeded();
     await expect(yearLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    // Find the input field associated with the Year label
-    const yearInput = yearLabel.locator('xpath=following-sibling::input').first();
-    
-    // If not found as sibling, try finding by form group
-    if (!(await yearInput.isVisible({ timeout: 1000 }).catch(() => false))) {
-      const yearFormGroup = yearLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]');
-      const yearInputAlt = yearFormGroup.locator('input').first();
-      if (await yearInputAlt.isVisible({ timeout: 1000 }).catch(() => false)) {
-        await yearInputAlt.fill('2024');
-        console.log('Filled Year input with 2024');
-      }
-    } else {
-      await yearInput.fill('2024');
-      console.log('Filled Year input with 2024');
-    }
+    // Find the Year input box (Kendo numeric textbox)
+    const yearFormGroup = page.locator('.form-group').filter({ has: page.locator('label[for="num331402d53331705354df"]') });
+    const yearInput = yearFormGroup.locator('input.k-formatted-value.k-input').first();
 
-    // Scroll to Vehicle Characteristics
-    const vehicleCharText = page.getByText('Vehicle Characteristics', { exact: false });
-    await vehicleCharText.scrollIntoViewIfNeeded();
-    await expect(vehicleCharText).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    // Wait for the input to be visible and enabled
+    await expect(yearInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await expect(yearInput).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
 
-    // Fill vehicle details
-    const vehicleFields = [
-      { label: 'Year', value: TEST_DATA.vehicle.year },
-      { label: 'Make', value: TEST_DATA.vehicle.make },
-      { label: 'Model', value: TEST_DATA.vehicle.model },
-      { label: 'Vehicle Identification Number', value: TEST_DATA.vehicle.vin },
-      { label: 'Original Cost New Of Vehicle', value: TEST_DATA.vehicle.originalCost },
-      { label: 'Stated Amount', value: TEST_DATA.vehicle.statedAmount }
-    ];
-
-    for (const field of vehicleFields) {
-      await page.getByLabel(field.label).fill(field.value);
-    }
-
-    // Select Vehicle Classifications
-    const vehicleClassInput = page.getByLabel('Select the Vehicle Classification');
-    await vehicleClassInput.fill('L');
+    // Scroll the input into view
+    await yearInput.scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('Enter');
+
+    // Additional check to ensure the element is truly ready
+    await yearInput.waitFor({ state: 'visible', timeout: TIMEOUTS.MEDIUM });
+    await yearInput.waitFor({ state: 'attached', timeout: TIMEOUTS.MEDIUM });
+
+    // Click to focus the input and place cursor inside
+    console.log('Clicking Year input to focus and place cursor...');
+    await yearInput.click({ force: true });
     await page.waitForTimeout(1000);
 
-    const secondaryClassInput = page.getByLabel('Secondary Vehicle Classification');
-    await secondaryClassInput.fill('c');
+    // Now that cursor is focused in the input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing 2024...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(200);
+    await page.keyboard.press('Delete');
     await page.waitForTimeout(500);
+    await page.keyboard.type('2024');
+    console.log('Typed "2024" in Year input');
+
+    // Click somewhere (outside the input) to trigger validation
+    await page.locator('body').click();
+    await page.waitForTimeout(1500); // Increased wait time for processing
+
+    // Find and click input box near Make label
+    console.log('Looking for Make input...');
+    const makeLabel = page.locator('label').filter({ hasText: /Make/i });
+    await makeLabel.scrollIntoViewIfNeeded();
+    await expect(makeLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    const makeInput = makeLabel.locator('xpath=following-sibling::input').first().or(
+      makeLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]//input').first()
+    );
+    await expect(makeInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await makeInput.click();
+    await page.waitForTimeout(1000); // Increased wait time
+
+    // Type "kia" in Make input
+    await makeInput.fill('kia');
+    console.log('Typed "kia" in Make input');
+
+    // Click somewhere (outside the input)
+    await page.locator('body').click();
+    await page.waitForTimeout(1500); // Increased wait time for processing
+
+    // Find and click input box near Model label
+    console.log('Looking for Model input...');
+    const modelLabel = page.locator('label').filter({ hasText: /Model/i });
+    await modelLabel.scrollIntoViewIfNeeded();
+    await expect(modelLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    const modelInput = modelLabel.locator('xpath=following-sibling::input').first().or(
+      modelLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]//input').first()
+    );
+    await expect(modelInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await modelInput.click();
+    await page.waitForTimeout(1000); // Increased wait time
+
+    // Type "Sonet" in Model input
+    await modelInput.fill('Sonet');
+    console.log('Typed "Sonet" in Model input');
+
+    // Click somewhere (outside the input)
+    await page.locator('body').click();
+    await page.waitForTimeout(1500); // Increased wait time for processing
+
+    // Find and click input box near Vehicle Identification Number label
+    console.log('Looking for VIN input...');
+    const vinLabel = page.locator('label').filter({ hasText: /Vehicle Identification Number/i });
+    await vinLabel.scrollIntoViewIfNeeded();
+    await expect(vinLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    const vinInput = vinLabel.locator('xpath=following-sibling::input').first().or(
+      vinLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]//input').first()
+    );
+    await expect(vinInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await vinInput.click();
+    await page.waitForTimeout(1000); // Increased wait time
+
+    // Type "12345678910" in VIN input
+    await vinInput.fill('12345678910');
+    console.log('Typed "12345678910" in VIN input');
+
+    // Click somewhere (outside the input)
+    await page.locator('body').click();
+    await page.waitForTimeout(1500); // Increased wait time for processing
+
+    // Click the label "Select the Vehicle Classification"
+    console.log('Looking for Vehicle Classification label...');
+    const vehicleClassLabel = page.locator('label').filter({ hasText: /Select the Vehicle Classification/i });
+    await vehicleClassLabel.scrollIntoViewIfNeeded();
+    await expect(vehicleClassLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await vehicleClassLabel.click();
+    await page.waitForTimeout(1000); // Increased wait time
+
+    // Find the input box and type "l"
+    const vehicleClassInput = vehicleClassLabel.locator('xpath=following-sibling::*//input').first().or(
+      vehicleClassLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]//input').first()
+    );
+    await expect(vehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await vehicleClassInput.fill('l');
+    await page.waitForTimeout(1000); // Increased wait time
+
+    // Use down arrow 2 times and click enter
     await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(300); // Slightly increased for dropdown navigation
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(300); // Slightly increased for dropdown navigation
     await page.keyboard.press('Enter');
-    await page.waitForTimeout(1000);
+    console.log('Selected Vehicle Classification with "l"');
+
+    // Wait to load (give some seconds)
+    await page.waitForTimeout(4000); // Increased wait time for loading
 
     // Save vehicle
     const saveBtn = page.getByRole('button', { name: /Save/i });
