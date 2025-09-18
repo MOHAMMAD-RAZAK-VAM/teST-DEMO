@@ -1006,7 +1006,7 @@ console.log('Moving to Garaging Location...');
     console.log('Selected new Territory value');
 
     // Wait for selection to process
-    await page.waitForTimeout(2000);
+    // await page.waitForTimeout(2000);
 
     // Scroll down a bit to see the Year section
     console.log('Scrolling down to find Year section...');
