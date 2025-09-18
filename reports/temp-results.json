@@ -3,14 +3,49 @@
     "testId": "authenticate",
     "testName": "authenticate",
     "status": "passed",
-    "duration": 32145,
-    "timestamp": "2025-09-16T12:32:01.202Z"
+    "duration": 34369,
+    "timestamp": "2025-09-18T07:38:15.736Z"
+  },
+  {
+    "testId": "TS001",
+    "testName": "Verify Customer Search by Account Name",
+    "status": "passed",
+    "duration": 28779,
+    "timestamp": "2025-09-18T07:38:53.832Z"
   },
   {
     "testId": "TS002",
     "testName": "Verify New Quote Creation Flow",
     "status": "failed",
-    "duration": 160277,
-    "timestamp": "2025-09-16T12:34:51.930Z"
+    "duration": 154681,
+    "timestamp": "2025-09-18T07:41:29.641Z"
+  },
+  {
+    "testId": "TS004",
+    "testName": "Customer Accounts Menu Redirect",
+    "status": "skipped",
+    "duration": 0,
+    "timestamp": "2025-09-18T07:41:29.642Z"
+  },
+  {
+    "testId": "TS005",
+    "testName": "Verify Customer Accounts Filter Search",
+    "status": "skipped",
+    "duration": 0,
+    "timestamp": "2025-09-18T07:41:29.642Z"
+  },
+  {
+    "testId": "TS006",
+    "testName": "Verify Quotes Navigation",
+    "status": "skipped",
+    "duration": 0,
+    "timestamp": "2025-09-18T07:41:29.642Z"
+  },
+  {
+    "testId": "TS007",
+    "testName": "Verify Quotes Filter",
+    "status": "skipped",
+    "duration": 0,
+    "timestamp": "2025-09-18T07:41:29.643Z"
   }
 ]

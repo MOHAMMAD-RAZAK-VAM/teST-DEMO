@@ -17,7 +17,7 @@ test('TS003 - Verify Account Form Fill and Proceed to Application', async ({ pag
         // Wait for home page and navigate to New Quote
         console.log('Navigating to New Quote...');
         await homePage.waitForPageLoad();
-        await page.getByRole('link', { name: 'New Quote' }).click();
+        await page.getByText('New Quote').click();
 
         // Wait for account page to be ready
         await accountPage.waitForPageLoad();

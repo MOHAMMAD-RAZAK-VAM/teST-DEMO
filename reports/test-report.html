@@ -52,31 +52,71 @@
                   <td>authenticate</td>
                   <td>authenticate</td>
                   <td><span class="status passed">passed</span></td>
-                  <td>32,145</td>
-                  <td>16/9/2025, 6:02:01 pm</td>
+                  <td>34,369</td>
+                  <td>18/9/2025, 1:08:15 pm</td>
+                </tr>
+              
+                <tr>
+                  <td>TS001</td>
+                  <td>Verify Customer Search by Account Name</td>
+                  <td><span class="status passed">passed</span></td>
+                  <td>28,779</td>
+                  <td>18/9/2025, 1:08:53 pm</td>
                 </tr>
               
                 <tr>
                   <td>TS002</td>
                   <td>Verify New Quote Creation Flow</td>
                   <td><span class="status failed">failed</span></td>
-                  <td>1,60,277</td>
-                  <td>16/9/2025, 6:04:51 pm</td>
+                  <td>1,54,681</td>
+                  <td>18/9/2025, 1:11:29 pm</td>
+                </tr>
+              
+                <tr>
+                  <td>TS004</td>
+                  <td>Customer Accounts Menu Redirect</td>
+                  <td><span class="status skipped">skipped</span></td>
+                  <td>0</td>
+                  <td>18/9/2025, 1:11:29 pm</td>
+                </tr>
+              
+                <tr>
+                  <td>TS005</td>
+                  <td>Verify Customer Accounts Filter Search</td>
+                  <td><span class="status skipped">skipped</span></td>
+                  <td>0</td>
+                  <td>18/9/2025, 1:11:29 pm</td>
+                </tr>
+              
+                <tr>
+                  <td>TS006</td>
+                  <td>Verify Quotes Navigation</td>
+                  <td><span class="status skipped">skipped</span></td>
+                  <td>0</td>
+                  <td>18/9/2025, 1:11:29 pm</td>
+                </tr>
+              
+                <tr>
+                  <td>TS007</td>
+                  <td>Verify Quotes Filter</td>
+                  <td><span class="status skipped">skipped</span></td>
+                  <td>0</td>
+                  <td>18/9/2025, 1:11:29 pm</td>
                 </tr>
               
             </tbody>
           </table>
         </div>
-        <div class="content meta">Total: 2 • Passed: 1 • Failed: 1 • Skipped: 0 • Pass rate: 50.0% • Duration: 212.46s</div>
+        <div class="content meta">Total: 7 • Passed: 2 • Failed: 1 • Skipped: 4 • Pass rate: 28.6% • Duration: 235.93s</div>
       </div>
 
       <div class="card">
         <h2>Status Summary</h2>
         <div class="content">
           <div class="summary-cards">
-            <div class="kpi"><div>Passed</div><div class="value" style="color:var(--green)">1</div></div>
+            <div class="kpi"><div>Passed</div><div class="value" style="color:var(--green)">2</div></div>
             <div class="kpi"><div>Failed</div><div class="value" style="color:var(--red)">1</div></div>
-            <div class="kpi"><div>Skipped</div><div class="value" style="color:var(--amber)">0</div></div>
+            <div class="kpi"><div>Skipped</div><div class="value" style="color:var(--amber)">4</div></div>
           </div>
           <svg id="pie" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="Passed/Failed/Skipped"></svg>
           <div class="legend">
@@ -92,9 +132,9 @@
 <script>
 (function(){
   const data = [
-    { label: 'Passed', value: 1, color: getComputedStyle(document.documentElement).getPropertyValue('--green').trim() || '#10b981' },
+    { label: 'Passed', value: 2, color: getComputedStyle(document.documentElement).getPropertyValue('--green').trim() || '#10b981' },
     { label: 'Failed', value: 1, color: getComputedStyle(document.documentElement).getPropertyValue('--red').trim() || '#ef4444' },
-    { label: 'Skipped', value: 0, color: getComputedStyle(document.documentElement).getPropertyValue('--amber').trim() || '#f59e0b' }
+    { label: 'Skipped', value: 4, color: getComputedStyle(document.documentElement).getPropertyValue('--amber').trim() || '#f59e0b' }
   ];
   renderPie('pie', data);
 

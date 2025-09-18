@@ -10,7 +10,7 @@ export class HomePage extends BasePage {
   private hamburgerMenu = this.page.locator('#hamburger');
   private customerAccountsLink = this.page.getByRole('link', { name: 'Customer Accounts' });
   private quotesLink = this.page.getByRole('link', { name: 'Quotes' });
-  private newQuoteButton = this.page.getByRole('link', { name: 'New Quote' });
+  private newQuoteButton = this.page.getByText('New Quote');
 
   async waitForPageLoad() {
     await this.searchTypeCombobox.waitFor({ state: 'visible', timeout: 15000 });
@@ -186,9 +186,6 @@ export class HomePage extends BasePage {
 
   async navigateToNewQuote() {
     console.log('Attempting to navigate to New Quote');
-    
-    // Navigate to Quotes page first
-    await this.navigateToQuotes();
     
     // Wait for and click New Quote button
     await expect(this.newQuoteButton).toBeVisible({ timeout: 10000 });
