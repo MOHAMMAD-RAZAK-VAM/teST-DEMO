@@ -1,8 +1,11 @@
-// Removed unused import for 'Page'
+import type { Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class HomePage extends BasePage {
+    constructor(page: Page) {
+        super(page);
+    }
   private searchTypeCombobox = this.page.locator('select.form-control');
   private searchInput = this.page.getByRole('textbox', { name: /Search By/i });
   private searchButton = this.page.getByRole('button', { name: /Search/i });
@@ -10,7 +13,6 @@ export class HomePage extends BasePage {
   private hamburgerMenu = this.page.locator('#hamburger');
   private customerAccountsLink = this.page.getByRole('link', { name: 'Customer Accounts' });
   private quotesLink = this.page.getByRole('link', { name: 'Quotes' });
-  private newQuoteButton = this.page.getByText('New Quote');
 
   async waitForPageLoad() {
     await this.searchTypeCombobox.waitFor({ state: 'visible', timeout: 15000 });
@@ -182,19 +184,5 @@ export class HomePage extends BasePage {
     await this.page.waitForTimeout(500);
     
     console.log('Successfully navigated to Quotes page');
-  }
-
-  async navigateToNewQuote() {
-    console.log('Attempting to navigate to New Quote');
-    
-    // Wait for and click New Quote button
-    await expect(this.newQuoteButton).toBeVisible({ timeout: 10000 });
-    await this.newQuoteButton.click();
-    
-    // Wait for navigation
-    await expect(this.page).toHaveURL(/Index\.html#\/quote\/new/);
-    await this.page.waitForSelector('body:not(.pace-running)', { timeout: 60000 });
-    
-    console.log('Successfully navigated to New Quote page');
   }
 }

@@ -6,6 +6,139 @@ import { AccountsPage } from './pages/AccountsPage';
 import { QuotesPage } from './pages/QuotesPage';
 import type { QuoteFilterData } from './pages/QuotesPage';
 import config from '../config.json';
+import * as fs from 'fs';
+import * as path from 'path';
+
+
+// DOM Capture Configuration
+/**
+ * DOMCapture class provides comprehensive DOM state capture functionality for debugging Playwright tests.
+ * 
+ * Features:
+ * - Captures full HTML content of pages at key test points
+ * - Generates accessibility snapshots for UI analysis
+ * - Takes full-page screenshots when requested
+ * - Captures metadata including URL, title, viewport, and user agent
+ * - Automatically captures DOM state on test failures
+ * - Saves all captures to timestamped files in dom-captures/ directory
+ * 
+ * Usage:
+ * - Call DOMCapture.capture() at strategic points in tests
+ * - Call DOMCapture.captureOnFailure() in catch blocks
+ * - Files are saved with format: TestName_StepName_Timestamp.{html|json|png}
+ */
+class DOMCapture {
+  private static captureDir = path.join(process.cwd(), 'dom-captures');
+
+  static async initialize(): Promise<void> {
+    // Create capture directory if it doesn't exist
+    if (!fs.existsSync(this.captureDir)) {
+      fs.mkdirSync(this.captureDir, { recursive: true });
+      console.log(`DOM capture directory created: ${this.captureDir}`);
+    }
+  }
+
+  static async capture(page: Page, testName: string, stepName: string, includeScreenshot: boolean = false): Promise<void> {
+    try {
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const filename = `${testName}_${stepName}_${timestamp}`;
+
+      // Capture HTML content
+      const htmlContent = await page.content();
+      const htmlPath = path.join(this.captureDir, `${filename}.html`);
+      fs.writeFileSync(htmlPath, htmlContent, 'utf8');
+
+      // Capture accessibility snapshot
+      const accessibilitySnapshot = await page.accessibility.snapshot();
+      const accessibilityPath = path.join(this.captureDir, `${filename}_accessibility.json`);
+      fs.writeFileSync(accessibilityPath, JSON.stringify(accessibilitySnapshot, null, 2), 'utf8');
+
+      // Capture screenshot if requested
+      let screenshotPath: string | undefined;
+      if (includeScreenshot) {
+        screenshotPath = path.join(this.captureDir, `${filename}.png`);
+        await page.screenshot({ path: screenshotPath, fullPage: true });
+      }
+
+      // Log current URL and title
+      const currentUrl = page.url();
+      const pageTitle = await page.title();
+      const metadata = {
+        timestamp: new Date().toISOString(),
+        testName,
+        stepName,
+        url: currentUrl,
+        title: pageTitle,
+        viewport: await page.viewportSize(),
+        userAgent: await page.evaluate(() => navigator.userAgent)
+      };
+
+      const metadataPath = path.join(this.captureDir, `${filename}_metadata.json`);
+      fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2), 'utf8');
+
+      console.log(`DOM captured: ${filename}`);
+      console.log(`  HTML: ${htmlPath}`);
+      console.log(`  Accessibility: ${accessibilityPath}`);
+      if (includeScreenshot) {
+        console.log(`  Screenshot: ${screenshotPath}`);
+      }
+      console.log(`  Metadata: ${metadataPath}`);
+      console.log(`  URL: ${currentUrl}`);
+      console.log(`  Title: ${pageTitle}`);
+
+    } catch (error) {
+      console.error(`Failed to capture DOM for ${testName} - ${stepName}:`, error);
+    }
+  }
+
+  static async captureOnFailure(page: Page, testName: string, error: any): Promise<void> {
+    try {
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const filename = `${testName}_FAILURE_${timestamp}`;
+
+      // Capture HTML content
+      const htmlContent = await page.content();
+      const htmlPath = path.join(this.captureDir, `${filename}.html`);
+      fs.writeFileSync(htmlPath, htmlContent, 'utf8');
+
+      // Capture screenshot
+      const screenshotPath = path.join(this.captureDir, `${filename}.png`);
+      await page.screenshot({ path: screenshotPath, fullPage: true });
+
+      // Capture console logs if available
+      const consoleLogs = await page.evaluate(() => {
+        // This is a simplified version - in a real implementation you'd need to collect logs during test execution
+        return [];
+      });
+
+      const failureData = {
+        timestamp: new Date().toISOString(),
+        testName,
+        error: error.message || String(error),
+        url: page.url(),
+        title: await page.title(),
+        consoleLogs,
+        htmlPath,
+        screenshotPath
+      };
+
+      const failurePath = path.join(this.captureDir, `${filename}_failure.json`);
+      fs.writeFileSync(failurePath, JSON.stringify(failureData, null, 2), 'utf8');
+
+      console.log(`Failure DOM captured: ${filename}`);
+      console.log(`  HTML: ${htmlPath}`);
+      console.log(`  Screenshot: ${screenshotPath}`);
+      console.log(`  Failure Data: ${failurePath}`);
+
+    } catch (captureError) {
+      console.error('Failed to capture failure DOM:', captureError);
+    }
+  }
+
+  static getCaptureDir(): string {
+    return this.captureDir;
+  }
+}
 
 
 // Store all test results
@@ -19,6 +152,9 @@ test.describe('Customer Portal Test Suite', () => {
     // Before all tests
     test.beforeAll(async () => {
         console.log('Starting test suite execution...');
+        // Initialize DOM capture system
+        await DOMCapture.initialize();
+        console.log('DOM capture system initialized');
     });
 
     // Test 1: Customer Search by Account Name
@@ -304,6 +440,9 @@ class TestHelpers {
     // Navigate to home page
     await page.goto(config.appUrl);
     await page.waitForURL(/.*Index\.html#\/home.*/, { timeout: TIMEOUTS.PAGE_LOAD });
+    
+    // Capture DOM after initial navigation
+    await DOMCapture.capture(page, 'TS002', 'Initial_Home_Load', true);
 
     // Click New Quote button
     const newQuoteButton = page.getByText('New Quote', { exact: true });
@@ -312,6 +451,9 @@ class TestHelpers {
 
     // Verify navigation to Product page
     await page.waitForURL(/.*\/BD\/McKee\/index\.html.*#\/Product/, { timeout: TIMEOUTS.PAGE_LOAD });
+    
+    // Capture DOM after Product page navigation
+    await DOMCapture.capture(page, 'TS002', 'Product_Page_Loaded', true);
 
     // Handle Effective Date
     const effectiveDateInput = page.getByRole('combobox', { name: /Effective Date\*/i });
@@ -371,6 +513,9 @@ class TestHelpers {
     await proceedButton.click();
 
     await page.waitForURL(/.*\/BD\/McKee\/index\.html.*#\/Account/, { timeout: TIMEOUTS.PAGE_LOAD });
+    
+    // Capture DOM after Account page navigation
+    await DOMCapture.capture(page, 'TS002', 'Account_Page_Loaded', true);
 
     results.push({
       testId: 'TS002',
@@ -748,6 +893,9 @@ await page.waitForTimeout(5000);
     // Wait for the page/form to fully load and stabilize
     await page.waitForTimeout(3000);
     await page.waitForLoadState('networkidle');
+    
+    // Capture DOM after Non-Owned Auto form load
+    await DOMCapture.capture(page, 'TS002', 'NonOwnedAuto_Form_Loaded', true);
 
     // Try to expand any collapsed sections (in case of inline form)
     await page.evaluate(() => {
@@ -919,6 +1067,9 @@ console.log('Moving to Garaging Location...');
     try {
       await page.waitForURL('**/RiskSummary', { timeout: TIMEOUTS.PAGE_LOAD });
       console.log('Successfully navigated to RiskSummary');
+      
+      // Capture DOM after RiskSummary navigation
+      await DOMCapture.capture(page, 'TS002', 'RiskSummary_Page_Loaded', true);
     } catch (error) {
       console.log('RiskSummary navigation failed, checking current URL...');
       const currentUrl = page.url();
@@ -969,6 +1120,9 @@ console.log('Moving to Garaging Location...');
     console.log('Waiting for navigation to Truck page...');
     await page.waitForURL((url) => url.toString().includes('Truck'), { timeout: TIMEOUTS.PAGE_LOAD });
     console.log('Successfully navigated to Truck page');
+    
+    // Capture DOM after Truck page navigation
+    await DOMCapture.capture(page, 'TS002', 'Truck_Page_Loaded', true);
 
     // =========================
     // STEP 7: Vehicle Configuration
@@ -1192,6 +1346,10 @@ console.log('Moving to Garaging Location...');
 
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : String(err);
+    
+    // Capture DOM on test failure
+    await DOMCapture.captureOnFailure(page, 'TS002', err);
+    
     results.push({
       testId: errorMessage.includes('TS002') ? 'TS002' : 'TS007',
       testName: errorMessage.includes('TS002') ? 'Verify New Quote Creation Flow' : 'Verify Account Form Fill and Proceed to Application',
@@ -1275,6 +1433,9 @@ console.log('Moving to Garaging Location...');
                     state: 'visible' 
                 });
                 console.log('Dashboard is visible');
+                
+                // Capture DOM after login
+                await DOMCapture.capture(page, 'TS005', 'Login_Successful', true);
             });
 
             // Step 3: Navigate to Customer Accounts
@@ -1322,6 +1483,10 @@ console.log('Moving to Garaging Location...');
             });
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : String(err);
+            
+            // Capture DOM on test failure
+            await DOMCapture.captureOnFailure(page, 'TS005', err);
+            
             console.error('TS004 failed:', errorMessage);
             results.push({
                 testId: 'TS004',
@@ -1351,6 +1516,9 @@ console.log('Moving to Garaging Location...');
                 // Wait for dashboard to be visible after login
                 await expect(page.getByRole('textbox', { name: /search/i }))
                     .toBeVisible({ timeout: 60000 });
+                
+                // Capture DOM after login
+                await DOMCapture.capture(page, 'TS006', 'Login_Successful', true);
             });
             
             // Step 2: Navigate to Quotes
@@ -1368,6 +1536,10 @@ console.log('Moving to Garaging Location...');
             });
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : String(err);
+            
+            // Capture DOM on test failure
+            await DOMCapture.captureOnFailure(page, 'TS006', err);
+            
             console.error('TS005 failed:', errorMessage);
             results.push({
                 testId: 'TS005',
@@ -1428,6 +1600,10 @@ console.log('Moving to Garaging Location...');
             });
         } catch (err) {
             const errorMessage = err instanceof Error ? err.message : String(err);
+            
+            // Capture DOM on test failure
+            await DOMCapture.captureOnFailure(page, 'TS007', err);
+            
             console.error('TS006 failed:', errorMessage);
             results.push({
                 testId: 'TS006',
