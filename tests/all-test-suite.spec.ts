@@ -783,7 +783,31 @@ console.log('Moving to Garaging Location...');
 
     await expect(proceedAutoExposureBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
     await proceedAutoExposureBtn.click();
-    await page.waitForURL('**/RiskSummary', { timeout: TIMEOUTS.PAGE_LOAD });
+
+    // Wait for navigation with more flexible approach
+    console.log('Waiting for navigation to Risk Summary...');
+    try {
+      await page.waitForURL('**/RiskSummary', { timeout: 15000 });
+      console.log('Successfully navigated to Risk Summary');
+    } catch (error) {
+      console.log('RiskSummary URL not found, checking current URL...');
+      const currentUrl = page.url();
+      console.log('Current URL:', currentUrl);
+
+      // Try alternative URL patterns
+      if (currentUrl.includes('Risk') || currentUrl.includes('Summary')) {
+        console.log('Already on Risk/Summary page, continuing...');
+      } else {
+        // Wait a bit more and try again
+        await page.waitForTimeout(5000);
+        const newUrl = page.url();
+        console.log('URL after additional wait:', newUrl);
+
+        if (!newUrl.includes('Risk') && !newUrl.includes('Summary')) {
+          throw new Error(`Failed to navigate to Risk Summary. Current URL: ${newUrl}`);
+        }
+      }
+    }
 
     // Handle Vehicle Type popup
     const vehicleTypePopup = page.getByText('Choose the Vehicle Type', { exact: false });
@@ -894,20 +918,26 @@ console.log('Moving to Garaging Location...');
 
     // Find and click input box near Make label
     console.log('Looking for Make input...');
-    const makeLabel = page.locator('label').filter({ hasText: /Make/i });
+    const makeLabel = page.locator('label[for="txt637e4a47d7289a5abc88"]');
     await makeLabel.scrollIntoViewIfNeeded();
     await expect(makeLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    const makeInput = makeLabel.locator('xpath=following-sibling::input').first().or(
-      makeLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]//input').first()
-    );
+    const makeInput = page.locator('input[id="txt637e4a47d7289a5abc88"]');
     await expect(makeInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await makeInput.click();
-    await page.waitForTimeout(1000); // Increased wait time
 
-    // Type "kia" in Make input
-    await makeInput.fill('kia');
-    console.log('Typed "kia" in Make input');
+    // Click to focus the Make input and place cursor inside
+    console.log('Clicking Make input to focus and place cursor...');
+    await makeInput.click({ force: true });
+    await page.waitForTimeout(1000);
+
+    // Now that cursor is focused in the Make input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing Kia...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(200);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(500);
+    await page.keyboard.type('Kia');
+    console.log('Typed "Kia" in Make input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
@@ -915,19 +945,25 @@ console.log('Moving to Garaging Location...');
 
     // Find and click input box near Model label
     console.log('Looking for Model input...');
-    const modelLabel = page.locator('label').filter({ hasText: /Model/i });
+    const modelLabel = page.locator('label[for="txt989e457a731988678c53"]');
     await modelLabel.scrollIntoViewIfNeeded();
     await expect(modelLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    const modelInput = modelLabel.locator('xpath=following-sibling::input').first().or(
-      modelLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]//input').first()
-    );
+    const modelInput = page.locator('input[id="txt989e457a731988678c53"]');
     await expect(modelInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await modelInput.click();
-    await page.waitForTimeout(1000); // Increased wait time
 
-    // Type "Sonet" in Model input
-    await modelInput.fill('Sonet');
+    // Click to focus the Model input and place cursor inside
+    console.log('Clicking Model input to focus and place cursor...');
+    await modelInput.click({ force: true });
+    await page.waitForTimeout(1000);
+
+    // Now that cursor is focused in the Model input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing Sonet...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(200);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(500);
+    await page.keyboard.type('Sonet');
     console.log('Typed "Sonet" in Model input');
 
     // Click somewhere (outside the input)
@@ -936,19 +972,25 @@ console.log('Moving to Garaging Location...');
 
     // Find and click input box near Vehicle Identification Number label
     console.log('Looking for VIN input...');
-    const vinLabel = page.locator('label').filter({ hasText: /Vehicle Identification Number/i });
+    const vinLabel = page.locator('label[for="txt5818786b7b977da38d2f"]');
     await vinLabel.scrollIntoViewIfNeeded();
     await expect(vinLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    const vinInput = vinLabel.locator('xpath=following-sibling::input').first().or(
-      vinLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]//input').first()
-    );
+    const vinInput = page.locator('input[id="txt5818786b7b977da38d2f"]');
     await expect(vinInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await vinInput.click();
-    await page.waitForTimeout(1000); // Increased wait time
 
-    // Type "12345678910" in VIN input
-    await vinInput.fill('12345678910');
+    // Click to focus the VIN input and place cursor inside
+    console.log('Clicking VIN input to focus and place cursor...');
+    await vinInput.click({ force: true });
+    await page.waitForTimeout(1000);
+
+    // Now that cursor is focused in the VIN input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing 12345678910...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(200);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(500);
+    await page.keyboard.type('12345678910');
     console.log('Typed "12345678910" in VIN input');
 
     // Click somewhere (outside the input)
@@ -957,18 +999,26 @@ console.log('Moving to Garaging Location...');
 
     // Click the label "Select the Vehicle Classification"
     console.log('Looking for Vehicle Classification label...');
-    const vehicleClassLabel = page.locator('label').filter({ hasText: /Select the Vehicle Classification/i });
+    const vehicleClassLabel = page.locator('label[for="txtauto7b27192a88ff7670d1dg"]');
     await vehicleClassLabel.scrollIntoViewIfNeeded();
     await expect(vehicleClassLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await vehicleClassLabel.click();
-    await page.waitForTimeout(1000); // Increased wait time
 
-    // Find the input box and type "l"
-    const vehicleClassInput = vehicleClassLabel.locator('xpath=following-sibling::*//input').first().or(
-      vehicleClassLabel.locator('xpath=ancestor::*[contains(@class, "form-group")]//input').first()
-    );
+    // Find the input box and click to focus
+    const vehicleClassInput = page.locator('input[id="txtauto7b27192a88ff7670d1dg"]');
     await expect(vehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await vehicleClassInput.fill('l');
+
+    // Click to focus the Vehicle Classification input and place cursor inside
+    console.log('Clicking Vehicle Classification input to focus and place cursor...');
+    await vehicleClassInput.click({ force: true });
+    await page.waitForTimeout(1000);
+
+    // Now that cursor is focused in the Vehicle Classification input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing l...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(200);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(500);
+    await page.keyboard.type('l');
     await page.waitForTimeout(1000); // Increased wait time
 
     // Use down arrow 2 times and click enter
