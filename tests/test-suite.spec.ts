@@ -1342,7 +1342,7 @@ console.log('Moving to Garaging Location...');
         try {
             // Initialize page objects
             const loginPage = new LoginPage(page);
-            // Removed: const homePage = new HomePage(page);
+            const quotesPage = new QuotesPage(page);
 
             // Step 1: Login and ensure page is ready
             await test.step('Login to application', async () => {
@@ -1355,7 +1355,7 @@ console.log('Moving to Garaging Location...');
             
             // Step 2: Navigate to Quotes
             await test.step('Navigate to Quotes', async () => {
-                // Removed: await homePage.navigateToQuotes();
+                await quotesPage.navigateToQuotes();
                 // Verify we're on the Quotes page
                 await expect(page.url()).toMatch(/.*\/Index\.html#\/quotes/);
             });
