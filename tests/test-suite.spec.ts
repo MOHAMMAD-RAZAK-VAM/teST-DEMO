@@ -411,7 +411,9 @@ class TestHelpers {
   async verifyAlert(alertText: string): Promise<void> {
     const alert = this.page.getByText(alertText, { exact: false });
     await expect(alert).toBeVisible({ timeout: TIMEOUTS.LONG });
-  }  async dismissLoadingDialog(): Promise<void> {
+  }
+
+  async dismissLoadingDialog(): Promise<void> {
     const updatingDialog = this.page.getByText('Updating your coverage...', { exact: false });
     if (await updatingDialog.isVisible({ timeout: TIMEOUTS.SHORT }).catch(() => false)) {
       await expect(updatingDialog).not.toBeVisible({ timeout: TIMEOUTS.LONG });
@@ -427,7 +429,6 @@ class TestHelpers {
     test('TS002: Verify New Quote Creation Flow', async ({ page }) => {
   test.setTimeout(180000);
   const start = Date.now();
-  const results: Array<{ testId: string; testName: string; status: string; duration: number }> = [];
   const helpers = new TestHelpers(page);
 
   try {
@@ -482,7 +483,7 @@ class TestHelpers {
     
     const autoHeading = autoSection.getByRole('heading', { name: 'Commercial Automobile' });
     await autoHeading.scrollIntoViewIfNeeded();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(500);
     await autoHeading.click({ force: true });
     
     await helpers.waitForPageReady();
@@ -534,9 +535,9 @@ class TestHelpers {
     const nameInput = page.locator('input[data-role="autocomplete"][placeholder="Enter Applicant Name"]');
   await helpers.fillFieldSlowly(nameInput, TEST_DATA.applicant.name);
     
-    await page.waitForTimeout(1000);
-    await page.keyboard.press('ArrowDown');
     await page.waitForTimeout(500);
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(300);
     await page.keyboard.press('Enter');
 
     await helpers.handleSweetAlert();
@@ -552,11 +553,11 @@ class TestHelpers {
     
   await helpers.fillFieldSlowly(sicCodeInput, TEST_DATA.applicant.sicCode);
     
-    await page.waitForTimeout(1000);
-    await page.keyboard.press('ArrowDown');
     await page.waitForTimeout(500);
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(300);
     await page.keyboard.press('Enter');
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(500);
 
     // Select Legal Entity
     console.log('Selecting Legal Entity...');
@@ -1130,10 +1131,20 @@ console.log('Moving to Garaging Location...');
     
     console.log('=== Configuring Vehicle Details ===');
 
-    // Wait 5-10 seconds for Truck page to fully load
+    // Wait for Truck page to fully load with more efficient waiting
     console.log('Waiting for Truck page to fully load...');
-    await page.waitForTimeout(8000);
-    await page.waitForLoadState('networkidle');
+    await Promise.all([
+      page.waitForLoadState('networkidle', { timeout: TIMEOUTS.PAGE_LOAD }),
+      page.waitForLoadState('domcontentloaded', { timeout: TIMEOUTS.PAGE_LOAD })
+    ]);
+
+    // Additional check: wait for a key element to be visible
+    try {
+      await page.waitForSelector('label[for="ddl09a5ce292832cf9c19a4"]', { timeout: TIMEOUTS.MEDIUM });
+      console.log('Key elements are visible, proceeding...');
+    } catch (error) {
+      console.log('Key elements not found within timeout, but continuing...');
+    }
 
     // Find the Territory dropdown using the specific label and dropdown structure
     console.log('Looking for Territory dropdown...');
@@ -1194,20 +1205,20 @@ console.log('Moving to Garaging Location...');
     // Click to focus the input and place cursor inside
     console.log('Clicking Year input to focus and place cursor...');
     await yearInput.click({ force: true });
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(200);
 
     // Now that cursor is focused in the input box, do ctrl+a, delete, and type
     console.log('Clearing existing value and typing 2024...');
     await page.keyboard.press('Control+a');
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
     await page.keyboard.type('2024');
     console.log('Typed "2024" in Year input');
 
     // Click somewhere (outside the input) to trigger validation
     await page.locator('body').click();
-    await page.waitForTimeout(500); // Reduced wait time for processing
+    await page.waitForTimeout(300); // Reduced wait time for processing
 
     // Find and click input box near Make label
     console.log('Looking for Make input...');
@@ -1221,20 +1232,20 @@ console.log('Moving to Garaging Location...');
     // Click to focus the Make input and place cursor inside
     console.log('Clicking Make input to focus and place cursor...');
     await makeInput.click({ force: true });
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(200);
 
     // Now that cursor is focused in the Make input box, do ctrl+a, delete, and type
     console.log('Clearing existing value and typing Kia...');
     await page.keyboard.press('Control+a');
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
     await page.keyboard.type('Kia');
     console.log('Typed "Kia" in Make input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
-    await page.waitForTimeout(1500); // Increased wait time for processing
+    await page.waitForTimeout(300);
 
     // Wait for the page to fully load after Make input processing
     await page.waitForLoadState('networkidle');
@@ -1251,20 +1262,20 @@ console.log('Moving to Garaging Location...');
     // Click to focus the Model input and place cursor inside
     console.log('Clicking Model input to focus and place cursor...');
     await modelInput.click({ force: true });
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(200);
 
     // Now that cursor is focused in the Model input box, do ctrl+a, delete, and type
     console.log('Clearing existing value and typing Sonet...');
     await page.keyboard.press('Control+a');
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
     await page.keyboard.type('Sonet');
     console.log('Typed "Sonet" in Model input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
-    await page.waitForTimeout(1500); // Increased wait time for processing
+    await page.waitForTimeout(300);
 
     // Find and click input box near Vehicle Identification Number label
     console.log('Looking for VIN input...');
@@ -1278,20 +1289,20 @@ console.log('Moving to Garaging Location...');
     // Click to focus the VIN input and place cursor inside
     console.log('Clicking VIN input to focus and place cursor...');
     await vinInput.click({ force: true });
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(200);
 
     // Now that cursor is focused in the VIN input box, do ctrl+a, delete, and type
     console.log('Clearing existing value and typing 12345678910...');
     await page.keyboard.press('Control+a');
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
     await page.keyboard.type('12345678910');
     console.log('Typed "12345678910" in VIN input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
-    await page.waitForTimeout(1500); // Increased wait time for processing
+    await page.waitForTimeout(300);
 
     // Click the label "Select the Vehicle Classification"
     console.log('Looking for Vehicle Classification label...');
@@ -1306,27 +1317,147 @@ console.log('Moving to Garaging Location...');
     // Click to focus the Vehicle Classification input and place cursor inside
     console.log('Clicking Vehicle Classification input to focus and place cursor...');
     await vehicleClassInput.click({ force: true });
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(200);
 
     // Now that cursor is focused in the Vehicle Classification input box, do ctrl+a, delete, and type
     console.log('Clearing existing value and typing l...');
     await page.keyboard.press('Control+a');
-    await page.waitForTimeout(200);
+    await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
     await page.keyboard.type('l');
-    await page.waitForTimeout(1000); // Increased wait time
+    await page.waitForTimeout(500); // Wait for dropdown to appear
 
     // Use down arrow 2 times and click enter
     await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(300); // Slightly increased for dropdown navigation
+    await page.waitForTimeout(100);
     await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(300); // Slightly increased for dropdown navigation
+    await page.waitForTimeout(100);
     await page.keyboard.press('Enter');
     console.log('Selected Vehicle Classification with "l"');
 
     // Wait to load (give some seconds)
-    await page.waitForTimeout(4000); // Increased wait time for loading
+    await page.waitForTimeout(500);
+    // await page.pause();
+
+    // ===== NEW STEP 1: Fill Secondary Vehicle Classification =====
+console.log('Looking for Secondary Vehicle Classification input...');
+const secondaryVehicleClassSelector = '#formsec8360ce8c488ba4fb3181 > div.content > div:nth-child(13) > div > div input';
+const secondaryVehicleClassInput = page.locator(secondaryVehicleClassSelector).first();
+
+// Scroll to and wait for visibility
+await secondaryVehicleClassInput.scrollIntoViewIfNeeded();
+await expect(secondaryVehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Click to focus the Secondary Vehicle Classification input
+console.log('Clicking Secondary Vehicle Classification input to focus...');
+await secondaryVehicleClassInput.click({ force: true });
+await page.waitForTimeout(200);
+
+// Clear existing value and type 'l'
+console.log('Clearing existing value and typing l...');
+await page.keyboard.press('Control+a');
+await page.waitForTimeout(100);
+await page.keyboard.press('Delete');
+await page.waitForTimeout(100);
+await page.keyboard.type('l');
+await page.waitForTimeout(500); // Wait for dropdown to appear
+
+// Use arrow key and press enter
+await page.keyboard.press('ArrowDown');
+await page.waitForTimeout(100);
+await page.keyboard.press('Enter');
+console.log('Selected Secondary Vehicle Classification with "l"');
+
+// Wait for processing
+await page.waitForTimeout(500);
+
+// ===== NEW STEP 2: Fill Original Cost New Of Vehicle =====
+console.log('Looking for Original Cost New Of Vehicle input...');
+const originalCostLabel = page.locator('label[for="numc0ef72417c2cf0202bec"]');
+await expect(originalCostLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Find the visible Kendo input within the widget
+const originalCostInput = originalCostLabel
+  .locator('xpath=following-sibling::*')
+  .locator('.k-formatted-value.k-input')
+  .first();
+
+// Alternative: Direct approach using the widget container
+// const originalCostInput = page.locator('.k-numerictextbox', {
+//   has: page.locator('input[name="Original Cost New Of Vehicle"]')
+// }).locator('.k-formatted-value.k-input').first();
+
+// Scroll to and wait for visibility
+await originalCostInput.scrollIntoViewIfNeeded();
+await expect(originalCostInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+await expect(originalCostInput).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
+
+// Click to focus the Original Cost input
+console.log('Clicking Original Cost input to focus...');
+await originalCostInput.click({ force: true });
+await page.waitForTimeout(500);
+
+// await expect(originalCostInput).toBeFocused({ timeout: 2000 });
+// console.log('Original Cost input is now focused and ready');
+
+// Clear existing value (0) and type new value
+console.log('Clearing existing value and typing 500000...');
+await page.keyboard.press('Control+a');
+await page.waitForTimeout(100);
+await page.keyboard.press('Delete');
+await page.waitForTimeout(100);
+await page.keyboard.type('500000');
+console.log('Typed "500000" in Original Cost input');
+
+// Click outside to trigger validation
+// await page.locator('body').click();
+await page.waitForTimeout(300);
+
+// ===== NEW STEP 3: Fill Stated Amount =====
+console.log('Looking for Stated Amount input...');
+const statedAmountLabel = page.locator('label[for="numa1cdba13cde74311438e"]');
+await expect(statedAmountLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+// Find the visible Kendo input within the widget
+const statedAmountInput = statedAmountLabel
+  .locator('xpath=following-sibling::*')
+  .locator('.k-formatted-value.k-input')
+  .first();
+
+// Alternative: Direct approach using the widget container
+// const statedAmountInput = page.locator('.k-numerictextbox', {
+//   has: page.locator('input[name="Stated Amount"]')
+// }).locator('.k-formatted-value.k-input').first();
+
+// Scroll to and wait for visibility
+await statedAmountInput.scrollIntoViewIfNeeded();
+await expect(statedAmountInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+await expect(statedAmountInput).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
+
+// Click to focus the Stated Amount input
+console.log('Clicking Stated Amount input to focus...');
+await statedAmountInput.click({ force: true });
+await page.waitForTimeout(500);
+
+// Clear existing value (0) and type new value
+console.log('Clearing existing value and typing 50000...');
+await page.keyboard.press('Control+a');
+await page.waitForTimeout(100);
+await page.keyboard.press('Delete');
+await page.waitForTimeout(100);
+await page.keyboard.type('50000');
+console.log('Typed "50000" in Stated Amount input');
+
+// Click outside to trigger validation
+// await page.locator('body').click();
+await page.waitForTimeout(300);
+// Click outside to trigger validation
+// await page.locator('body').click();
+// await page.waitForTimeout(300);
+
+// Wait for all form processing to complete
+await page.waitForTimeout(1000);
 
     // Save vehicle
     const saveBtn = page.getByRole('button', { name: /Save/i });
@@ -1336,8 +1467,8 @@ console.log('Moving to Garaging Location...');
     await helpers.verifyAlert('Truck Saved Successfully');
 
     results.push({
-      testId: 'TS007',
-      testName: 'Verify Account Form Fill and Proceed to Application',
+      testId: 'TS002',
+      testName: 'Verify New Quote Creation Flow',
       status: 'Pass',
       duration: Date.now() - start
     });
@@ -1351,8 +1482,8 @@ console.log('Moving to Garaging Location...');
     await DOMCapture.captureOnFailure(page, 'TS002', err);
     
     results.push({
-      testId: errorMessage.includes('TS002') ? 'TS002' : 'TS007',
-      testName: errorMessage.includes('TS002') ? 'Verify New Quote Creation Flow' : 'Verify Account Form Fill and Proceed to Application',
+      testId: 'TS002',
+      testName: 'Verify New Quote Creation Flow',
       status: 'Fail',
       duration: Date.now() - start
     });

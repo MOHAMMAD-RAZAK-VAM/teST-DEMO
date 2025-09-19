@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-19T11:16:29.409Z",
+  "testName": "TS002",
+  "error": "\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeFocused\u001b[2m()\u001b[22m failed\n\nLocator:  locator('#formsec0adfa06b61b723248ce7 > div.content > div:nth-child(1) > div > div input').first()\nExpected: focused\nReceived: inactive\nTimeout:  2000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeFocused\" with timeout 2000ms\u001b[22m\n\u001b[2m  - waiting for locator('#formsec0adfa06b61b723248ce7 > div.content > div:nth-child(1) > div > div input').first()\u001b[22m\n\u001b[2m    6 × locator resolved to <input title=\"\" type=\"text\" tabindex=\"0\" aria-disabled=\"false\" aria-readonly=\"false\" class=\"k-formatted-value k-input k-valid\"/>\u001b[22m\n\u001b[2m      - unexpected value \"inactive\"\u001b[22m\n",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=9bb0d989-5573-4dfb-865c-fc62c0020c6c#/Truck",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\Users\\KeerthanaSadhasivam\\OneDrive - ValueMomentum, Inc\\Documents\\teST-DEMO-master\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-19T11-16-28-826Z.html",
+  "screenshotPath": "C:\\Users\\KeerthanaSadhasivam\\OneDrive - ValueMomentum, Inc\\Documents\\teST-DEMO-master\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-19T11-16-28-826Z.png"
+}
