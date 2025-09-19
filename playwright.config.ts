@@ -65,7 +65,29 @@ export default defineConfig({
       use: { 
         ...devices['Desktop Chrome'],
         launchOptions: {
-          args: ['--disable-web-security'] // Added to handle any CORS issues
+          args: [
+            '--disable-web-security',
+            '--disable-features=VizDisplayCompositor',
+            '--disable-dev-shm-usage',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--no-zygote',
+            '--disable-gpu',
+            '--disable-background-timer-throttling',
+            '--disable-backgrounding-occluded-windows',
+            '--disable-renderer-backgrounding',
+            '--disable-features=TranslateUI',
+            '--disable-ipc-flooding-protection',
+            '--disable-hang-monitor',
+            '--disable-prompt-on-repost',
+            '--force-color-profile=srgb',
+            '--metrics-recording-only',
+            '--no-default-browser-check',
+            '--disable-component-extensions-with-background-pages',
+            '--disable-background-networking'
+          ],
+          ignoreDefaultArgs: ['--enable-automation'],
+          headless: false
         },
         // Use the authenticated state
         storageState: 'playwright/.auth/user.json'

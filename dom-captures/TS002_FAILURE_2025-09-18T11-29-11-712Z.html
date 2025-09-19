@@ -1,0 +1,88 @@
+<!DOCTYPE html><html ng-app="app"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=11,IE=10,IE=9">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>ACME | Insurance </title>
+    <link href="assets/css/default-theme.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script>
+        paceOptions = {
+            ajax: {
+                trackMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+                ignoreURLs: ['Notification']
+            },
+            elements: false,
+            restartOnPushState: true,
+            catchupTime: 50,
+            minTime: 250,
+            restartOnRequestAfter: 400
+
+        }
+    </script>
+    <script src="assets/js/pace.min.js"></script>
+</head>
+<body class=" pace-running"><div class="pace pace-active"><div class="pace-progress" data-progress-text="99%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+
+    <nav id="menu" class="vam-topNav">
+        <ul>
+            <li ng-class="{active:$root.activeTab=='home'}"><a ui-sref="home">Home</a></li>
+            <li ng-class="{active:$root.activeTab=='accounts'}"><a ui-sref="accounts">Customer Accounts</a></li>
+            <li ng-class="{active:$root.activeTab=='submissions'}" ng-show="$root.userContext.DfRole == 'Underwriter' &amp;&amp; $root.quoteflow == false"><a ui-sref="submissions">Submissions</a></li>
+            <li ng-class="{active:$root.activeTab=='quotes'}"><a ui-sref="quotes">Quotes</a></li>
+            <!--<li ng-class="{active:$root.activeTab=='policies'}"><a ng-show="$root.contentType.type=='NONISO'" ui-sref="policies">Policies</a></li>-->
+            <!--<li ng-class="{active:$root.activeTab=='claims'}"><a ng-show="$root.contentType.type=='NONISO'" ui-sref="claims">Claims</a></li>-->
+            <li ng-class="{active:$root.activeTab=='quoteSummaryReport'}"><a ui-sref="quoteSummaryReport">Reports</a></li>
+            <li ng-class="{active:$root.activeTab=='appetiteGuide'}" ng-show="$root.contentType.type=='NONISO' &amp;&amp; $root.userContext.DfRole != 'Underwriter'"><a ui-sref="appetiteGuide">Appetite Guide</a></li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid" id="page">
+        <div class="row vam-header Fixed vam-ML0">
+            <nav-bar></nav-bar>
+        </div>
+        <!--<div class="vam-loader-bg" id="ajaxLoader">
+                    <div class="lds-roller">
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                    </div>
+                </div>-->
+        <div ui-view=""></div>
+        <page-footer></page-footer>
+    </div>
+    <!--<chat-view></chat-view>-->
+    <!--Jquery references-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/jquery.mmenu.min.all.js"></script>
+    <script src="assets/js/jquery.flexslider-min.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!--AngularJs  references-->
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-ui-router@0.2.8.min.js"></script>
+    <script src="assets/js/angular-animate.min.js"></script>
+    <script src="assets/js/angular-toastr.tpls@2.1.1.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/angular-datepicker.min.js"></script>
+    <script src="assets/js/angular-sanitize.min.js"></script>
+    <script src="assets/js/angular-ui-utils.min.js"></script>
+    <script src="assets/js/ui-bootstrap-tpls.min.js"></script>
+
+    <script src="assets/js/lodash.min.js"></script>
+    <script src="assets/js/re-tree.js"></script>
+    <script src="assets/js/ng-device-detector.min.js"></script>
+    <script src="assets/js/ng-map.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/datetimepicker.min.js"></script>
+    <!--<script src="assets/js/socket.io.js"></script>-->
+    <!--reports module dependencies-->
+    <script src="assets/js/chart@2.4.0.min.js"></script>
+    <script src="assets/js/exceljs.min.js"></script>
+    <script src="assets/js/FileSaver.min.js"></script>
+    <script src="assets/js/pdfmake.min.js"></script>
+    <script src="assets/js/vfs_fonts.js"></script>
+
+    <script src="assets/js/oidc-client.min.js"></script></body></html>

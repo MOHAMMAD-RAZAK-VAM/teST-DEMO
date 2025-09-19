@@ -1,0 +1,259 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "QCA011604-1"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "NY-New York"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Location"
+    },
+    {
+      "role": "text",
+      "name": "Auto Exposure"
+    },
+    {
+      "role": "text",
+      "name": "Basic Info"
+    },
+    {
+      "role": "text",
+      "name": "AutoMobile Policy"
+    },
+    {
+      "role": "text",
+      "name": "Basic Information"
+    },
+    {
+      "role": "text",
+      "name": "Number Of Employees"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "textbox",
+      "name": "",
+      "value": "0"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Increase value"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Decrease value"
+    },
+    {
+      "role": "text",
+      "name": "Garaging Location"
+    },
+    {
+      "role": "text",
+      "name": "Garaging Location"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Zip Code"
+    },
+    {
+      "role": "textbox",
+      "name": "Zip Code",
+      "value": "10021"
+    },
+    {
+      "role": "text",
+      "name": "Territory"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Non-Ownership Risk Type"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Liability Coverage Type"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Liability Limit"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Number Of Volunteers"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "textbox",
+      "name": "",
+      "value": "0"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Increase value"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Decrease value"
+    },
+    {
+      "role": "text",
+      "name": "Cancel"
+    },
+    {
+      "role": "button",
+      "name": "Save"
+    }
+  ]
+}

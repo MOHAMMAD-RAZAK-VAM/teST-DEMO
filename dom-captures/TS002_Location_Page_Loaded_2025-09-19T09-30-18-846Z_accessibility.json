@@ -1,0 +1,308 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "QCA011638-1"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "Quote Created"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "NY-New York"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Account Information"
+    },
+    {
+      "role": "text",
+      "name": "Name of the Applicant"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "generic",
+      "name": "",
+      "children": [
+        {
+          "role": "textbox",
+          "name": "Name of the Applicant*",
+          "required": true,
+          "autocomplete": "list",
+          "haspopup": "menu",
+          "value": "Hospital for Special Surgery - Radiology"
+        }
+      ]
+    },
+    {
+      "role": "text",
+      "name": "Email"
+    },
+    {
+      "role": "textbox",
+      "name": "Email"
+    },
+    {
+      "role": "text",
+      "name": "Phone"
+    },
+    {
+      "role": "textbox",
+      "name": "Phone"
+    },
+    {
+      "role": "text",
+      "name": "SIC Code/Description"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "generic",
+      "name": "",
+      "children": [
+        {
+          "role": "textbox",
+          "name": "SIC Code/Description*",
+          "required": true,
+          "autocomplete": "list",
+          "haspopup": "menu",
+          "value": "0971 - Hunting, Trapping, Game Propagation"
+        }
+      ]
+    },
+    {
+      "role": "text",
+      "name": "NAICS Code/Description"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "generic",
+      "name": "",
+      "children": [
+        {
+          "role": "textbox",
+          "name": "NAICS Code/Description*",
+          "required": true,
+          "autocomplete": "list",
+          "haspopup": "menu",
+          "value": "114210 - Hunting and Trapping"
+        }
+      ]
+    },
+    {
+      "role": "text",
+      "name": "Legal Entity"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "button",
+      "name": "Keyboard shortcuts",
+      "description": "Keyboard shortcuts"
+    },
+    {
+      "role": "region",
+      "name": "Map",
+      "description": "Left arrow Move left. Right arrow Move right. Up arrow Move up. Down arrow Move down. + Zoom in. - Zoom out. Home Jump left by 75%. End Jump right by 75%. Page Up Jump up by 75%. Page Down Jump down by 75%.",
+      "roledescription": "map"
+    },
+    {
+      "role": "image",
+      "name": "535, East 70th Street"
+    },
+    {
+      "role": "menubar",
+      "name": "",
+      "orientation": "horizontal",
+      "children": [
+        {
+          "role": "menuitemradio",
+          "name": "Show street map",
+          "description": "Show street map",
+          "checked": true,
+          "haspopup": "menu"
+        },
+        {
+          "role": "menuitemradio",
+          "name": "Show satellite imagery",
+          "description": "Show satellite imagery",
+          "checked": false,
+          "haspopup": "menu"
+        }
+      ]
+    },
+    {
+      "role": "button",
+      "name": "Toggle fullscreen view",
+      "description": "Toggle fullscreen view",
+      "pressed": false
+    },
+    {
+      "role": "button",
+      "name": "Map camera controls",
+      "description": "Map camera controls"
+    },
+    {
+      "role": "button",
+      "name": "Drag Pegman onto the map to open Street View",
+      "description": "Drag Pegman onto the map to open Street View"
+    },
+    {
+      "role": "link",
+      "name": "Open this area in Google Maps (opens a new window)",
+      "description": "Open this area in Google Maps (opens a new window)"
+    },
+    {
+      "role": "button",
+      "name": "Keyboard shortcuts",
+      "description": "Keyboard shortcuts"
+    },
+    {
+      "role": "text",
+      "name": "Map data ©2025 Google"
+    },
+    {
+      "role": "link",
+      "name": "Terms (opens in new tab)"
+    },
+    {
+      "role": "link",
+      "name": "Report a map error",
+      "description": "Report errors in the road map or imagery to Google"
+    },
+    {
+      "role": "text",
+      "name": "Physical Address"
+    },
+    {
+      "role": "text",
+      "name": "Address"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "generic",
+      "name": "",
+      "children": [
+        {
+          "role": "textbox",
+          "name": "Address*",
+          "required": true,
+          "autocomplete": "list",
+          "haspopup": "menu",
+          "value": "535, East 70th Street"
+        }
+      ]
+    },
+    {
+      "role": "textbox",
+      "name": "",
+      "value": "New York, NY, 10021"
+    },
+    {
+      "role": "text",
+      "name": "Domicile State"
+    },
+    {
+      "role": "text",
+      "name": "Is your Mailing address same as your Physical Address?"
+    },
+    {
+      "role": "text",
+      "name": "Yes"
+    },
+    {
+      "role": "button",
+      "name": "Back to LOB"
+    },
+    {
+      "role": "button",
+      "name": "Proceed to Application"
+    },
+    {
+      "role": "text",
+      "name": "A primary location will be designated automatically based on the physical location address. Please visit the location page for more details."
+    }
+  ]
+}

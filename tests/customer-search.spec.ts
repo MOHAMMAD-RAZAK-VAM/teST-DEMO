@@ -1,8 +1,8 @@
 
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../tests/LoginPage';
-import { HomePage } from '../tests/HomePage';
-import { BasePage } from '../tests/BasePage';
+import { LoginPage } from '../tests/pages/LoginPage';
+import { HomePage } from '../tests/pages/HomePage';
+import { BasePage } from '../tests/pages/BasePage';
 import config from '../config.json';
 import { saveResultsToJson, generateHtmlReport, TestResult } from '../utils/reporter';
 

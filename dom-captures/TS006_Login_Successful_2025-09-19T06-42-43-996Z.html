@@ -1,0 +1,1220 @@
+<!DOCTYPE html><html ng-app="app" class="ng-scope"><head><style type="text/css">[uib-typeahead-popup].dropdown-menu{}</style><style type="text/css">.uib-time input{width:50px;}</style><style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style><style type="text/css">.uib-datepicker-popup.dropdown-menu{display:block;float:none;margin:0;}.uib-button-bar{padding:10px 9px 2px;}</style><style type="text/css">.uib-position-measure{display:block !important;visibility:hidden !important;position:absolute !important;top:-9999px !important;left:-9999px !important;}.uib-position-scrollbar-measure{position:absolute !important;top:-9999px !important;width:50px !important;height:50px !important;overflow:scroll !important;}.uib-position-body-scrollbar-measure{overflow:scroll !important;}</style><style type="text/css">.uib-datepicker .uib-title{width:100%;}.uib-day button,.uib-month button,.uib-year button{min-width:100%;}.uib-left,.uib-right{width:100%}</style><style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=11,IE=10,IE=9">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>ACME | Insurance </title>
+    <link href="assets/css/default-theme.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script>
+        paceOptions = {
+            ajax: {
+                trackMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+                ignoreURLs: ['Notification']
+            },
+            elements: false,
+            restartOnPushState: true,
+            catchupTime: 50,
+            minTime: 250,
+            restartOnRequestAfter: 400
+
+        }
+    </script>
+    <script src="assets/js/pace.min.js"></script>
+</head>
+<body class=" pace-done" style="display: block;"><nav id="menu" class="vam-topNav mm-menu mm-offcanvas"><div class="mm-panels"><div class="mm-panel mm-hasnavbar mm-opened mm-current" id="mm-1"><div class="mm-navbar"><a class="mm-title">Menu</a></div><ul class="mm-listview">
+            <li ng-class="{active:$root.activeTab=='home'}" class="active"><a ui-sref="home" href="/home">Home</a></li>
+            <li ng-class="{active:$root.activeTab=='accounts'}"><a ui-sref="accounts" href="/accounts">Customer Accounts</a></li>
+            <li ng-class="{active:$root.activeTab=='submissions'}" ng-show="$root.userContext.DfRole == 'Underwriter' &amp;&amp; $root.quoteflow == false" class="ng-hide"><a ui-sref="submissions" href="/submissions">Submissions</a></li>
+            <li ng-class="{active:$root.activeTab=='quotes'}"><a ui-sref="quotes" href="/quotes">Quotes</a></li>
+            <!--<li ng-class="{active:$root.activeTab=='policies'}"><a ng-show="$root.contentType.type=='NONISO'" ui-sref="policies">Policies</a></li>-->
+            <!--<li ng-class="{active:$root.activeTab=='claims'}"><a ng-show="$root.contentType.type=='NONISO'" ui-sref="claims">Claims</a></li>-->
+            <li ng-class="{active:$root.activeTab=='quoteSummaryReport'}"><a ui-sref="quoteSummaryReport" href="/reports/summary">Reports</a></li>
+            <li ng-class="{active:$root.activeTab=='appetiteGuide'}" ng-show="$root.contentType.type=='NONISO' &amp;&amp; $root.userContext.DfRole != 'Underwriter'" class="ng-hide"><a ui-sref="appetiteGuide" href="/appetiteGuide">Appetite Guide</a></li>
+        </ul></div></div></nav><div id="mm-0" class="mm-page mm-slideout"><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div><div class="container-fluid" id="page">
+        
+        <!--<div class="vam-loader-bg" id="ajaxLoader">
+                    <div class="lds-roller">
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                    </div>
+                </div>-->
+        <!-- ui-view-anchor --><div ui-view=""><div class="row vam-MT57 ng-scope">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!-- //slider-->
+        <div class="row hidden-xs ng-hide" ng-show="$root.userContext.DfRole=='Agent'">
+            <div class="col-md-12 vam-PLR0">
+                <div class="slider_container">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <!--<li>
+                                <a href="#"><img src="assets/images/slider/slide1.jpg" width="100%" alt="" title="" /></a>
+                                <div class="flex-caption">
+                                    <img src="assets/images/dollar.png" width="77" alt="">
+                                    <div class="caption_title_line">
+                                        <h3 class="v-text-primary">Want to save even more on your insurance?</h3>
+                                    </div>
+                                    <div class="caption-subtitle">
+                                        <h4 class="v-text-secondary-tint">Of course you do.</h4>
+                                        <p>We make your hard-earned money work hard for you with discounts that pack a punch</p>
+                                    </div>
+                                </div>
+                            </li>-->
+                            <li>
+                                <a href="#"><img src="assets/images/slider/slide2.jpg" width="100%" alt="" title=""></a>
+                                <div class="flex-caption">
+                                    <img src="assets/images/dollar.png" width="77" alt="">
+                                    <div class="caption_title_line">
+                                        <h3 class="v-text-primary">Want to save even more on your insurance?</h3>
+                                    </div>
+                                    <div class="caption-subtitle">
+                                        <h4 class="v-text-secondary-tint">Of course you do.</h4>
+                                        <p>We Make your hard-earned money work hard for you with discounts that pack a punch</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#"><img src="assets/images/slider/slide3.jpg" width="100%" alt="" title=""></a>
+                                <div class="flex-caption">
+                                    <img src="assets/images/dollar.png" width="77" alt="">
+                                    <div class="caption_title_line">
+                                        <h3 class="v-text-primary">Want to save even more on your insurance?</h3>
+                                    </div>
+                                    <div class="caption-subtitle">
+                                        <h4 class="v-text-secondary-tint">Of course you do.</h4>
+                                        <p>We Make your hard-earned money work hard for you with discounts that pack a punch</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#"><img src="assets/images/slider/slide4.jpg" width="100%" alt="" title=""></a>
+                                <div class="flex-caption">
+                                    <img src="assets/images/dollar.png" width="77" alt="">
+                                    <div class="caption_title_line">
+                                        <h3 class="v-text-primary">Want to save even more on your insurance?</h3>
+                                    </div>
+                                    <div class="caption-subtitle">
+                                        <h4 class="v-text-secondary-tint">Of course you do.</h4>
+                                        <p>We Make your hard-earned money work hard for you with discounts that pack a punch</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 v-bg-secondary-tint v-bdr-bottom-secondary-shade">
+                <div class="row">
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        <div class="row vam-PTB20">
+    <div class="col-md-3 col-sm-4 col-xs-12 vam-PR15 vam-RPR15 vam-ML15">
+        <select ng-model="selectedIndexOption" required="" class="form-control vam-height35 vam-width-100P ng-pristine ng-untouched ng-valid ng-valid-required" onmousedown="$(this).focus()" ng-change="selectedOptionChagne(selectedIndexOption)">
+            <!-- ngRepeat: indexOption in indexOptions --><option class="dropdown ng-binding ng-scope" ng-repeat="indexOption in indexOptions" value="Customer Account Name">Customer Account Name</option><!-- end ngRepeat: indexOption in indexOptions --><option class="dropdown ng-binding ng-scope" ng-repeat="indexOption in indexOptions" value="Quote ID">Quote ID</option><!-- end ngRepeat: indexOption in indexOptions -->
+        </select>
+
+    </div>
+    <!--novalidate for stoping browsing event-->
+    <form novalidate="" class="searchform ng-pristine ng-invalid ng-invalid-required ng-valid-maxlength">
+        <div class="col-md-6 col-sm-6 col-xs-12 vam-PL0 vam-RPL15 vam-RXSMT15">
+            <input type="text" maxlength="50" id="txtIndexSearch" required="" alt="Please provide a Customer Account Name" class="form-control vam-width-100P vam-MLN1 vam-height35 ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-maxlength" placeholder="Search By Customer Account Name" ng-model="searchText">
+
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-12 vam-RXSMT15">
+            <button type="submit" class="btn btn-success" ng-click="search(selectedIndexOption,searchText)">Search</button>
+        </div>
+    </form>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Body Content-->
+        <div class="row">
+            <div class="col-md-12 vam-display-table vam-display-block-Mob vam-Content-MH vam-PR0">
+                <div class="row vam-display-tablerow vam-display-tablerow-r">
+                    <!--/////////////////////left-Start-Here/////////////////////-->
+
+                    <!-- ngIf: $root.userContext.DfRole == 'Underwriter' && $root.quoteflow == false -->
+                    <!--<recent-quotes></recent-quotes>-->
+                    <!-- ngIf: $root.quoteflow == true --><div ng-if="$root.quoteflow == true" class="ng-scope">
+                        <div class="col-md-9 col-sm-9 col-xs-12 vam-display-tablecell vam-width-96P ng-isolate-scope">
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 vam-PLR0 vam-MobPR0 vam-RPL15 db-row">
+            <div class="page-header vam-MT20 vam-MB10">
+                <h1 class="line">Recent Quotes<span></span></h1>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="v-bg-teritary-tint v-text-white">
+                        <tr>
+                            <!--<th>First Named Insured</th>-->
+                            <th>Customer Account Name</th>
+                            <th>Product</th>
+                            <th>Quote ID</th>
+
+                            <th>Policy Effective - Expiration Date</th>
+                            <!--<th ng-show="ShowAgentName()">Agent Name</th>-->
+                            <th>Premium</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr class="v-bg-white">
+                            <td colspan="7">
+                                <a class="pull-right" ui-sref="quotes" href="/quotes">View All</a>
+                            </td>
+                        </tr>
+                        <!-- ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope" style="">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011623</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/19/2025 - 9/19/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018357" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018357" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018357" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011622</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/19/2025 - 9/19/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018356" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018356" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018356" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011621</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/19/2025 - 9/19/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018355" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018355" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018355" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011620</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/19/2025 - 9/19/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018354" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018354" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018354" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011619</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/19/2025 - 9/19/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Created</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018353" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018353" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018353" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011618</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/18/2025 - 9/18/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018352" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018352" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018352" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011617</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/18/2025 - 9/18/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018351" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018351" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018351" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011616</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/18/2025 - 9/18/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018350" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018350" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018350" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011615</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/18/2025 - 9/18/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018349" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018349" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018349" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes --><tr ng-repeat="recentQuote in recentQuotes" class="ng-scope">
+
+                            <td><span class="vam-display-block ng-binding">Hospital for Special Surgery - Radiology</span></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">Commercial Automobile</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">QCA011614</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <td><!-- ngRepeat: Lob in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-binding ng-scope" ng-repeat="Lob in recentQuote.OfferBlockSummary">9/18/2025 - 9/18/2026</span><!-- end ngRepeat: Lob in recentQuote.OfferBlockSummary --></td>
+                            <!--<td ng-show="ShowAgentName()">{{recentQuote.AgentName}}</td>-->
+                            <td>
+                                <!-- ngRepeat: obs in recentQuote.OfferBlockSummary --><span class="vam-display-block ng-scope" ng-repeat="obs in recentQuote.OfferBlockSummary">
+                                    <!-- ngIf: obs.IsRated -->
+                                    <!-- ngIf: obs.IsRated==false --><span ng-if="obs.IsRated==false" class="ng-scope"> -- </span><!-- end ngIf: obs.IsRated==false -->
+                                </span><!-- end ngRepeat: obs in recentQuote.OfferBlockSummary -->
+                            </td>
+                            <td>
+                                <span class="vam-display-block ng-binding">Quote Incomplete</span>
+                            </td>
+                            <td class="text-center vam-pos-relative vam-display-block">
+                                <a class="vam-table-tdArrow" href="#" id="QLOB018348" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true" popover="" data-original-title="" title=""><i class="fa fa-chevron-right"></i></a>
+                                <div id="popover-content" style="display:none;">
+                                    <ul id="ddmQLOB018348" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedTo != null &amp;&amp; GENERAL_CONFIG.MechanismType == P)) &amp;&amp;((recentQuote.Status |lowercase) != (status |lowercase)||(recentQuote.Status |lowercase) != (declinedStatus |lowercase)||(recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))" class="">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.editProceedQuote">Proceed to Quote </a>
+                                            <a class="btn btn-success vam-width-100P ng-hide" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName,recentQuote.Status,recentQuote.CurrentlyAssignedUserName)" ng-show="recentQuote.isCreateVersionBtnShow">View Versions</a>
+                                            <!--<a class="btn btn-success vam-width-100P" ng-mousedown="EditClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.Status,recentQuote.DealCode,recentQuote.AccountId)" ng-show="recentQuote.OfferCount<=1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) && (recentQuote.Status |lowercase) != (rejectedStatus |lowercase)&& (recentQuote.Status |lowercase) != (applicationdeclinedStatus |lowercase))">Proceed to Quote </a>
+        <a class="btn btn-success vam-width-100P" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount>1 &&((recentQuote.Status |lowercase) != (declinedStatus |lowercase) || (recentQuote.Status |lowercase) != (rejectedStatus |lowercase))">View Versions</a>-->
+                                        </li>
+                                        <li class="divider vam-dividerMar"></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.OfferCount==1"><i class="fa fa-plus-circle "></i> View Versions</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OnViewVersionClick(recentQuote.DealID, recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.editProceedQuote&amp;&amp;recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> View Versions</a></li>
+                                        <!--<li><a class="vam-PL10" ng-mousedown="modelClick(recentQuote.DealID,recentQuote.DealCode,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCreateVersionShow"><i class="fa fa-plus-circle "></i> Create New Version</a></li>-->
+                                        <li><a class="vam-PL10" ng-mousedown="OpenCopyQuoteClick(recentQuote.DealID,recentQuote.OfferBlockSummary[0].LobName)" ng-show="recentQuote.isCopyQuoteShow"><i class="fa fa-files-o" aria-hidden="true"></i> Copy Quote</a></li>
+                                    </ul>
+                                    
+                                    <ul id="ddmQLOB018348" ng-show="recentQuote.showViewQuote" class="ng-hide">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <!--<ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName != null) && (recentQuote.CurrentlyAssignedUserName |lowercase) != (userName |lowercase))">                                        
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>
+                                    <ul id="ddm{{recentQuote.DealCode}}" ng-show="((recentQuote.CurrentlyAssignedUserName |lowercase) == (userName |lowercase) || (recentQuote.CurrentlyAssignedUserName == null && GENERAL_CONFIG.MechanismType == P)) &&((recentQuote.Status |lowercase) == ((status |lowercase))||(recentQuote.Status |lowercase) == (declinedStatus |lowercase)||(recentQuote.Status |lowercase) == (applicationdeclinedStatus |lowercase))">
+                                        <li class="vam-PLR10">
+                                            <a class="btn btn-success vam-width-100P" ng-mousedown="ViewClick(recentQuote.DealID,recentQuote.OfferID,recentQuote.OfferCode,recentQuote.CurrentlyAssignedUserName,recentQuote.DealCode,recentQuote.Status,recentQuote.AccountId)">View Quote</a>
+                                        </li>
+                                    </ul>-->
+                                </div>
+                            </td>
+                        </tr><!-- end ngRepeat: recentQuote in recentQuotes -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--<div modal title="Reassign Quote" visible="SuccessfullyReassignQuoteModal">
+            <h1>Quote has been Reassigned Successfully</h1>
+            </div>-->
+    </div>
+
+    <!-- ngIf: ReassignQuoteModal -->
+    <!--<div modal headertext="Create New Version" id="modalCopyVersion" saveclick="Save()">-->
+    <div class="modal fade in" data-backdrop="static" id="modalCopyVersion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header  v-bg-primary-shade"><button type="button" class="close" ng-click="CopyVersionCancel()" aria-hidden="true">×</button> <h3 class="v-text-white vam-display-inline ng-binding">Create New Version</h3></div>
+                <div class="row vam-MLR0">
+                    <div class="modal-body">
+                        <div class="row vam-MLR0">
+                            <div class="col-md-12">
+                                <div class="row vam-MTBLR0">
+                                    <div class="col-md-3 vam-MT5"><label>Choose Version</label></div>
+                                    <div class="col-md-3 vam-Mob-MT5">
+                                        <select class="wrapper-dropdown-3 ng-pristine ng-untouched ng-valid" style="white-space:nowrap" id="versionid" ng-model="selectedVersion" ng-change="onVersionChange()">
+                                            <option value="Select">Select</option>
+                                            <!-- ngRepeat: version in quotedescversions -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-right vam-TxtAlignLeftMob v-bdr-top-secondary-shade vam-PT15">
+                        <a class="vam-MR15" ng-click="CopyVersionCancel()">Cancel</a>
+                        <button type="button" class="btn btn-success" ng-click="saveQuoteVersion(offerId,dealid,dealcode)" title="">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div modal headertext="Copy Quote" id="modalCopyQuote" saveclick="Save()" selectedVersion="selectedVersion">-->
+    <div class="modal fade in" data-backdrop="static" id="modalCopyQuote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header  v-bg-primary-shade"><button type="button" class="close" ng-click="CopyQuoteCancel()" aria-hidden="true">×</button> <h3 class="v-text-white vam-display-inline ng-binding">Copy Quote</h3></div>
+                <div class="modal-body">
+                    <div class="row vam-MLR0">
+                        <div class="col-md-12">
+                            <div class="row vam-MTBLR0">
+                                <div class="col-md-3 vam-MT5"><label>Choose Version</label></div>
+                                <div class="col-md-3 vam-Mob-MT5">
+
+                                    <div>
+                                        <select class="wrapper-dropdown-3 ng-pristine ng-untouched ng-valid" style="white-space:nowrap" id="copyquoteid" ng-model="selectedVersion" ng-change="onVersionChange()">
+                                            <option value="Select">Select</option>
+                                            <!-- ngRepeat: version in quotedescversions -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer text-right vam-TxtAlignLeftMob v-bdr-top-secondary-shade vam-PT15">
+                    <a class="vam-MR15" ng-click="CopyQuoteCancel()">Cancel</a>
+                    <button type="button" class="btn btn-success" ng-click="CopyQuote()">Copy</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                    </div><!-- end ngIf: $root.quoteflow == true -->
+
+                    <!-- ngIf: $root.userContext.DfRole == 'Agent' && $root.quoteflow == false -->
+                   
+                    <!--/////////////////////Right-Start-Here/////////////////////-->
+                    <div class="col-md-3 col-sm-3 col-xs-12 vam-inner-right vam-display-tablecell vam-float-none v-bg-primary-shade">
+                        <div class="row v-bg-primary vam-link quote_head ng-isolate-scope">
+    <div class="col-md-6 col-sm-6 col-xs-6 vam-PLR0" ng-show="$root.IsNBExist">
+        <a ng-click="navigateToMultiQuote()" class="ng-binding"><span><img src="assets/images/new-quote1.svg" alt="" height="40" width="40"></span>New Quote</a>
+    </div>
+    <!--<div class="col-md-6 col-sm-6 col-xs-6" ng-show="$root.ListOfPNBTransactions.length>0">
+        <a ng-click="CustomerAndPolicySearch()"><span><img src="assets/images/endorsy-policy.png" alt=""></span>Service Policy</a>
+    </div>-->
+    <div class="col-md-6 col-sm-6 col-xs-6 ng-hide" ng-show="false">
+        <a data-toggle="modal" data-target="#myModal2"><span><img src="assets/images/upload.png" alt=""></span>Upload ACORD</a>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6 ng-hide" ng-show="showCliams()" style="display:none">
+        <a ng-click="StartClaim()"><span><img src="assets/images/claim.png" alt="" class="vam-PL5"></span>Start a Claim</a>
+    </div>
+</div>
+                        <!--<quick-links></quick-links>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // Body Content Bottom-->
+    </div>
+
+</div>
+
+    <!--  Accord Update Model-->
+<div class="modal fade ng-scope" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header v-bg-primary-shade">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="v-text-white vam-display-inline">Upload Acord</h3>
+        </div>
+        <div class="modal-body vam-PT0 vam-PB0">
+
+            <div class="row">
+
+                <div class="col-md-10 vam-MT20 vam-MB25">
+                    <h5 class="vam-MB10">Upload File</h5>
+                    <!-- image-preview-filename input [CUT FROM HERE]-->
+                    <div class="input-group image-preview" data-original-title="" title="">
+                        <input class="form-control image-preview-filename vam-height35" type="text">
+                        <!-- don't give a name === doesn't send on POST/GET -->
+                        <span class="input-group-btn">
+                            <!-- image-preview-clear button -->
+                            <!--<button type="button" class="btn btn-primary image-preview-clear" style="display:none;"> <span class="fa fa-times"></span> Clear </button>-->
+                            <!-- image-preview-input -->
+                            <div class="btn btn-blue image-preview-input">
+                                <span class="fa fa-folder-open"></span> <span class="image-preview-input-title">Browse</span>
+                                <input type="file" file-model="myFile">
+                                <!-- rename it -->
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="modal-footer text-right vam-TxtAlignLeftMob v-bdr-top-secondary-shade vam-PT15">
+                <a href="#" class="vam-MR15" data-dismiss="modal">Cancel</a>
+                <button type="button" class="btn btn-success" ng-click="OnAccordUploadClick();" data-dismiss="modal">Upload</button>
+            </div>
+
+
+       
+
+        <!--Modal-body-EndHere-->
+    </div>
+    <!--Modal-Content-EndHere-->
+</div>
+</div>
+
+
+</div>
+        <div class="row v-bg-teritary">
+        <div class="col-md-12 text-center vam-PTB10 vam-footer">© 2021 ValueMomentum. All Rights Reserved</div>
+</div>
+    </div></div>
+
+    
+
+    
+    <!--<chat-view></chat-view>-->
+    <!--Jquery references-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/jquery.mmenu.min.all.js"></script>
+    <script src="assets/js/jquery.flexslider-min.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!--AngularJs  references-->
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-ui-router@0.2.8.min.js"></script>
+    <script src="assets/js/angular-animate.min.js"></script>
+    <script src="assets/js/angular-toastr.tpls@2.1.1.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/angular-datepicker.min.js"></script>
+    <script src="assets/js/angular-sanitize.min.js"></script>
+    <script src="assets/js/angular-ui-utils.min.js"></script>
+    <script src="assets/js/ui-bootstrap-tpls.min.js"></script>
+
+    <script src="assets/js/lodash.min.js"></script>
+    <script src="assets/js/re-tree.js"></script>
+    <script src="assets/js/ng-device-detector.min.js"></script>
+    <script src="assets/js/ng-map.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/datetimepicker.min.js"></script>
+    <!--<script src="assets/js/socket.io.js"></script>-->
+    <!--reports module dependencies-->
+    <script src="assets/js/chart@2.4.0.min.js"></script>
+    <script src="assets/js/exceljs.min.js"></script>
+    <script src="assets/js/FileSaver.min.js"></script>
+    <script src="assets/js/pdfmake.min.js"></script>
+    <script src="assets/js/vfs_fonts.js"></script>
+
+    <script src="assets/js/oidc-client.min.js"></script>
+    <script src="assets/js/plugin-easy-responsive-tabs.min.js"></script>
+    <script src="assets/js/common-script.js"></script>
+    <script src="assets/js/aes.js"></script>
+
+    <!--app modules-->
+    <script src="Services/TokenService.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/components/reports/reports.module.js"></script>
+
+    <!--identity-server-->
+    <script src="assets/identity-server/identity-server.js"></script>
+
+    <!--socket client-->
+    <!--<script src="assets/js/socket-client.js"></script>-->
+    <!--app dependencies-->
+    <script src="app/app.module.routing.js"></script>
+    <script src="app/app.module.config.js"></script>
+    <script src="app/app.module.service.js"></script>
+    <script src="app/app.module.filter.js"></script>
+    <!--directives-->
+    <!--shared-->
+    <script src="app/shared/shared-directive/shared.directive.js"></script>
+    <script src="app/shared/autocomplete/autocomplete.directive.js"></script>
+    <script src="app/shared/file-model/file-model.directive.js"></script>
+    <script src="app/shared/pagination/pagination.directive.js"></script>
+    <script src="app/shared/reassignmodal/reassignmodal.directive.js"></script>
+
+    <!--common-->
+    <script src="app/common/appetite-guide/appetite-guide.directive.js"></script>
+    <!--<script src="app/common/chat-view/chat-view.directive.js"></script>-->
+    <script src="app/common/notifications/notifications.directive.js"></script>
+    <script src="app/common/nav-bar/nav-bar.directive.js"></script>
+    <script src="app/common/profile-preferences/profile-preferences.directive.js"></script>
+
+    <!--app-->
+    <script src="app/app.directive.js"></script>
+
+    <!--home-->
+    <script src="app/components/home/right-panel/right-panel.directive.js"></script>
+    <script src="app/components/home/recent-quotes/recent-quotes.directive.js"></script>
+    <script src="app/components/home/reassign-quote/reassign-quote.directive.js"></script>
+
+    <!--accounts-->
+    <script src="app/components/accounts/account-details/account-details.directive.js"></script>
+    <script src="app/components/accounts/account-name-search/account-name-search.directive.js"></script>
+    <script src="app/components/accounts/advanced-search/advanced-search.directive.js"></script>
+    <script src="app/components/accounts/customer-accounts/customer-accounts.directive.js"></script>
+    <script src="app/components/accounts/customer-detail/customer-detail.directive.js"></script>
+    <script src="app/components/accounts/lob-contents/lob-contents.directive.js"></script>
+
+    <!--policies-->
+    <script src="app/components/policies/policies/policies.directive.js"></script>
+    <script src="app/components/policies/policy-activity/policy-activity.directive.js"></script>
+    <script src="app/components/policies/policy-details/policy-details.directive.js"></script>
+
+    <!--claims-->
+    <script src="app/components/claims/claims-details/claims-details.directive.js"></script>
+    <script src="app/components/claims/view-claim/view-claim.directive.js"></script>
+
+    <!--quotes-->
+    <script src="app/components/quotes/basic-quote-search/basic-quote-search.directive.js"></script>
+    <script src="app/components/quotes/customer-policy-search/customer-policy-search.directive.js"></script>
+    <script src="app/components/quotes/portfolio/portfolio.directive.js"></script>
+
+    <!--reports-->
+    <script src="app/components/reports/quote/quote.controller.js"></script>
+    <script src="app/components/reports/commission/commission.controller.js"></script>
+
+    <!--submission-->
+    <script src="app/components/submissions/submission-information/submission-information.directive.js"></script>
+    <script src="app/components/home/recent-submissions/recent-submissions.directive.js"></script>
+    <script src="app/components/submissions/submission-summary/submission-summary.directive.js"></script>
+    <script src="app/components/submissions/submission-version/submission-version.directive.js"></script>
+    <script src="app/components/submissions/submission-products/submission-products.directive.js"></script>
+    <script src="app/components/submissions/submission-portfolio/submission-portfolio.directive.js"></script>
+    <script src="app/components/submissions/submission-search/submission-search.directive.js"></script>
+    <!--need to load at the end due to module dependency-->
+    <script src="app/shared/multiselect-dropdown/multiselect.dropdown.directive.js"></script>
+    <!--<script src="assets/js/common-script.js"></script>-->
+
+<div id="mm-blocker" class="mm-slideout"></div><div class="row vam-header vam-ML0 mm-slideout">
+            <div class="ng-isolate-scope">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!-- // Top Header-->
+
+
+        <div class="row hidden-lg hidden-md hidden-sm icon-search vam-display-none">
+
+            <div class="form-group has-feedback vam-MB0">
+                <!--<input type="text" class="form-control" placeholder="Search">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>-->
+            </div>
+
+        </div>
+
+        <!-- // Logo Header-->
+        <div class="row v-bg-primary">
+            <div class="col-md-6 col-sm-5 col-xs-6 vam-top-logo vam-PL0">
+                <!--<div class="col-md-6 col-sm-5 col-xs-6 vam-top-logo vam-PL10">-->
+                <a id="hamburger" href="#menu" class="nav-icon" style="height:60px"><span></span> </a>
+                <a ng-click="onAcmeClick()" class="logo"><img id="logo" src="../assets/images/McKeelogo2.png">
+                    </a><span class="hidden-xs logo-caption ng-binding" ng-bind="::producerCompanyName"></span><!--Tyrell Agency Inc.-->
+            </div>
+            <div class="col-md-6 col-sm-7 col-xs-6 vam-PLR0">
+                <ul class="vam-right-login pull-right">
+                    <!--<li class="hidden-lg hidden-md hidden-sm"><a href="#" class="vam-profile-user"></a></li>-->
+                    <li class="user hidden-xs">
+                        Welcome
+                        <span ng-bind="::displayName" style="text-transform:capitalize" class="ng-binding">Ravi teja</span>
+                        <br>
+                        <small ng-show="lastlogin" class="">
+                            Last Login :
+                            <span ng-bind="::lastlogin" class="ng-binding">9/19/2025 6:41:02 AM </span>
+                        </small>
+                    </li>
+                    <!--<li>
+                        <a href="#" class="icon-search-img">
+                            <span class="flaticon-search icon"></span>
+                        </a>
+                    </li>-->
+                    <!-- ngIf: $root.contentType.type=='NONISO' --><li ng-if="$root.contentType.type=='NONISO'" style="display:none" class="ng-scope">
+                        <a href="" data-toggle="modal" data-target=".bs-example-modal-lg">
+                            <span class="flaticon-social icon vam-pos-relative"><span class="badge vam-pos-absolute notification"></span></span>
+                        </a>
+                    </li><!-- end ngIf: $root.contentType.type=='NONISO' -->
+                    <!--<li>
+                        <a class="vam-notification" ng-click="openNotificationWindow()">
+                            <span class="flaticon-notifications-button icon vam-pos-relative">
+                                <span class="badge vam-pos-absolute notification" ng-bind="notificationsCount" ng-show="notificationsCount>0"></span>
+                            </span>
+                        </a>
+                    </li>-->
+                    <li>
+                        <a ng-click="navProfilePreferences()" class="user-setting">
+                            <span><img src="assets/images/profile-preference1.svg" alt="profile" height="24" width="24"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="logOut()">
+                            <span class="flaticon-logout icon"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row vam-MR0 icon-search vam-display-none" style="display:none;">
+            <div class="col-md-12 vam-PTB10">
+                <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control vam-bdr-none" placeholder="Search">
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="flaticon-search icon"></span>
+                        </button>
+                    </span>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!-- // PROFILE-->
+        <div class="vam-bg0070d2 vam-profile vam-profile-top vam-display-none hidden-lg hidden-md hidden-sm">
+            <h3 class="white">Your Agent</h3>
+            <img src="../assets/images/profile.png" width="150" height="auto" class="img-circle" alt="profile">
+            <h3 class="yellow">Gordon Whitfield</h3>
+            <span>
+                #3719, Dauphin Street Mobile,<br>
+                AL(Alabama) 36608 <br>
+                Mob : (28) 2284-1727
+            </span>
+            <ul>
+                <li><a href="javascript:void();" class="chat"><img src="../assets/images/chat.png" width="32" height="28" alt="">Chat with Gordon</a></li>
+                <li><a href="#" class="phone"><img src="../assets/images/phone.png" width="28" height="28" alt="">Get a Call Back</a></li>
+                <li><a href="#" class="message"><img src="../assets/images/message.png" width="32" height="22" alt="">Send an Email</a></li>
+            </ul>
+            <!--// CHATTING
+            <div class="vam-chatting vam-display-none">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-8">Gordon Whitfield Joined</div>
+                            <div class="col-md-4">
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn vam-btn-black btn-xs dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-chevron-down"></span> </button>
+                                    <ul class="dropdown-menu slidedown">
+                                        <li><a href="#"><span class="glyphicon glyphicon-refresh"> </span>Refresh</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-ok-sign"> </span>Available</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-remove"> </span>Busy</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-time"></span> Away</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-off"></span> Sign Out</a></li>
+                                    </ul>
+                                    <button type="button" class="btn vam-btn-black btn-xs vam-chat-close vam-ML2"> <span class="glyphicon glyphicon-remove"></span> </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="vam-chat">
+                            <li class="left clearfix">
+                                <span class="pull-left"> <img src="../assets/images/profile.jpg" alt="User Avatar" class="img-circle" /> </span>
+                                <div class="vam-chat-body clearfix">
+                                    <div class="header">
+                                        <div class="name">
+                                            <strong class="name">Jack Sparrow</strong> <br>
+                                            <small class="text-muted">12 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                        dolor, quis ullamcorper ligula sodales.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="right clearfix">
+                                <span class="vam-chat-img pull-right"> <img src="../assets/images/profile.png" alt="User Avatar" class="img-circle" /> </span>
+                                <div class="vam-chat-body clearfix">
+                                    <div class="header">
+                                        <div class="name">
+                                            <strong class="name">Jack Sparrow</strong> <br>
+                                            <small class="text-muted">12 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                        dolor, quis ullamcorper ligula sodales.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="left clearfix">
+                                <span class="pull-left"> <img src="../assets/images/profile.jpg" alt="User Avatar" class="img-circle" /> </span>
+                                <div class="vam-chat-body clearfix">
+                                    <div class="header">
+                                        <div class="name">
+                                            <strong class="name">Jack Sparrow</strong> <br>
+                                            <small class="text-muted">12 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                        dolor, quis ullamcorper ligula sodales.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="right clearfix">
+                                <span class="vam-chat-img pull-right"> <img src="../assets/images/profile.png" alt="User Avatar" class="img-circle" /> </span>
+                                <div class="vam-chat-body clearfix">
+                                    <div class="header">
+                                        <div class="name">
+                                            <strong class="name">Jack Sparrow</strong> <br>
+                                            <small class="text-muted">12 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                        dolor, quis ullamcorper ligula sodales.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-sm" id="btn-chat"> Send</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--CHATTING -->
+            <!--// MESSAGE -->
+            <div class="vam-message vam-display-none">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-8">Gordon Whitfield</div>
+                            <div class="col-md-4">
+                                <div class="btn-group pull-right">
+                                    <button type="button" class="btn vam-btn-black btn-xs vam-message-close vam-ML2">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <textarea placeholder="Type here..."></textarea>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-sm" id="btn-chat">
+                                    Send Email
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--MESSAGE //-->
+
+
+        </div>
+        <!--PROFILE //-->
+        <!--// TIMELINE -->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 ng-isolate-scope ng-hide" ng-show="loadNotifications">
+    <div class="vam-timeline">
+        <div class=" row vam-MB25">
+            <div class="col-md-6 col-sm-6 col-xs-12"><h1 class="vam-MB15">Notification <span></span></h1></div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <ul class="vam-notificationCategory">
+                    <li><a class="vam-pos-relative" id="all" ng-click="allNotifications()">All</a></li>
+                    <!--<li><a class="vam-pos-relative" id="reminder" ng-click="onlyReminder()"><i class="fa fa-bell-o"></i></a></li>
+                    <li><a class="vam-pos-relative" id="recomendation" ng-click="onlyRecommendation()"><i class="fa fa-commenting"></i></a></li>
+                    <li><a class="vam-pos-relative" id="bday" ng-click="onlyBirthday()"><i class="fa fa-birthday-cake"></i></a></li>
+                    <li><a class="vam-pos-relative" id="info" ng-click="onlyInformation()"><i class="fa fa-car"></i></a></li>-->
+                </ul>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row vam-bdr-bottomededed vam-PTB15 vam-pos-relative col-md-12 vam-MT10 ng-hide" ng-show="hasRecords">
+            <p></p><h4><b>No Notifications to display!</b></h4><p></p>
+        </div>
+        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 86%;"><div class="vam-timeline-content ng-hide" ng-show="$root.webNotifications.length &gt; 0 " style="overflow: hidden; width: auto; height: 86%;">
+            <ul class="timeline">
+                <!-- ngRepeat: details in $root.webNotifications|limitTo:nPageSize|likeFilterOr:{Context:['DocuSign','Reminder','Greetings','Recommendations','ClaimFiling','RequestCallBack']} -->
+            </ul>
+            <div class="text-center"><button class="btn btn-success btn-show-timeline ng-binding" ng-click="ShowHide()" ng-bind="buttonName">Older</button></div>
+        </div><div class="slimScrollBar" style="background: rgb(196, 196, 196); width: 5px; position: absolute; top: 0px; opacity: 0.8; display: none; border-radius: 4px; z-index: 99; right: 0px; height: 528px;"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 4px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 0px;"></div></div>
+    </div>
+    <div ng-controller="detectorcontrol" class="ng-scope">
+    </div>
+</div>
+        </div>
+
+        <!--<div class="row">
+
+        </div>-->
+        <!-- TIMELINE //-->
+    </div>
+
+</div>
+        </div><iframe src="https://mk-bd-dev-idserverapp.azurewebsites.net/connect/checksession" style="visibility: hidden; position: absolute; display: none; width: 0px; height: 0px;"></iframe></body></html>

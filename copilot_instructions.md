@@ -1,7 +1,7 @@
 # Playwright Test Suite Implementation Guide
 
 ## Overview
-This document provides comprehensive instructions for implementing Playwright test suites following the patterns established in the customer portal test suite. The implementation includes advanced DOM capture, robust error handling, and enterprise-grade test automation practices.
+This document provides comprehensive instructions for implementing Playwright test suites following the patterns established in the customer portal test suite. The implementation includes advanced DOM capture, robust error handling, and enterprise-grade test automation practices with recent TypeScript improvements and flexible parameter handling.
 
 ## Table of Contents
 1. [Project Structure](#project-structure)
@@ -21,6 +21,8 @@ This document provides comprehensive instructions for implementing Playwright te
 15. [Retry and Resilience Patterns](#retry-and-resilience-patterns)
 16. [Result Tracking and Reporting](#result-tracking-and-reporting)
 17. [Screenshot and Accessibility Testing](#screenshot-and-accessibility-testing)
+18. [TypeScript Best Practices](#typescript-best-practices)
+19. [Locator vs String Selector Patterns](#locator-vs-string-selector-patterns)
 
 ## Project Structure
 
@@ -43,6 +45,274 @@ tests/
 config/
 ├── config.json                 # Application configuration
 └── playwright.config.ts        # Playwright configuration
+```
+
+## Project Structure
+
+```
+tests/
+├── test-suite.spec.ts          # Main test suite file
+├── pages/                      # Page Object classes
+│   ├── BasePage.ts
+│   ├── LoginPage.ts
+│   ├── HomePage.ts
+│   ├── AccountsPage.ts
+│   ├── QuotesPage.ts
+│   └── ...
+├── utils/
+│   └── reporter.ts             # Test reporting utilities
+├── dom-captures/               # DOM capture storage (auto-created)
+├── test-results/               # Test execution results
+└── playwright-report/          # Playwright HTML reports
+
+config/
+├── config.json                 # Application configuration
+└── playwright.config.ts        # Playwright configuration
+```
+
+## Package Dependencies and Installation
+
+### Core Dependencies
+
+The following packages are required for the Playwright test suite:
+
+#### **@playwright/test** (^1.55.0)
+- **Purpose**: Main Playwright testing framework
+- **Features**: Browser automation, test runner, assertions, fixtures
+- **Installation**: `npm install --save-dev @playwright/test`
+
+#### **@types/node** (^24.3.0)
+- **Purpose**: TypeScript type definitions for Node.js
+- **Features**: Type safety for Node.js APIs (fs, path, etc.)
+- **Installation**: `npm install --save-dev @types/node`
+
+#### **typescript** (^5.9.2)
+- **Purpose**: TypeScript compiler and language support
+- **Features**: Static typing, modern JavaScript features, compilation
+- **Installation**: `npm install --save-dev typescript`
+
+#### **open** (^10.2.0)
+- **Purpose**: Cross-platform utility to open files/URLs in default applications
+- **Features**: Used for opening generated reports automatically
+- **Installation**: `npm install --save-dev open`
+
+### Installation Commands
+
+#### **Complete Setup (Recommended)**
+```bash
+# Initialize npm project (if not already done)
+npm init -y
+
+# Install all required dependencies
+npm install --save-dev @playwright/test@^1.55.0 @types/node@^24.3.0 typescript@^5.9.2 open@^10.2.0
+
+# Install Playwright browsers
+npx playwright install
+
+# Optional: Install additional browsers
+npx playwright install chromium firefox webkit
+```
+
+#### **Individual Package Installation**
+```bash
+# Core testing framework
+npm install --save-dev @playwright/test
+
+# TypeScript support
+npm install --save-dev typescript @types/node
+
+# Utility packages
+npm install --save-dev open
+```
+
+### Browser Installation
+
+Playwright requires browser binaries to run tests:
+
+```bash
+# Install default browsers (Chromium, Firefox, WebKit)
+npx playwright install
+
+# Install specific browsers
+npx playwright install chromium
+npx playwright install firefox
+npx playwright install webkit
+
+# Install system dependencies (Linux only)
+npx playwright install-deps
+```
+
+### Package.json Configuration
+
+Your `package.json` should include these devDependencies:
+
+```json
+{
+  "name": "mcp-playwright",
+  "version": "1.0.0",
+  "description": "Playwright test automation suite",
+  "main": "index.js",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.3.0",
+    "open": "^10.2.0",
+    "typescript": "^5.9.2"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "install:browsers": "playwright install"
+  }
+}
+```
+
+### TypeScript Configuration
+
+Ensure your `tsconfig.json` includes proper settings:
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "commonjs",
+    "lib": ["es2021", "dom"],
+    "rootDir": ".",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": ["tests/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+```
+
+### Verification Commands
+
+After installation, verify everything is working:
+
+```bash
+# Check Playwright installation
+npx playwright --version
+
+# Check TypeScript compilation
+npx tsc --version
+
+# Run a simple test to verify setup
+npx playwright test --list
+
+# Check installed browsers
+npx playwright install --list
+```
+
+### Optional Packages (Based on Project Needs)
+
+#### **For Enhanced Reporting**
+```bash
+# Chart.js for advanced visualizations (used in custom reporter)
+npm install --save-dev chart.js @types/chart.js
+
+# Additional reporting libraries
+npm install --save-dev allure-playwright
+```
+
+#### **For CI/CD Integration**
+```bash
+# GitHub Actions support
+npm install --save-dev @actions/core @actions/github
+
+# Docker support
+npm install --save-dev dockerode
+```
+
+#### **For Advanced Testing Features**
+```bash
+# Visual regression testing
+npm install --save-dev @playwright/test-visual-regression
+
+# API testing utilities
+npm install --save-dev axios @types/axios
+
+# Test data management
+npm install --save-dev faker @types/faker
+```
+
+### Troubleshooting Installation Issues
+
+#### **Common Issues and Solutions**
+
+1. **Browser Installation Fails**
+   ```bash
+   # Clear browser cache and reinstall
+   npx playwright uninstall
+   npx playwright install
+   ```
+
+2. **TypeScript Compilation Errors**
+   ```bash
+   # Clear TypeScript cache
+   npx tsc --build --clean
+   npx tsc
+   ```
+
+3. **Permission Issues (Linux/Mac)**
+   ```bash
+   # Install system dependencies
+   npx playwright install-deps
+   ```
+
+4. **Node.js Version Issues**
+   ```bash
+   # Check Node.js version (requires Node 16+)
+   node --version
+   npm --version
+   ```
+
+### Environment Setup Checklist
+
+- [ ] Node.js 16+ installed
+- [ ] npm or yarn package manager
+- [ ] Git for version control
+- [ ] VS Code or preferred IDE with TypeScript support
+- [ ] All required packages installed
+- [ ] Playwright browsers installed
+- [ ] TypeScript configuration verified
+- [ ] Test project structure created
+- [ ] Initial test file created and runnable
+
+### Package Maintenance
+
+#### **Updating Packages**
+```bash
+# Update all packages
+npm update
+
+# Update specific package
+npm update @playwright/test
+
+# Check for outdated packages
+npm outdated
+
+# Update to latest major versions (use with caution)
+npm install --save-dev @playwright/test@latest
+```
+
+#### **Security Audits**
+```bash
+# Check for security vulnerabilities
+npm audit
+
+# Fix security issues automatically
+npm audit fix
+
+# Fix breaking changes (use with caution)
+npm audit fix --force
 ```
 
 ## Import Organization
@@ -284,20 +554,66 @@ const TEST_DATA = {
 
 ## Page Object Pattern
 
-### Base Page Object
+### Enhanced Base Page with Flexible Parameters
 
 ```typescript
 export class BasePage {
-  constructor(protected page: Page) {}
+    protected page: Page;
 
-  async waitForPageLoad(): Promise<void> {
-    await this.page.waitForLoadState('networkidle');
-  }
+    constructor(page: Page) {
+        this.page = page;
+    }
 
-  async navigateTo(url: string): Promise<void> {
-    await this.page.goto(url);
-    await this.waitForPageLoad();
-  }
+    /**
+     * Wait for page load and network idle
+     */
+    async waitForPageReady() {
+        console.log('Waiting for page to be ready...');
+        await this.page.waitForLoadState('networkidle');
+        console.log('Page is ready');
+    }
+
+    /**
+     * Wait for element to be visible and clickable - supports both string and Locator
+     */
+    async waitForElement(selector: string | Locator, options?: { timeout?: number, message?: string }) {
+        const timeout = options?.timeout || 10000;
+        const message = options?.message || `Waiting for element`;
+        console.log(message);
+        
+        if (typeof selector === 'string') {
+            await this.page.waitForSelector(selector, { state: 'visible', timeout });
+        } else {
+            await selector.waitFor({ state: 'visible', timeout });
+        }
+    }
+
+    /**
+     * Wait for URL to match exact or pattern
+     */
+    async waitForUrl(url: string | RegExp, options?: { timeout?: number }) {
+        const timeout = options?.timeout || 30000;
+        console.log(`Waiting for URL: ${url}`);
+        await this.page.waitForURL(url, { timeout });
+        console.log(`Successfully navigated to: ${this.page.url()}`);
+    }
+
+    /**
+     * Click element with retry logic - supports both string and Locator
+     */
+    async clickElement(selector: string | Locator, options?: { timeout?: number, message?: string }) {
+        const timeout = options?.timeout || 10000;
+        const message = options?.message || `Clicking element`;
+        console.log(message);
+        
+        await this.waitForElement(selector, { timeout });
+        
+        if (typeof selector === 'string') {
+            await this.page.click(selector);
+        } else {
+            await selector.click();
+        }
+    }
 }
 ```
 
@@ -659,6 +975,112 @@ const screenshotPath = path.join(this.captureDir, `${filename}.png`);
 await page.screenshot({ path: screenshotPath, fullPage: true });
 ```
 
+## TypeScript Best Practices
+
+### Type Safety in Page Objects
+
+```typescript
+// Use proper typing for page elements
+export class HomePage extends BasePage {
+    private searchTypeCombobox = this.page.locator('select.form-control');
+    private searchInput = this.page.getByRole('textbox', { name: /Search By/i });
+    private searchButton = this.page.getByRole('button', { name: /Search/i });
+    private resultsTable = this.page.getByRole('table');
+    
+    // Type method parameters properly
+    async changeSearchType(type: 'Customer Account Name' | 'Quote ID') {
+        console.log(`Changing search type to: ${type}`);
+        // Implementation...
+    }
+}
+```
+
+### Flexible Method Signatures
+
+```typescript
+// Support both string selectors and Locator objects for maximum flexibility
+async waitForElement(selector: string | Locator, options?: { timeout?: number, message?: string }) {
+    const timeout = options?.timeout || 10000;
+    const message = options?.message || `Waiting for element`;
+    
+    if (typeof selector === 'string') {
+        await this.page.waitForSelector(selector, { state: 'visible', timeout });
+    } else {
+        await selector.waitFor({ state: 'visible', timeout });
+    }
+}
+```
+
+### Proper Error Handling with Type Guards
+
+```typescript
+try {
+    // Test logic
+} catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    // Handle error appropriately
+    throw err;
+}
+```
+
+## Locator vs String Selector Patterns
+
+### When to Use Locator Objects
+
+```typescript
+// Preferred for semantic elements and complex selectors
+private searchInput = this.page.getByRole('textbox', { name: /Search By/i });
+private searchButton = this.page.getByRole('button', { name: /Search/i });
+private resultsTable = this.page.getByRole('table');
+
+// Use for dynamic content or when you need to chain operations
+const dynamicElement = this.page.locator('.dynamic-content').filter({ hasText: 'Specific Text' });
+```
+
+### When to Use String Selectors
+
+```typescript
+// Use for CSS selectors that don't change
+private hamburgerMenu = this.page.locator('#hamburger');
+private customerAccountsLink = this.page.getByRole('link', { name: 'Customer Accounts' });
+
+// Use for complex CSS/XPath selectors
+const complexSelector = '.form-group:has(label:has-text("Legal Entity")) .k-dropdown-wrap';
+```
+
+### Converting Between Types
+
+```typescript
+// Convert string to Locator when needed
+const selectorString = '#my-element';
+const locator = this.page.locator(selectorString);
+
+// Use in flexible methods
+await this.clickElement(selectorString); // Works with string
+await this.clickElement(locator);        // Works with Locator
+await this.clickElement(this.searchButton); // Works with predefined Locator
+```
+
+### Best Practices for Selector Choice
+
+1. **Use Locators for**:
+   - Semantic HTML elements (buttons, links, inputs)
+   - Dynamic content that needs filtering
+   - Elements identified by ARIA attributes
+   - Complex selection logic
+
+2. **Use String Selectors for**:
+   - Simple CSS selectors
+   - XPath expressions
+   - IDs and classes that are stable
+   - Performance-critical operations
+
+3. **Always prefer**:
+   - `getByRole()` for interactive elements
+   - `getByLabel()` for form inputs
+   - `getByText()` for visible text
+   - Semantic selectors over CSS/XPath when possible
+
 ## Configuration Management
 
 ### Config File Structure
@@ -721,6 +1143,10 @@ export default defineConfig({
 13. **Use TypeScript** for better type safety and IDE support
 14. **Organize tests serially** when they depend on each other
 15. **Use semantic locators** (roles, labels) over CSS selectors when possible
+16. **Support both string and Locator parameters** in base methods for flexibility
+17. **Fix indentation issues immediately** to prevent compilation errors
+18. **Use type guards** for proper error handling
+19. **Choose appropriate selector types** based on element characteristics
 
 ## Implementation Checklist
 
@@ -728,13 +1154,17 @@ export default defineConfig({
 - [ ] Implement DOMCapture class for debugging
 - [ ] Create helper classes for common operations
 - [ ] Define constants for timeouts and test data
-- [ ] Implement Page Object classes
+- [ ] Implement Page Object classes with flexible parameter support
 - [ ] Set up test suite configuration with serial mode
-- [ ] Implement comprehensive error handling
+- [ ] Implement comprehensive error handling with type guards
 - [ ] Add retry logic for flaky operations
 - [ ] Set up result tracking and reporting
 - [ ] Configure accessibility and screenshot capture
+- [ ] Fix TypeScript compilation issues (indentation, types)
 - [ ] Test all patterns with sample scenarios
 - [ ] Generate documentation for maintenance
+- [ ] Ensure BasePage methods support both string and Locator parameters
+- [ ] Use semantic selectors whenever possible
+- [ ] Implement proper loading state management
 
-This guide provides a complete framework for implementing robust, maintainable Playwright test suites with enterprise-grade features for debugging, error handling, and reporting.
+This guide provides a complete framework for implementing robust, maintainable Playwright test suites with enterprise-grade features for debugging, error handling, and reporting, including recent TypeScript improvements and flexible parameter handling patterns.

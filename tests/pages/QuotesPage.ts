@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { HomePage } from '../HomePage';
+import { HomePage } from './HomePage';
 
 export interface QuoteFilterData {
     products?: string[];

@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { LoginPage } from './LoginPage';
-import { HomePage } from './HomePage';
+import { LoginPage } from './pages/LoginPage';
+import { HomePage } from './pages/HomePage';
 import config from '../config.json';
 
 test('TS002: Verify Quote ID Search', async ({ page }) => {

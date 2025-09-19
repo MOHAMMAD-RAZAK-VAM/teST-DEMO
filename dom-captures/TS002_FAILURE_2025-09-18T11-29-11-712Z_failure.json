@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-18T11:29:11.996Z",
+  "testName": "TS002",
+  "error": "page.goto: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://mk-bd-dev-uwapp.azurewebsites.net/\", waiting until \"load\"\u001b[22m\n",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/",
+  "title": "ACME | Insurance",
+  "consoleLogs": [],
+  "htmlPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-18T11-29-11-712Z.html",
+  "screenshotPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-18T11-29-11-712Z.png"
+}

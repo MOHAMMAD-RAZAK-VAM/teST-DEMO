@@ -1,0 +1,385 @@
+{
+  "role": "WebArea",
+  "name": "ACME | Insurance",
+  "children": [
+    {
+      "role": "combobox",
+      "name": "",
+      "haspopup": "menu",
+      "children": [
+        {
+          "role": "option",
+          "name": "Customer Account Name",
+          "selected": true
+        },
+        {
+          "role": "option",
+          "name": "Quote ID"
+        }
+      ],
+      "value": "Customer Account Name"
+    },
+    {
+      "role": "textbox",
+      "name": "Search By Customer Account Name",
+      "required": true
+    },
+    {
+      "role": "button",
+      "name": "Search"
+    },
+    {
+      "role": "heading",
+      "name": "RECENT QUOTES",
+      "level": 1
+    },
+    {
+      "role": "text",
+      "name": "Customer Account Name"
+    },
+    {
+      "role": "text",
+      "name": "Product"
+    },
+    {
+      "role": "text",
+      "name": "Quote ID"
+    },
+    {
+      "role": "text",
+      "name": "Policy Effective - Expiration Date"
+    },
+    {
+      "role": "text",
+      "name": "Premium"
+    },
+    {
+      "role": "text",
+      "name": "Status"
+    },
+    {
+      "role": "link",
+      "name": "View All"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011609"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011608"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011607"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011606"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011605"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011604"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011603"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011599"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011601"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "text",
+      "name": "QCA011600"
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 - 9/18/2026"
+    },
+    {
+      "role": "text",
+      "name": "--"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "New Quote"
+    },
+    {
+      "role": "text",
+      "name": "© 2021 ValueMomentum. All Rights Reserved"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi Teja"
+    },
+    {
+      "role": "LineBreak",
+      "name": "\n"
+    },
+    {
+      "role": "text",
+      "name": "Last Login : "
+    },
+    {
+      "role": "text",
+      "name": "9/18/2025 11:51:15 AM"
+    },
+    {
+      "role": "image",
+      "name": "profile"
+    },
+    {
+      "role": "text",
+      "name": ""
+    }
+  ]
+}
