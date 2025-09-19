@@ -1,0 +1,99 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Please Specify The Policy Term"
+    },
+    {
+      "role": "text",
+      "name": "Effective Date"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "combobox",
+      "name": "Effective Date*",
+      "required": true,
+      "haspopup": "listbox"
+    },
+    {
+      "role": "button",
+      "name": "select"
+    },
+    {
+      "role": "text",
+      "name": "Expiration Date"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "combobox",
+      "name": "Expiration Date*",
+      "required": true,
+      "haspopup": "listbox"
+    },
+    {
+      "role": "button",
+      "name": "select"
+    },
+    {
+      "role": "text",
+      "name": "Select Applicable Lines Of Business"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "orientation": "vertical"
+    },
+    {
+      "role": "button",
+      "name": "Proceed to Account"
+    }
+  ]
+}
