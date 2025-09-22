@@ -1456,12 +1456,47 @@ await page.waitForTimeout(1000);
     await page.locator('body').click();
     await page.waitForTimeout(300);
 
-    // Save vehicle
-    const saveBtn = page.getByRole('button', { name: /Save/i });
+    // Save vehicle - use specific ID selector
+    const saveBtn = page.locator('#btna19b23b991591254ef86');
     await expect(saveBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
     await saveBtn.click();
     
     await helpers.verifyAlert('Truck Saved Successfully');
+
+    // =========================
+    // STEP 8: Navigate to RiskSummary and Proceed to Endorsement
+    // =========================
+    
+    console.log('=== Navigating to RiskSummary and Proceeding to Endorsement ===');
+
+    // Wait for navigation to RiskSummary page
+    console.log('Waiting for navigation to RiskSummary...');
+    await page.waitForURL('**/RiskSummary', { timeout: TIMEOUTS.PAGE_LOAD });
+    console.log('Successfully navigated to RiskSummary page');
+
+    // Wait for page to fully load
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    // Capture DOM after RiskSummary navigation
+    await DOMCapture.capture(page, 'TS002', 'RiskSummary_Final_Page_Loaded', true);
+
+    // Look for "Proceed to Endorsement" button at the bottom right corner
+    console.log('Looking for Proceed to Endorsement button...');
+    const proceedToEndorsementBtn = page.locator('#btn16a087200d1eea9affc6');
+    
+    // Scroll to the bottom of the page to find the button
+    await page.evaluate(() => {
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+    await page.waitForTimeout(1000);
+
+    // Wait for button to be visible and click it
+    await expect(proceedToEndorsementBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    console.log('Clicking Proceed to Endorsement button...');
+    await proceedToEndorsementBtn.click();
+
+    console.log('✓ Successfully clicked Proceed to Endorsement button');
 
     results.push({
       testId: 'TS002',
