@@ -612,6 +612,10 @@ class TestHelpers {
     });
     const truckLabel = truckContainer.locator('label.css-label');
     await expect(truckLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    // Wait for loading overlay to disappear (prevents pointer event interception)
+    await page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: TIMEOUTS.MEDIUM });
+
     await truckLabel.click();
 
     // Select Product Offerings
@@ -942,6 +946,9 @@ if (!(await numEmployeesInput.isVisible({ timeout: 1000 }).catch(() => false))) 
 // Scroll to the input and click it, then use up arrow to increment to 2
 await numEmployeesInput.scrollIntoViewIfNeeded();
 await page.waitForTimeout(500);
+
+// Wait for loading overlay to disappear (prevents pointer event interception)
+await page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: TIMEOUTS.MEDIUM });
 
 await numEmployeesInput.click();
 await page.waitForTimeout(500);
@@ -1316,6 +1323,8 @@ console.log('Moving to Garaging Location...');
 
     // Click to focus the Vehicle Classification input and place cursor inside
     console.log('Clicking Vehicle Classification input to focus and place cursor...');
+    // Wait for any loading overlay to disappear before clicking
+    await page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: TIMEOUTS.MEDIUM });
     await vehicleClassInput.click({ force: true });
     await page.waitForTimeout(200);
 
@@ -1381,7 +1390,7 @@ console.log('Moving to Garaging Location...');
     await originalCostInput.click({ force: true });
     await page.waitForTimeout(200);
 
-    // Clear existing value and type 25
+    // Now that cursor is focused in the Original Cost input box, do ctrl+a, delete, and type
     console.log('Clearing existing value and typing 25...');
     await page.keyboard.press('Control+a');
     await page.waitForTimeout(100);
@@ -1408,7 +1417,7 @@ console.log('Moving to Garaging Location...');
     await statedAmountInput.click({ force: true });
     await page.waitForTimeout(200);
 
-    // Clear existing value and type 25
+    // Now that cursor is focused in the Stated Amount input box, do ctrl+a, delete, and type
     console.log('Clearing existing value and typing 25...');
     await page.keyboard.press('Control+a');
     await page.waitForTimeout(100);

@@ -15,7 +15,13 @@ setup('authenticate', async ({ page }) => {
         console.log('Redirected to Azure AD login page successfully');
     } catch (error) {
         console.log('Failed to reach Azure AD login page. Current URL:', page.url());
-        throw error;
+        if (page.url().includes('mk-bd-dev-uwapp.azurewebsites.net')) {
+            console.log('Already on main app, assuming authenticated');
+            // Store authenticated state
+            await page.context().storageState({ path: 'playwright/.auth/user.json' });
+        } else {
+            throw error;
+        }
     }
 
     // Now wait for the User Name textbox on the Azure AD login page
