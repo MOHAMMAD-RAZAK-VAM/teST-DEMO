@@ -1337,7 +1337,7 @@ console.log('Moving to Garaging Location...');
     console.log('Selected Vehicle Classification with "l"');
 
     // Wait to load (give some seconds)
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1000);
     // await page.pause();
 
     // ===== NEW STEP 1: Fill Secondary Vehicle Classification =====
@@ -1352,7 +1352,7 @@ await expect(secondaryVehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM 
 // Click to focus the Secondary Vehicle Classification input
 console.log('Clicking Secondary Vehicle Classification input to focus...');
 await secondaryVehicleClassInput.click({ force: true });
-await page.waitForTimeout(200);
+await page.waitForTimeout(1000);
 
 // Clear existing value and type 'l'
 console.log('Clearing existing value and typing l...');
@@ -1369,95 +1369,92 @@ await page.waitForTimeout(100);
 await page.keyboard.press('Enter');
 console.log('Selected Secondary Vehicle Classification with "l"');
 
-// Wait for processing
-await page.waitForTimeout(500);
+// Wait longer for the selection to be committed to the field
+await page.waitForTimeout(2000);
 
-// ===== NEW STEP 2: Fill Original Cost New Of Vehicle =====
-console.log('Looking for Original Cost New Of Vehicle input...');
-const originalCostLabel = page.locator('label[for="numc0ef72417c2cf0202bec"]');
-await expect(originalCostLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-
-// Find the visible Kendo input within the widget
-const originalCostInput = originalCostLabel
-  .locator('xpath=following-sibling::*')
-  .locator('.k-formatted-value.k-input')
-  .first();
-
-// Alternative: Direct approach using the widget container
-// const originalCostInput = page.locator('.k-numerictextbox', {
-//   has: page.locator('input[name="Original Cost New Of Vehicle"]')
-// }).locator('.k-formatted-value.k-input').first();
-
-// Scroll to and wait for visibility
-await originalCostInput.scrollIntoViewIfNeeded();
-await expect(originalCostInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-await expect(originalCostInput).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
-
-// Click to focus the Original Cost input
-console.log('Clicking Original Cost input to focus...');
-await originalCostInput.click({ force: true });
-await page.waitForTimeout(500);
-
-// await expect(originalCostInput).toBeFocused({ timeout: 2000 });
-// console.log('Original Cost input is now focused and ready');
-
-// Clear existing value (0) and type new value
-console.log('Clearing existing value and typing 500000...');
-await page.keyboard.press('Control+a');
-await page.waitForTimeout(100);
-await page.keyboard.press('Delete');
-await page.waitForTimeout(100);
-await page.keyboard.type('500000');
-console.log('Typed "500000" in Original Cost input');
-
-// Click outside to trigger validation
-// await page.locator('body').click();
-await page.waitForTimeout(300);
-
-// ===== NEW STEP 3: Fill Stated Amount =====
-console.log('Looking for Stated Amount input...');
-const statedAmountLabel = page.locator('label[for="numa1cdba13cde74311438e"]');
-await expect(statedAmountLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-
-// Find the visible Kendo input within the widget
-const statedAmountInput = statedAmountLabel
-  .locator('xpath=following-sibling::*')
-  .locator('.k-formatted-value.k-input')
-  .first();
-
-// Alternative: Direct approach using the widget container
-// const statedAmountInput = page.locator('.k-numerictextbox', {
-//   has: page.locator('input[name="Stated Amount"]')
-// }).locator('.k-formatted-value.k-input').first();
-
-// Scroll to and wait for visibility
-await statedAmountInput.scrollIntoViewIfNeeded();
-await expect(statedAmountInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-await expect(statedAmountInput).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
-
-// Click to focus the Stated Amount input
-console.log('Clicking Stated Amount input to focus...');
-await statedAmountInput.click({ force: true });
-await page.waitForTimeout(500);
-
-// Clear existing value (0) and type new value
-console.log('Clearing existing value and typing 50000...');
-await page.keyboard.press('Control+a');
-await page.waitForTimeout(100);
-await page.keyboard.press('Delete');
-await page.waitForTimeout(100);
-await page.keyboard.type('50000');
-console.log('Typed "50000" in Stated Amount input');
-
-// Click outside to trigger validation
-// await page.locator('body').click();
-await page.waitForTimeout(300);
-// Click outside to trigger validation
-// await page.locator('body').click();
-// await page.waitForTimeout(300);
-
-// Wait for all form processing to complete
+// Click outside to trigger blur and commit the value
+await page.locator('body').click();
 await page.waitForTimeout(1000);
+
+// Wait for the field to be populated with selected value
+await page.waitForFunction(() => {
+  const input = document.querySelector('#formsec8360ce8c488ba4fb3181 > div.content > div:nth-child(13) > div > div input') as HTMLInputElement;
+  return input && input.value && input.value.trim() !== '';
+}, { timeout: 5000 });
+
+console.log('✓ Secondary Vehicle Classification step completed successfully');
+
+// Wait for form to update after selection
+await page.waitForTimeout(1000);
+
+// Scroll down to locate Original Cost section
+console.log('Scrolling down to locate Original Cost section...');
+await page.evaluate(() => {
+  window.scrollBy(0, 300); // Scroll down by 300 pixels
+});
+await page.waitForTimeout(1000);
+
+// Fill Original Cost New Of Vehicle
+    console.log('Looking for Original Cost New Of Vehicle input...');
+    const originalCostLabel = page.locator('label').filter({ hasText: 'Original Cost New Of Vehicle' }).first();
+    await originalCostLabel.scrollIntoViewIfNeeded();
+    await expect(originalCostLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    const originalCostInput = originalCostLabel.locator('xpath=following-sibling::*//input').first();
+    await expect(originalCostInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await expect(originalCostInput).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
+
+    // Click to focus the Original Cost input and place cursor inside
+    console.log('Clicking Original Cost input to focus and place cursor...');
+    await originalCostInput.click({ force: true });
+    await page.waitForTimeout(1000);
+
+    // Verify focus before keyboard actions
+    await page.waitForFunction(() => {
+      const activeEl = document.activeElement;
+      return activeEl && (activeEl.tagName === 'INPUT' || activeEl.classList.contains('k-formatted-value'));
+    }, { timeout: 3000 });
+    console.log('✓ Original Cost input is properly focused');
+
+    // Now that cursor is focused in the Original Cost input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing 25...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(100);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(100);
+    await page.keyboard.type('25');
+    console.log('Typed "25" in Original Cost New Of Vehicle input');
+
+    // Click somewhere (outside the input)
+    await page.locator('body').click();
+    await page.waitForTimeout(300);
+
+    // Fill Stated Amount
+    console.log('Looking for Stated Amount input...');
+    const statedAmountLabel = page.locator('label').filter({ hasText: 'Stated Amount' }).first();
+    await statedAmountLabel.scrollIntoViewIfNeeded();
+    await expect(statedAmountLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    const statedAmountInput = statedAmountLabel.locator('xpath=following-sibling::*//input').first();
+    await expect(statedAmountInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    // Click to focus the Stated Amount input and place cursor inside
+    console.log('Clicking Stated Amount input to focus and place cursor...');
+    await statedAmountInput.click({ force: true });
+    await page.waitForTimeout(200);
+
+    // Now that cursor is focused in the Stated Amount input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing 25...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(100);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(100);
+    await page.keyboard.type('25');
+    console.log('Typed "25" in Stated Amount input');
+
+    // Click somewhere (outside the input)
+    await page.locator('body').click();
+    await page.waitForTimeout(300);
 
     // Save vehicle
     const saveBtn = page.getByRole('button', { name: /Save/i });

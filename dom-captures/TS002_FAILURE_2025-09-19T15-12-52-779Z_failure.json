@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-19T15:12:54.833Z",
+  "testName": "TS002",
+  "error": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n  navigated to \"https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=57420f0b-864e-4cbb-8217-f0aa735a52fa\"\n  navigated to \"https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=57420f0b-864e-4cbb-8217-f0aa735a52fa#/Product\"\n============================================================",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=57420f0b-864e-4cbb-8217-f0aa735a52fa#/Product",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\Users\\KeerthanaSadhasivam\\OneDrive - ValueMomentum, Inc\\Documents\\teST-DEMO-master\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-19T15-12-52-779Z.html",
+  "screenshotPath": "C:\\Users\\KeerthanaSadhasivam\\OneDrive - ValueMomentum, Inc\\Documents\\teST-DEMO-master\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-19T15-12-52-779Z.png"
+}

@@ -1,0 +1,230 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "QCA011674-1"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "NY-New York"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Location"
+    },
+    {
+      "role": "text",
+      "name": "Auto Exposure"
+    },
+    {
+      "role": "text",
+      "name": "Basic Info"
+    },
+    {
+      "role": "text",
+      "name": "AutoMobile Policy"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Composite Rating"
+    },
+    {
+      "role": "text",
+      "name": "Composite Rating"
+    },
+    {
+      "role": "text",
+      "name": "No"
+    },
+    {
+      "role": "text",
+      "name": "Select The Vehicle Type(S) To Be Covered"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Select Your Product Offerings"
+    },
+    {
+      "role": "text",
+      "name": "Select All"
+    },
+    {
+      "role": "text",
+      "name": "Yes"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Select the Applicable Limits/Deductibles"
+    },
+    {
+      "role": "button",
+      "name": "Limits & Deductibles"
+    },
+    {
+      "role": "text",
+      "name": "Hired Auto Coverage"
+    },
+    {
+      "role": "text",
+      "name": "No"
+    },
+    {
+      "role": "button",
+      "name": "Add/Edit",
+      "disabled": true
+    },
+    {
+      "role": "text",
+      "name": "Non-Owned Auto Coverage"
+    },
+    {
+      "role": "text",
+      "name": "Yes"
+    },
+    {
+      "role": "button",
+      "name": "Add/Edit"
+    },
+    {
+      "role": "text",
+      "name": "Do you want to write the policy based on Gross Receipts or Mileage Basis?"
+    },
+    {
+      "role": "text",
+      "name": "No"
+    },
+    {
+      "role": "button",
+      "name": "Add/Edit",
+      "disabled": true
+    },
+    {
+      "role": "text",
+      "name": "Do you want to include a Trailer Interchange as part of the policy?"
+    },
+    {
+      "role": "text",
+      "name": "No"
+    },
+    {
+      "role": "button",
+      "name": "Add/Edit",
+      "disabled": true
+    },
+    {
+      "role": "text",
+      "name": "View/Update Additional Information"
+    },
+    {
+      "role": "button",
+      "name": "View / Update"
+    },
+    {
+      "role": "button",
+      "name": "Back to Location"
+    },
+    {
+      "role": "button",
+      "name": "Save"
+    },
+    {
+      "role": "button",
+      "name": "Proceed to Automobile Exposure",
+      "focused": true
+    }
+  ]
+}

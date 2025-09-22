@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-22T07:26:48.384Z",
+  "testName": "TS002",
+  "stepName": "Product_Page_Loaded",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=1f80d327-1983-4aa0-9cc7-b8f5362d0a01#/Product",
+  "title": "ACME",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36"
+}

@@ -2,7 +2,7 @@
   "cookies": [
     {
       "name": "ARRAffinity",
-      "value": "3815f870faefb5586c964e997f19c9c687f9ec3d8051f30672296989b835faa3",
+      "value": "a5ec76bf198951bebbc7170ffee092def36f3cd0a69436d0c55a282d4d28c9e1",
       "domain": ".mk-bd-dev-uwapp.azurewebsites.net",
       "path": "/",
       "expires": -1,
@@ -12,7 +12,7 @@
     },
     {
       "name": "ARRAffinitySameSite",
-      "value": "3815f870faefb5586c964e997f19c9c687f9ec3d8051f30672296989b835faa3",
+      "value": "a5ec76bf198951bebbc7170ffee092def36f3cd0a69436d0c55a282d4d28c9e1",
       "domain": ".mk-bd-dev-uwapp.azurewebsites.net",
       "path": "/",
       "expires": -1,
@@ -22,7 +22,7 @@
     },
     {
       "name": "ARRAffinity",
-      "value": "3815f870faefb5586c964e997f19c9c687f9ec3d8051f30672296989b835faa3",
+      "value": "a5ec76bf198951bebbc7170ffee092def36f3cd0a69436d0c55a282d4d28c9e1",
       "domain": ".mk-bd-dev-idserverapp.azurewebsites.net",
       "path": "/",
       "expires": -1,
@@ -32,7 +32,7 @@
     },
     {
       "name": "ARRAffinitySameSite",
-      "value": "3815f870faefb5586c964e997f19c9c687f9ec3d8051f30672296989b835faa3",
+      "value": "a5ec76bf198951bebbc7170ffee092def36f3cd0a69436d0c55a282d4d28c9e1",
       "domain": ".mk-bd-dev-idserverapp.azurewebsites.net",
       "path": "/",
       "expires": -1,
@@ -42,7 +42,7 @@
     },
     {
       "name": ".AspNetCore.Antiforgery.9fXoN5jHCXs",
-      "value": "CfDJ8GxmgkKCAzpNvUo9msd9UcHiwpkOJMwYhK8eWl-Mong10yOvjaLp5XD7WK5aAn3NjY4k4VDXBUd3WeiJBvn4eRFr9cYOAzXstj7c6USfsO8SEAx0eFbeFo6aAN_Hhf5y6G434dvct83nn1EeGZcAgUQ",
+      "value": "CfDJ8GxmgkKCAzpNvUo9msd9UcFXHqytxUloWNsgNmljvW3ZgCfgcJJWEq_4M8XRBuLYN0YUCurpjp0CMSdfPWKHI2YjqfleNa79JsUPtzxx-18OdIYD228p_3rKya5_kvzOOEgJGfLsAHow4iqt-3FuFUc",
       "domain": "mk-bd-dev-idserverapp.azurewebsites.net",
       "path": "/",
       "expires": -1,
@@ -52,7 +52,7 @@
     },
     {
       "name": "idsrv.session",
-      "value": "82925A489AAF04762C24125B280F29A5",
+      "value": "AEBEDACFE399769796EA11FD7E336407",
       "domain": "mk-bd-dev-idserverapp.azurewebsites.net",
       "path": "/",
       "expires": -1,
@@ -62,7 +62,7 @@
     },
     {
       "name": "idsrv",
-      "value": "CfDJ8GxmgkKCAzpNvUo9msd9UcHROxr58gUv73MAnj_9VaHHpL7Oi5zBtyhyiAMMzRllS6t89Jbh6kWJzLpUuSB0rVD6IAr4BgEf7QNeVmJVjozCxjhl_faI2JLaM6EVC9Ej5CLnKBq6UsZlkF3bvAjcidfNSO9iEcTn5_h4sWJ_s76NZlKkGSdALPJlI-xLPU4LpRUOb93pTsww4Y7WgniGP-cw5SwW7pxGeyji3sFTDv8J8c9MUTWdQYilbU56GIH7tJa4A66z-xDkhiCFJf20g2M2OHinx0Ai3tae5RB_3DHIgbk2Lp34oPzSCt2uRGstHXYoyNzOQAQCFucDOM3E0fiNiE1TdRYzZ_NVH9eLcqn-Zp2th566qfw4GSfJ05F68g5-0rOHR38r2y8S86d6qkd3msNNf-algaKAQ2laIF6HlX3FhygPvv1BlOXLNXKQB8dxNBevJtmSVM8q7cVn-5IPQNGp03ih2CY9duqPDv_rK7wewUTcLubJrUyv4_n0dNXy-fudVJ9-FmictRpb69LIUBr4Py86GHYTHQTd4lXY",
+      "value": "CfDJ8GxmgkKCAzpNvUo9msd9UcFX-lY-12zZ9oii3iSo_hx6BfCeL0hPOjPRnf0xLBzAL0pgEbHPgO2ioRyTp_U1E6K4F6zqebZ9y8gMhlUOA61pMvhKSRtiOUfQp37FkFOdOCKDPYBIatuQxZhNpOKhZPyuEE9yNDFugsVii_n8n1a3cxXbWKKSc2LsIxk2c9qO5H-7OwEmx2Jt2yJXyiT0IqIsKuMhOI9SEUWJmoNLz4Mi2beDPc5GTeEdy9LDvx4nENrH5wH2hPeSPgCbrBjcze4AJAlgKf4LuQ5eEZ56iri8nhRTjbz4_l45meXtctyaZcFz0OlQmscj9ZxTV1u41zRf97SiHZf2VgV-_7psActqlm7AVRlWZ4e-MsJzbRtS3Oh3mpOexoejmuOKG-85oHnjKrWG9JSuTgaD0xvwqvkiWnYnN6wBkSNZZj4xHbe0L68TDOGWSMSaWJ_pa0veuwY8HtennzjQMCOuga8gXLKyNyKEvrRuhUlg5BxWlKiFxQKXbcn84czO2JDz9TPxmPlfjb_GIpdVbZ1eEYftPdiA",
       "domain": "mk-bd-dev-idserverapp.azurewebsites.net",
       "path": "/",
       "expires": -1,
@@ -72,7 +72,7 @@
     },
     {
       "name": ".AspNetCore.Identity.Application",
-      "value": "CfDJ8GxmgkKCAzpNvUo9msd9UcE7R3l-nQARtknZJ9_SW-ewlCDXquh2clWxDG-tIAaxkzT84MYGzzL4HXPPMubohdM2-8xmzyVIGwX2rTG-7teYh3ryZILX2p3iHXffjy-8tUnT2vTnMPPpjMfnEkI8QCW99DbLDttjsBOwjVN6fjGuL_uqMroSfgdH6xrh43HQN8nFHZDvi4SH7Z8zAncNVtI2BOu_6IQKtI5g2j3QsRVQERytFZUvWkJs3SZGoZMZzYJKRl86QUVR4WAIosXJnLmDCSfjMKEODoDWV94CRhQgzGGVYsmnJBNe11UeRPx03DrZ2_3FtgTVFKTPpKIZTxxBbyhS8iFxVs1kO-FsSpPffsI4lgkYTKQ3ByQJrndZi_1smuXz7EkhTayt3ShiMlTCBFrFhGvmV0sW4SaKWqAgPmbQLU_Vn2ygtAcdL65MCUBdUm9fLA67eMZBt6ZIYLT9QgnsLOf--WKMt-npChvNZyI0Iy4d3A8JrVkDK2iBnKjrg2AY9LL8loYE-jN9exOMhBmvtm4cfK--8ioU9zPajavTDCAgU2osPm8qNLN6soIV2AOpxkgaCA44CijVxMn_VyiwrPUUDgipZjC0OY--OFFsRmvCGQ67c-s7rCf5hZBl47-wX0dnLCvsi6oAbrIaolnIDzwp3jY_vPRu6Ue_8Tz6JEfCBgR8N4QAmxbTGyIz_IF7IezKjDfwOPFOKxOlgxgTEVS1WjBXGKlLb3psQlzM0uDPsy66AnRy4B7FJ9tOWFm6kpKO_ZsLIlPSnSn_QlCaCeTAh43CVQrxYMfnZDlNE7krQ3s2AYoVQfFufR8Q3NMIpH0e4X1jI0mKH3tNPLQoV9j4cvSLVgcThJxDKDuyZocDgJG0cgmeKVl0T_ndBIW_ZC-4JAnY4aTzO6URL145347N6zn0haMg-9iOcM_JUYjGBtNA5NEQX8T7pWziZfCIuqiCodn5sFoz_-hWXeYLzDWhhPZV2svMYdTnUGeAuzwfBo3uUJ4veHA-yrBjyyaJUpzanI6MUrltECq644uDL_rtuxDmcftNRzEVoGoXLzuSY5GUxJQL_ZPIXUHgB4MDd4MZDR_DZN7T3uXvrJJLv-mpvmTCMNVFBkZFoNVWEQ4Gp2ghyoyBt7-Z8BJ5AEF68sLBBKGPf_IYDeD55orBqJHgKgJYFdWYxqqXYQKT9BfQdL28Htx9NhorFQkQqLE5FJcbQh6wVGjjShASJQYOWpnJFJLHyC_R0wp7uyAqz_oB5y5tu009LZep-E7eosN9e8-0OnyQtbh5TkEy_cvqBxsFaJ5W-D5FdBaD6eiQ1F8waFN-lmDpPITYCF4V8txbrvP2vu3kNmd6wlc",
+      "value": "CfDJ8GxmgkKCAzpNvUo9msd9UcG04bhkc7QMbbA6N1M4Df6WSVWB8ZvlEP29xaKWG9uWvW2uTSGDrEq2v628r7DzMnvr2pVM-MZ-9NyPf10lV34nOV1BetvOWcCsoqIrUZGYzZ2qSXnxjpVm596MdyuoU3_puEFg0z20Jo3nxp7_7M9H_ph_k2lxaY6xDNzTgnR1nYAbFvERVgxc5byJKNLwim3mq3IFisaoAFnXEls7HALQrhRrNyef5CKhuVId2l9M4TDtP_2cFYL8FBnodZ_635cFmdm8BjThnwgsR9IjmCXCGqnorftZr7cGe4adbBjDtnUElFMzCpX1uvL8PMQIxWEYtVV-DhTzHdkRd9zGibzupj0JmE6d2MVb84rSMV0zTCl2BYwzNXWxhyBIBI7CuNhD4G8lLljq1xzf_ulwB1htQiVAAXlXut_JGz1Y8R_Y0C9wvv55o36F1dAMiQ9mBP-GdCPWNkT38zGziWIYq6CalwxB3sNsusszKx_Kdx4-tEHkDwMKvdj-4_amWphxma6nATVfQuHUL6N1LYijfvtTr8n72lHDYHK6lRKY0v5TJoHrYjQj-uBVC0M10MCisytrrJBSro0OpnuNrTGUxgTb18qnwZr8ZJku71SIvewQYgPoGq5CPrBa6mxxP-PVB-pB8g7_IbRC5QqUTo-y0lcI0uyppzjE6U0vSr8FLXNZ2Psn6AWu1UWuudrH6ampuwCkizFDHpJda24Zy60z1gBmCOGr_jZRM1Ru9fRKFFYuGlKcG2tJLZe2bCxFqKXXT921vmHsLhxhG_hVhTFLlPoEpOtKJNweVTDFry5nhVhnZyE9QT8VjfpExh4VMW5OjNktEokLKMUeJvRXvaR4epGdCgXCx9mVsezhX1No7hwy_iQSvl8tZ4mAFKJ_pVp32Quig1qia-TzCYnlIFIQqKE-1QteJ6F-1j97p4r0Oa61Z0eMRIf8OIGQADWjQWoh9mHBFIPHBARoqUWlPHAS6TdMr1vYsihdg5XBTGLZHqeYJXL7n6Gl5hMo3oMJm8oSd2s7HV66-WRaTNGDgnBAP_cic6RCem1E84q4nXgu8g05zN-pVe5PMWd0xrvCJcCgaYdOZhKjO-wyIScwzeTWyXl5hZIxrTZQ3Dv3DCwZzh39UECaBks6e5FrcNUiCqXtvWrzHJ2DqncsVfsxqN-lOC8aKH_TdfcnOn6Whd9TnjDuMe3yIoUZ2GRV2j-VjE2fa2sK6grtD9tt00npD2a0oXN8BfRcR9pNTTUfgdKP2r4DfaPtR_7qjmFKwnVcUlREOltoX_KCiSWVLVmeC_9JmkP6DFoLCPuB9OX-ogvzwWdBu-GlbUKpokM0XhCXPM6XICU",
       "domain": "mk-bd-dev-idserverapp.azurewebsites.net",
       "path": "/",
       "expires": -1,

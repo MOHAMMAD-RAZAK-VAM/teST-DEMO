@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-22T08:31:17.718Z",
+  "testName": "TS002",
+  "error": "\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#formsec8360ce8c488ba4fb3181 > div.content > div:nth-child(13) > div > div input').first()\nExpected pattern: \u001b[32m/^(?!$).+/\u001b[39m\nReceived string:  \u001b[31m\"\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#formsec8360ce8c488ba4fb3181 > div.content > div:nth-child(13) > div > div input').first()\u001b[22m\n\u001b[2m    13 × locator resolved to <input required=\"\" type=\"text\" role=\"textbox\" class=\"k-input\" aria-busy=\"false\" autocomplete=\"off\" aria-haspopup=\"true\" aria-disabled=\"false\" aria-readonly=\"false\" data-role=\"autocomplete\" aria-autocomplete=\"list\" id=\"txtauto7b27192a88ff7670d1di\" name=\"txtauto7b27192a88ff7670d1di\" aria-owns=\"txtauto7b27192a88ff7670d1di_listbox\" data-required-msg=\"Please enter \"Secondary Class\"\" data-bind=\"value : CommercialAutoTruck.TruckSecondaryVehicleClassification,source : VehicleClassificationSecondaryClassTruck…/>\u001b[22m\n\u001b[2m       - unexpected value \"\"\u001b[22m\n",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=6260db61-e114-4a8c-834c-4c742418c8ab#/Truck",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\Users\\KeerthanaSadhasivam\\OneDrive - ValueMomentum, Inc\\Documents\\teST-DEMO-master\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-22T08-31-17-253Z.html",
+  "screenshotPath": "C:\\Users\\KeerthanaSadhasivam\\OneDrive - ValueMomentum, Inc\\Documents\\teST-DEMO-master\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-22T08-31-17-253Z.png"
+}

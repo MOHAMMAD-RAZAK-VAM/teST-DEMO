@@ -1,0 +1,162 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "null-0"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Please Specify The Policy Term"
+    },
+    {
+      "role": "text",
+      "name": "Effective Date"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "combobox",
+      "name": "Effective Date*",
+      "required": true,
+      "haspopup": "listbox"
+    },
+    {
+      "role": "button",
+      "name": "select"
+    },
+    {
+      "role": "text",
+      "name": "Expiration Date"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "combobox",
+      "name": "Expiration Date*",
+      "required": true,
+      "haspopup": "listbox",
+      "value": "09/19/2026"
+    },
+    {
+      "role": "button",
+      "name": "select"
+    },
+    {
+      "role": "text",
+      "name": "Select Applicable Lines Of Business"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "orientation": "vertical",
+      "children": [
+        {
+          "role": "checkbox",
+          "name": " Select",
+          "checked": false
+        },
+        {
+          "role": "checkbox",
+          "name": "",
+          "checked": true
+        },
+        {
+          "role": "listbox",
+          "name": "",
+          "haspopup": "menu",
+          "orientation": "vertical"
+        },
+        {
+          "role": "listbox",
+          "name": "",
+          "haspopup": "menu",
+          "orientation": "vertical"
+        },
+        {
+          "role": "checkbox",
+          "name": " Select",
+          "checked": false
+        }
+      ]
+    },
+    {
+      "role": "button",
+      "name": "Proceed to Account",
+      "focused": true
+    },
+    {
+      "role": "text",
+      "name": "The Policy Term specified below will be applicable for all the selected products. You may choose to quote each of the selected products with different policy terms, if need be, further in the application workflow for the specified product"
+    }
+  ]
+}

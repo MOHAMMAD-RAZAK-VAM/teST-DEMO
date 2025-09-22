@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-22T06:26:56.835Z",
+  "testName": "TS002",
+  "stepName": "Truck_Page_Loaded",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=e81f029c-7d1c-47f3-a5fc-52f8c86c74d7#/Truck",
+  "title": "ACME",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36"
+}
