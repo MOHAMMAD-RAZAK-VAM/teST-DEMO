@@ -1,0 +1,52 @@
+{
+  "applicant": {
+    "name": "Hospital for Special Surgery",
+    "sicCode": "0971 - Hunting, Trapping, Game Propagation",
+    "legalEntity": "Corporation"
+  },
+  "vehicle": {
+    "year": "2024",
+    "make": "kia",
+    "model": "sonet",
+    "vin": "12345678910",
+    "originalCost": "500000",
+    "originalCostIncrement": 25,
+    "statedAmount": "20",
+    "territory": "042"
+  },
+  "limits": {
+    "limit": "25,000",
+    "deductible": "100"
+  },
+  "nonOwnedAuto": {
+    "employees": "2",
+    "garagingLocation": "Adams"
+  },
+  "selections": {
+    "writingCompanySteps": 2,
+    "territorySteps": 1,
+    "vehicleClassification": {
+      "input": "l",
+      "steps": 2
+    },
+    "secondaryVehicleClassification": {
+      "input": "s",
+      "steps": 1
+    },
+    "garagingLocationSteps": 3,
+    "numberOfEmployeesIncrement": 2
+  },
+  "timeouts": {
+    "nonOwnedAutoWait": 3000,
+    "employeeVehiclesWait": 5000,
+    "addVehicleWait": 5000,
+    "vehicleFormUpdateWait": 1000
+  },
+  "selectors": {
+    "addVehicleButtonId": "#btnfd2e9df925f880001e53",
+    "saveVehicleButtonId": "#btna19b23b991591254ef86",
+    "proceedToEndorsementButtonId": "#btn16a087200d1eea9affc6",
+    "employeeVehiclesSwitchId": "#switchb995e0d1b974ff52ff89",
+    "employeeVehiclesSwitchLabel": "label[for=\"switchb995e0d1b974ff52ff89\"]"
+  }
+}

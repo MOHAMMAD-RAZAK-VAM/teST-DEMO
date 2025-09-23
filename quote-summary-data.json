@@ -1,0 +1,44 @@
+[
+  {
+    "testId": "TS002",
+    "timestamp": "2025-09-23T11:20:37.762Z",
+    "quoteId": "QCA011856-1",
+    "insured": "Hospital for Special Surgery - Radiology",
+    "status": "Quote Incomplete",
+    "policyPeriod": "Not Found"
+  },
+  {
+    "testId": "TS002",
+    "timestamp": "2025-09-23T11:29:39.766Z",
+    "quoteId": "QCA011857-1",
+    "insured": "Hospital for Special Surgery - Radiology",
+    "status": "Quote Rated",
+    "policyPeriod": "Not Found"
+  },
+  {
+    "testId": "TS002",
+    "timestamp": "2025-09-23T11:29:49.991Z",
+    "quoteId": "QCA011857-1",
+    "insured": "Hospital for Special Surgery - Radiology",
+    "status": "Quote Rated",
+    "policyPeriod": "Not Found",
+    "captureType": "after-submit"
+  },
+  {
+    "testId": "TS002",
+    "timestamp": "2025-09-23T11:55:50.364Z",
+    "quoteId": "QCA011858-1",
+    "insured": "Hospital for Special Surgery - Radiology",
+    "status": "Quote Rated",
+    "policyPeriod": "Not Found"
+  },
+  {
+    "testId": "TS002",
+    "timestamp": "2025-09-23T11:56:00.563Z",
+    "quoteId": "QCA011858-1",
+    "insured": "Hospital for Special Surgery - Radiology",
+    "status": "Quote Rated",
+    "policyPeriod": "Not Found",
+    "captureType": "after-submit"
+  }
+]

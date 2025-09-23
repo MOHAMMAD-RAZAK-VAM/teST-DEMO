@@ -1,0 +1,590 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "QCA011857-1"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "NY-New York"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Auto"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Policy Period :"
+    },
+    {
+      "role": "text",
+      "name": "09/23/2025"
+    },
+    {
+      "role": "text",
+      "name": "-"
+    },
+    {
+      "role": "text",
+      "name": "09/23/2026"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "$1,959.00"
+    },
+    {
+      "role": "text",
+      "name": "Total Written Premium"
+    },
+    {
+      "role": "text",
+      "name": "Vehicle Type Coverage"
+    },
+    {
+      "role": "text",
+      "name": "Truck"
+    },
+    {
+      "role": "text",
+      "name": "Zone Rated"
+    },
+    {
+      "role": "text",
+      "name": "Private Passenger"
+    },
+    {
+      "role": "text",
+      "name": "Special"
+    },
+    {
+      "role": "text",
+      "name": "Hired Auto"
+    },
+    {
+      "role": "text",
+      "name": "Non Owned Auto"
+    },
+    {
+      "role": "text",
+      "name": "Term Premium"
+    },
+    {
+      "role": "text",
+      "name": "Liability Coverage"
+    },
+    {
+      "role": "text",
+      "name": "$1,160.00"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "$158.00"
+    },
+    {
+      "role": "text",
+      "name": "$1,318.00"
+    },
+    {
+      "role": "text",
+      "name": "Collision Coverage"
+    },
+    {
+      "role": "text",
+      "name": "$425.00"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "$425.00"
+    },
+    {
+      "role": "text",
+      "name": "Other Than Collision Coverage"
+    },
+    {
+      "role": "text",
+      "name": "$62.00"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "$62.00"
+    },
+    {
+      "role": "text",
+      "name": "Medical Payments Coverage"
+    },
+    {
+      "role": "text",
+      "name": "$2.00"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "$2.00"
+    },
+    {
+      "role": "text",
+      "name": "Uninsured Motorists Coverage"
+    },
+    {
+      "role": "text",
+      "name": "$99.00"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "$99.00"
+    },
+    {
+      "role": "text",
+      "name": "Personal Injury Protection Coverage"
+    },
+    {
+      "role": "text",
+      "name": "$38.00"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "$38.00"
+    },
+    {
+      "role": "text",
+      "name": "Composite Rating & Underwriting Credits & Debits"
+    },
+    {
+      "role": "text",
+      "name": "Liability Schedule Rating Modification Factor"
+    },
+    {
+      "role": "text",
+      "name": "1.0"
+    },
+    {
+      "role": "text",
+      "name": "Liability Experience Rating Modification Factor"
+    },
+    {
+      "role": "text",
+      "name": "1.0"
+    },
+    {
+      "role": "text",
+      "name": "Physical Damage Schedule Rating Modification Factor"
+    },
+    {
+      "role": "text",
+      "name": "1.0"
+    },
+    {
+      "role": "text",
+      "name": "Physical Damage Experience Rating Modification Factor"
+    },
+    {
+      "role": "text",
+      "name": "1.0"
+    },
+    {
+      "role": "text",
+      "name": "DeRegulation factor"
+    },
+    {
+      "role": "text",
+      "name": "0"
+    },
+    {
+      "role": "text",
+      "name": "ExpReduction factor"
+    },
+    {
+      "role": "text",
+      "name": "0"
+    },
+    {
+      "role": "text",
+      "name": "Composite Rating Eligibility"
+    },
+    {
+      "role": "text",
+      "name": "No"
+    },
+    {
+      "role": "text",
+      "name": "Truck"
+    },
+    {
+      "role": "text",
+      "name": "Location"
+    },
+    {
+      "role": "text",
+      "name": "Class Code"
+    },
+    {
+      "role": "text",
+      "name": "Make-Model-Year"
+    },
+    {
+      "role": "text",
+      "name": "VIN"
+    },
+    {
+      "role": "text",
+      "name": "Size Class-Business Use Class-Radius Class"
+    },
+    {
+      "role": "text",
+      "name": "Original Cost New Of Vehicle/Stated Amount"
+    },
+    {
+      "role": "text",
+      "name": "Liability Base Loss Costs"
+    },
+    {
+      "role": "text",
+      "name": "Collision Base Loss Costs"
+    },
+    {
+      "role": "text",
+      "name": "Other than Collision Base Loss Costs"
+    },
+    {
+      "role": "text",
+      "name": "Medical Payment Base Loss Costs"
+    },
+    {
+      "role": "text",
+      "name": "Premium"
+    },
+    {
+      "role": "text",
+      "name": "535, East 70th Street-New York-NY,10021"
+    },
+    {
+      "role": "text",
+      "name": "012"
+    },
+    {
+      "role": "text",
+      "name": "kia-sonet-2024"
+    },
+    {
+      "role": "text",
+      "name": "12345678910"
+    },
+    {
+      "role": "text",
+      "name": "Light Truck-Service-Intermediate"
+    },
+    {
+      "role": "text",
+      "name": "25/20"
+    },
+    {
+      "role": "text",
+      "name": "509.0"
+    },
+    {
+      "role": "text",
+      "name": "232.0"
+    },
+    {
+      "role": "text",
+      "name": "92.0"
+    },
+    {
+      "role": "text",
+      "name": "1.24"
+    },
+    {
+      "role": "text",
+      "name": "$1,801.00"
+    },
+    {
+      "role": "text",
+      "name": "Non Owned Auto"
+    },
+    {
+      "role": "text",
+      "name": "Location"
+    },
+    {
+      "role": "text",
+      "name": "Number Of Employees"
+    },
+    {
+      "role": "text",
+      "name": "Liability Coverage Type"
+    },
+    {
+      "role": "text",
+      "name": "Liability Limit"
+    },
+    {
+      "role": "text",
+      "name": "Liability Deductible"
+    },
+    {
+      "role": "text",
+      "name": "Social Service Agency"
+    },
+    {
+      "role": "text",
+      "name": "Number Of Volunteers"
+    },
+    {
+      "role": "text",
+      "name": "Premium"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "2"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "NA"
+    },
+    {
+      "role": "text",
+      "name": "$158.00"
+    },
+    {
+      "role": "button",
+      "name": "Back To Endorsement"
+    },
+    {
+      "role": "button",
+      "name": "Submit"
+    }
+  ]
+}

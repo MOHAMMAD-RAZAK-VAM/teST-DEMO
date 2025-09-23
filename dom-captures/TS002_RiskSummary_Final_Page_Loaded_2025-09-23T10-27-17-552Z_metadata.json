@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-23T10:27:18.106Z",
+  "testName": "TS002",
+  "stepName": "RiskSummary_Final_Page_Loaded",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=437c3d96-3f2f-4b58-9d30-a0e86e3a9f70#/RiskSummary",
+  "title": "ACME",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36"
+}

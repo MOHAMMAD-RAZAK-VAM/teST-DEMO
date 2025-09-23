@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-23T11:20:37.675Z",
+  "testName": "TS002",
+  "stepName": "AUQuoteSummary_Page_Loaded",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=6abf53c9-06f7-417a-b553-1a10d9387406#/AUQuoteSummary",
+  "title": "ACME",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36"
+}

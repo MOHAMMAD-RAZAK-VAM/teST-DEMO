@@ -1,0 +1,177 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "QCA011846-1"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "NY-New York"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Auto"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "textbox",
+      "name": "Search by Endorsement Name"
+    },
+    {
+      "role": "button",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Reset"
+    },
+    {
+      "role": "text",
+      "name": "Please Select Additional Coverage(S)/Endorsement(S)"
+    },
+    {
+      "role": "textbox",
+      "name": ""
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "link",
+      "name": "Go to the first page"
+    },
+    {
+      "role": "link",
+      "name": "Go to the previous page"
+    },
+    {
+      "role": "text",
+      "name": "0"
+    },
+    {
+      "role": "link",
+      "name": "Go to the next page"
+    },
+    {
+      "role": "link",
+      "name": "Go to the last page"
+    },
+    {
+      "role": "text",
+      "name": "No items to display"
+    },
+    {
+      "role": "heading",
+      "name": "Application of changes to rest of the vehicles for the same state in progress",
+      "level": 3
+    },
+    {
+      "role": "button",
+      "name": "Proceed to Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Truck saved successfully"
+    }
+  ]
+}

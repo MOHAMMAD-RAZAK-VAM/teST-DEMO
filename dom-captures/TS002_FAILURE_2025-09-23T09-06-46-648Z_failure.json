@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-23T09:06:47.132Z",
+  "testName": "TS002",
+  "error": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"**/AUQuoteSummary\" until \"load\"\n  navigated to \"https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=074f7c8a-77bf-401b-9c04-85430b67c311#/AutoEndorsements\"\n============================================================",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=074f7c8a-77bf-401b-9c04-85430b67c311#/AutoEndorsements",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-23T09-06-46-648Z.html",
+  "screenshotPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-23T09-06-46-648Z.png"
+}

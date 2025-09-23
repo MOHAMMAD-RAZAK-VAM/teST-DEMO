@@ -10,6 +10,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 
+// Load test data from JSON file
+const TEST_DATA = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'test-data.json'), 'utf8'));
+
+
 // DOM Capture Configuration
 /**
  * DOMCapture class provides comprehensive DOM state capture functionality for debugging Playwright tests.
@@ -214,30 +218,7 @@ const TIMEOUTS = {
 } as const;
 
 // Test data configuration
-const TEST_DATA = {
-  applicant: {
-    name: 'Hospital for Special Surgery',
-    sicCode: '0971 - Hunting, Trapping, Game Propagation',
-    legalEntity: 'Corporation'
-  },
-  vehicle: {
-    year: '2024',
-    make: 'kia',
-    model: 'sonet',
-    vin: '12345678910',
-    originalCost: '500000',
-    statedAmount: '150000',
-    territory: '042'
-  },
-  limits: {
-    limit: '25,000',
-    deductible: '100'
-  },
-  nonOwnedAuto: {
-    employees: '2',
-    garagingLocation: 'Adams'
-  }
-} as const;
+// Now loaded from test-data.json file
 
 // Helper functions for common operations
 class TestHelpers {
@@ -504,7 +485,7 @@ class TestHelpers {
       .first();
     console.log('Writing Company dropdown found:', await writingCompanyDropdown.count());
     await expect(writingCompanyDropdown).toBeVisible({ timeout: TIMEOUTS.NETWORK_IDLE });
-    await helpers.selectFromKendoDropdownWithKeyboard(writingCompanyDropdown, 2);
+    await helpers.selectFromKendoDropdownWithKeyboard(writingCompanyDropdown, TEST_DATA.selections.writingCompanySteps);
     
     await helpers.waitForPageReady();
 
@@ -746,14 +727,14 @@ if (await switchLabel.isVisible({ timeout: 2000 }).catch(() => false)) {
   console.log('Clicked Non-Owned Auto Coverage switch');
 }
 
-// Wait for 3 seconds as requested
-console.log('Waiting 3 seconds after clicking Non-Owned Auto Coverage...');
-await page.waitForTimeout(3000);
+// Wait for the configured time after clicking Non-Owned Auto Coverage...
+console.log('Waiting ' + TEST_DATA.timeouts.nonOwnedAutoWait + 'ms after clicking Non-Owned Auto Coverage...');
+await page.waitForTimeout(TEST_DATA.timeouts.nonOwnedAutoWait);
 
 // Click the specific switch for "Do employees use their own vehicles for business purposes?" forcibly
 console.log('Clicking "Do employees use their own vehicles for business purposes?" switch...');
-const employeeVehiclesSwitch = page.locator('label[for="switchb995e0d1b974ff52ff89"]');
-const employeeVehiclesCheckbox = page.locator('#switchb995e0d1b974ff52ff89');
+const employeeVehiclesSwitch = page.locator(TEST_DATA.selectors.employeeVehiclesSwitchLabel);
+const employeeVehiclesCheckbox = page.locator(TEST_DATA.selectors.employeeVehiclesSwitchId);
 
 if (await employeeVehiclesSwitch.isVisible({ timeout: 2000 }).catch(() => false)) {
   // First click to ensure it's activated
@@ -788,9 +769,9 @@ await page.evaluate(() => {
   }
 });
 
-// Wait for 5 seconds to avoid problems
-console.log('Waiting 5 seconds after clicking employee vehicles switch...');
-await page.waitForTimeout(5000);
+// Wait for the configured time to avoid problems
+console.log('Waiting ' + TEST_DATA.timeouts.employeeVehiclesWait + 'ms after clicking employee vehicles switch...');
+await page.waitForTimeout(TEST_DATA.timeouts.employeeVehiclesWait);
 
     // Now click the Add/Edit button - use the specific row locator
     console.log('Clicking Add/Edit button...');
@@ -959,11 +940,11 @@ try {
   await numEmployeesInput.click();
   await page.waitForTimeout(500);
 
-  // Press up arrow twice to increment from 0 to 2
-  await page.keyboard.press('ArrowUp');
-  await page.waitForTimeout(200);
-  await page.keyboard.press('ArrowUp');
-  await page.waitForTimeout(200);
+  // Press up arrow the configured number of times to increment from 0 to the target value
+  for (let i = 0; i < TEST_DATA.selections.numberOfEmployeesIncrement; i++) {
+    await page.keyboard.press('ArrowUp');
+    await page.waitForTimeout(200);
+  }
 
   // Click outside the input box to trigger blur event and validation
   await page.locator('body').click();
@@ -989,14 +970,12 @@ console.log('Moving to Garaging Location...');
     await garagingLocationDropdown.click();
     await page.waitForTimeout(500);
 
-    // Use keyboard navigation: press down arrow 3 times and then enter
+    // Use keyboard navigation: press down arrow the configured number of times and then enter
     console.log('Using keyboard navigation to select Garaging Location...');
-    await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(200);
-    await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(200);
-    await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(200);
+    for (let i = 0; i < TEST_DATA.selections.garagingLocationSteps; i++) {
+      await page.keyboard.press('ArrowDown');
+      await page.waitForTimeout(200);
+    }
     await page.keyboard.press('Enter');
 
     await page.waitForTimeout(1000);
@@ -1122,11 +1101,11 @@ console.log('Moving to Garaging Location...');
 
     // Click the specific Add Vehicle button by ID using force click
     console.log('Clicking the specific Add Vehicle button...');
-    const addVehicleBtn = page.locator('#btnfd2e9df925f880001e53');
+    const addVehicleBtn = page.locator(TEST_DATA.selectors.addVehicleButtonId);
     await expect(addVehicleBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
     
-    // Wait 3 seconds before clicking
-    await page.waitForTimeout(5000);
+    // Wait for the configured time before clicking
+    await page.waitForTimeout(TEST_DATA.timeouts.addVehicleWait);
     
     await addVehicleBtn.click({ force: true });
 
@@ -1180,9 +1159,11 @@ console.log('Moving to Garaging Location...');
     // Wait for dropdown to open
     await page.waitForTimeout(1000);
 
-    // Use keyboard to select a different value (press down arrow once)
-    await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(500);
+    // Use keyboard to select a different value (press down arrow the configured number of times)
+    for (let i = 0; i < TEST_DATA.selections.territorySteps; i++) {
+      await page.keyboard.press('ArrowDown');
+      await page.waitForTimeout(500);
+    }
     await page.keyboard.press('Enter');
     console.log('Selected new Territory value');
 
@@ -1229,8 +1210,8 @@ console.log('Moving to Garaging Location...');
     await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.type('2024');
-    console.log('Typed "2024" in Year input');
+    await page.keyboard.type(TEST_DATA.vehicle.year);
+    console.log('Typed "' + TEST_DATA.vehicle.year + '" in Year input');
 
     // Click somewhere (outside the input) to trigger validation
     await page.locator('body').click();
@@ -1256,8 +1237,8 @@ console.log('Moving to Garaging Location...');
     await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.type('Kia');
-    console.log('Typed "Kia" in Make input');
+    await page.keyboard.type(TEST_DATA.vehicle.make);
+    console.log('Typed "' + TEST_DATA.vehicle.make + '" in Make input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
@@ -1286,8 +1267,8 @@ console.log('Moving to Garaging Location...');
     await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.type('Sonet');
-    console.log('Typed "Sonet" in Model input');
+    await page.keyboard.type(TEST_DATA.vehicle.model);
+    console.log('Typed "' + TEST_DATA.vehicle.model + '" in Model input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
@@ -1313,8 +1294,8 @@ console.log('Moving to Garaging Location...');
     await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.type('12345678910');
-    console.log('Typed "12345678910" in VIN input');
+    await page.keyboard.type(TEST_DATA.vehicle.vin);
+    console.log('Typed "' + TEST_DATA.vehicle.vin + '" in VIN input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
@@ -1343,19 +1324,19 @@ console.log('Moving to Garaging Location...');
     await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.type('l');
+    await page.keyboard.type(TEST_DATA.selections.vehicleClassification.input);
     await page.waitForTimeout(500); // Wait for dropdown to appear
 
-    // Use down arrow 2 times and click enter
-    await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(100);
-    await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(100);
+    // Use down arrow the configured number of times and click enter
+    for (let i = 0; i < TEST_DATA.selections.vehicleClassification.steps; i++) {
+      await page.keyboard.press('ArrowDown');
+      await page.waitForTimeout(100);
+    }
     await page.keyboard.press('Enter');
-    console.log('Selected Vehicle Classification with "l"');
+    console.log('Selected Vehicle Classification with "' + TEST_DATA.selections.vehicleClassification.input + '"');
 
-    // Wait to load (give some seconds)
-    await page.waitForTimeout(1000);
+    // Wait for form to update after selection
+    await page.waitForTimeout(TEST_DATA.timeouts.vehicleFormUpdateWait);
 
     // ===== NEW STEP 1: Fill Secondary Vehicle Classification =====
     // Fill Secondary Vehicle Classification - use label-based locator like other fields
@@ -1379,14 +1360,16 @@ console.log('Moving to Garaging Location...');
     await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.type('s');
+    await page.keyboard.type(TEST_DATA.selections.secondaryVehicleClassification.input);
     await page.waitForTimeout(500); // Wait for dropdown to appear
 
-    // Use down arrow 1 time and click enter (like Vehicle Classification)
-    await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(100);
+    // Use down arrow the configured number of times and click enter (like Vehicle Classification)
+    for (let i = 0; i < TEST_DATA.selections.secondaryVehicleClassification.steps; i++) {
+      await page.keyboard.press('ArrowDown');
+      await page.waitForTimeout(100);
+    }
     await page.keyboard.press('Enter');
-    console.log('Selected Secondary Vehicle Classification with "s"');
+    console.log('Selected Secondary Vehicle Classification with "' + TEST_DATA.selections.secondaryVehicleClassification.input + '"');
 
     // Wait to load (give some seconds)
     await page.waitForTimeout(500);
@@ -1416,13 +1399,13 @@ console.log('Moving to Garaging Location...');
     await originalCostInput.click({ force: true });
     await page.waitForTimeout(200);
 
-    // Use ArrowUp to increment to 25 (assuming it's a spinbutton)
-    console.log('Incrementing Original Cost to 25 using ArrowUp...');
-    for (let i = 0; i < 25; i++) {
+    // Use ArrowUp to increment to the configured value (assuming it's a spinbutton)
+    console.log('Incrementing Original Cost to ' + TEST_DATA.vehicle.originalCostIncrement + ' using ArrowUp...');
+    for (let i = 0; i < TEST_DATA.vehicle.originalCostIncrement; i++) {
       await page.keyboard.press('ArrowUp');
       await page.waitForTimeout(50); // Short delay between presses
     }
-    console.log('Incremented Original Cost to 25');
+    console.log('Incremented Original Cost to ' + TEST_DATA.vehicle.originalCostIncrement);
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
@@ -1448,15 +1431,15 @@ console.log('Moving to Garaging Location...');
     await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.type('20');
-    console.log('Typed "20" in Stated Amount input');
+    await page.keyboard.type(TEST_DATA.vehicle.statedAmount);
+    console.log('Typed "' + TEST_DATA.vehicle.statedAmount + '" in Stated Amount input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
     await page.waitForTimeout(300);
 
     // Save vehicle - use specific ID selector
-    const saveBtn = page.locator('#btna19b23b991591254ef86');
+    const saveBtn = page.locator(TEST_DATA.selectors.saveVehicleButtonId);
     await expect(saveBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
     await saveBtn.click();
 
@@ -1482,7 +1465,7 @@ console.log('Moving to Garaging Location...');
 
     // Look for "Proceed to Endorsement" button at the bottom right corner
     console.log('Looking for Proceed to Endorsement button...');
-    const proceedToEndorsementBtn = page.locator('#btn16a087200d1eea9affc6');
+    const proceedToEndorsementBtn = page.locator(TEST_DATA.selectors.proceedToEndorsementButtonId);
 
     // Scroll to the bottom of the page to find the button
     await page.evaluate(() => {
@@ -1497,23 +1480,9 @@ console.log('Moving to Garaging Location...');
 
     console.log('✓ Successfully clicked Proceed to Endorsement button');
 
-    results.push({
-      testId: 'TS002',
-      testName: 'Verify New Quote Creation Flow',
-      status: 'Pass',
-      duration: Date.now() - start
-    });
-
-    // =========================
-    // STEP 9: Navigate to AutoEndorsements and Proceed to Quote Summary
-    // =========================
-
-    console.log('=== Navigating to AutoEndorsements and Proceeding to Quote Summary ===');
-
-    // Wait for navigation to AutoEndorsements page
-    console.log('Waiting for navigation to AutoEndorsements...');
+    // Wait for navigation to AutoEndorsements
     await page.waitForURL('**/AutoEndorsements', { timeout: TIMEOUTS.PAGE_LOAD });
-    console.log('Successfully navigated to AutoEndorsements page');
+    console.log('Successfully navigated to AutoEndorsements after Proceed to Endorsement');
 
     // Wait for page to fully load
     await page.waitForLoadState('networkidle');
@@ -1539,26 +1508,143 @@ console.log('Moving to Garaging Location...');
 
     console.log('✓ Successfully clicked Proceed to Quote Summary button');
 
-    // =========================
-    // STEP 10: Navigate to AUQuoteSummary
-    // =========================
-
-    console.log('=== Navigating to AUQuoteSummary ===');
-
-    // Wait for navigation to AUQuoteSummary page
-    console.log('Waiting for navigation to AUQuoteSummary...');
+    // Wait for navigation to AUQuoteSummary
     await page.waitForURL('**/AUQuoteSummary', { timeout: TIMEOUTS.PAGE_LOAD });
-    console.log('Successfully navigated to AUQuoteSummary page');
+    console.log('Successfully navigated to AUQuoteSummary after Proceed to Quote Summary');
 
-    // Wait for page to fully load
+    // Wait for 5 seconds or until loading completes
+    await page.waitForTimeout(5000);
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(4000);
 
     // Capture DOM after AUQuoteSummary navigation
     await DOMCapture.capture(page, 'TS002', 'AUQuoteSummary_Page_Loaded', true);
 
     // =========================
-    // STEP 11: Check Quote Status and Complete
+    // STEP 9.5: Capture Quote Summary Data
+    // =========================
+
+    console.log('=== Capturing Quote Summary Data ===');
+
+    try {
+      // Capture Quote ID
+      const quoteIdElement = page.locator('[data-bind="text: AdditionalQuoteInformation.QuoteIDVersion"]');
+      const quoteId = await quoteIdElement.textContent();
+      console.log('Captured Quote ID:', quoteId);
+
+      // Capture Insured Name
+      const insuredElement = page.locator('[data-bind="text: AdditionalQuoteInformation.InsuredName"]');
+      const insured = await insuredElement.textContent();
+      console.log('Captured Insured:', insured);
+
+      // Capture Status
+      const statusElement = page.locator('[data-bind="text: AdditionalQuoteInformation.Status"]');
+      const status = await statusElement.textContent();
+      console.log('Captured Status:', status);
+
+      // Try to capture Policy Period if available
+      let policyPeriod = null;
+      try {
+        const policyPeriodElement = page.locator('[data-bind*="PolicyPeriod"]').first();
+        if (await policyPeriodElement.isVisible({ timeout: 2000 }).catch(() => false)) {
+          policyPeriod = await policyPeriodElement.textContent();
+          console.log('Captured Policy Period:', policyPeriod);
+        }
+      } catch (error) {
+        console.log('Policy Period not found or not available');
+      }
+
+      // Prepare data to store
+      const quoteData = {
+        testId: 'TS002',
+        timestamp: new Date().toISOString(),
+        quoteId: quoteId?.trim() || 'Not Found',
+        insured: insured?.trim() || 'Not Found',
+        status: status?.trim() || 'Not Found',
+        policyPeriod: policyPeriod?.trim() || 'Not Found'
+      };
+
+      // Store data in JSON file
+      await storeQuoteSummaryData(quoteData);
+      console.log('Quote summary data stored successfully');
+
+    } catch (error) {
+      console.log('Error capturing quote summary data:', error);
+    }
+
+    // Click Submit button
+    const submitBtn = page.getByRole('button', { name: 'Submit' });
+    await expect(submitBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await submitBtn.click();
+    console.log('Clicked Submit button');
+
+    // Wait for confirmation popup and click Yes (only if it appears)
+    const yesBtn = page.getByRole('button', { name: 'Yes' });
+    if (await yesBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await yesBtn.click();
+      console.log('Clicked Yes button on confirmation popup');
+    } else {
+      console.log('No confirmation popup appeared, proceeding...');
+    }
+
+    // Wait 10 seconds after clicking submit before capturing updated data
+    console.log('Waiting 10 seconds after submit for data to update...');
+    await page.waitForTimeout(10000);
+
+    // =========================
+    // STEP 9.6: Capture Updated Quote Summary Data After Submit
+    // =========================
+
+    console.log('=== Capturing Updated Quote Summary Data After Submit ===');
+
+    try {
+      // Capture Quote ID
+      const quoteIdElement = page.locator('[data-bind="text: AdditionalQuoteInformation.QuoteIDVersion"]');
+      const quoteId = await quoteIdElement.textContent();
+      console.log('Captured Updated Quote ID:', quoteId);
+
+      // Capture Insured Name
+      const insuredElement = page.locator('[data-bind="text: AdditionalQuoteInformation.InsuredName"]');
+      const insured = await insuredElement.textContent();
+      console.log('Captured Updated Insured:', insured);
+
+      // Capture Status
+      const statusElement = page.locator('[data-bind="text: AdditionalQuoteInformation.Status"]');
+      const status = await statusElement.textContent();
+      console.log('Captured Updated Status:', status);
+
+      // Try to capture Policy Period if available
+      let policyPeriod = null;
+      try {
+        const policyPeriodElement = page.locator('[data-bind*="PolicyPeriod"]').first();
+        if (await policyPeriodElement.isVisible({ timeout: 2000 }).catch(() => false)) {
+          policyPeriod = await policyPeriodElement.textContent();
+          console.log('Captured Updated Policy Period:', policyPeriod);
+        }
+      } catch (error) {
+        console.log('Policy Period not found or not available');
+      }
+
+      // Prepare data to store
+      const updatedQuoteData = {
+        testId: 'TS002',
+        timestamp: new Date().toISOString(),
+        quoteId: quoteId?.trim() || 'Not Found',
+        insured: insured?.trim() || 'Not Found',
+        status: status?.trim() || 'Not Found',
+        policyPeriod: policyPeriod?.trim() || 'Not Found',
+        captureType: 'after-submit'
+      };
+
+      // Store updated data in JSON file
+      await storeQuoteSummaryData(updatedQuoteData);
+      console.log('Updated quote summary data stored successfully');
+
+    } catch (error) {
+      console.log('Error capturing updated quote summary data:', error);
+    }
+
+    // =========================
+    // STEP 9: Check Quote Status and Complete
     // =========================
 
     console.log('=== Checking Quote Status ===');
@@ -1682,7 +1768,7 @@ console.log('Moving to Garaging Location...');
             await test.step('Navigate to Customer Accounts', async () => {
                 console.log('Navigating to Customer Accounts...');
                 let retryCount = 0;
-                const maxRetries = 3;
+                const maxRetries =  3;
                 
                 while (retryCount < maxRetries) {
                     try {
@@ -1862,3 +1948,33 @@ console.log('Moving to Garaging Location...');
         generateHtmlReport(results);
     });
 });
+
+// Function to store quote summary data in JSON file
+async function storeQuoteSummaryData(quoteData: any): Promise<void> {
+  const fs = require('fs');
+  const path = require('path');
+
+  const filePath = path.join(process.cwd(), 'quote-summary-data.json');
+
+  try {
+    let existingData = [];
+
+    // Check if file exists and read existing data
+    if (fs.existsSync(filePath)) {
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      if (fileContent.trim()) {
+        existingData = JSON.parse(fileContent);
+      }
+    }
+
+    // Add new quote data
+    existingData.push(quoteData);
+
+    // Write back to file
+    fs.writeFileSync(filePath, JSON.stringify(existingData, null, 2), 'utf8');
+    console.log(`Quote summary data saved to ${filePath}`);
+  } catch (error) {
+    console.error('Error storing quote summary data:', error);
+    throw error;
+  }
+}

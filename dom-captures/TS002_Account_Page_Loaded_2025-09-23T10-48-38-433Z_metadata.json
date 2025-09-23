@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-23T10:48:40.795Z",
+  "testName": "TS002",
+  "stepName": "Account_Page_Loaded",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=aa24600c-2dcf-4a81-8df4-bbf5eecdb002#/Account",
+  "title": "ACME",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36"
+}
