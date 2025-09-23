@@ -1,0 +1,105 @@
+{
+  "role": "WebArea",
+  "name": "ACME | Insurance",
+  "children": [
+    {
+      "role": "combobox",
+      "name": "",
+      "haspopup": "menu",
+      "children": [
+        {
+          "role": "option",
+          "name": "Customer Account Name",
+          "selected": true
+        },
+        {
+          "role": "option",
+          "name": "Quote ID"
+        }
+      ],
+      "value": "Customer Account Name"
+    },
+    {
+      "role": "textbox",
+      "name": "Search By Customer Account Name",
+      "required": true
+    },
+    {
+      "role": "button",
+      "name": "Search"
+    },
+    {
+      "role": "heading",
+      "name": "RECENT QUOTES",
+      "level": 1
+    },
+    {
+      "role": "text",
+      "name": "Customer Account Name"
+    },
+    {
+      "role": "text",
+      "name": "Product"
+    },
+    {
+      "role": "text",
+      "name": "Quote ID"
+    },
+    {
+      "role": "text",
+      "name": "Policy Effective - Expiration Date"
+    },
+    {
+      "role": "text",
+      "name": "Premium"
+    },
+    {
+      "role": "text",
+      "name": "Status"
+    },
+    {
+      "role": "link",
+      "name": "View All"
+    },
+    {
+      "role": "text",
+      "name": "New Quote"
+    },
+    {
+      "role": "text",
+      "name": "© 2021 ValueMomentum. All Rights Reserved"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi Teja"
+    },
+    {
+      "role": "LineBreak",
+      "name": "\n"
+    },
+    {
+      "role": "text",
+      "name": "Last Login : "
+    },
+    {
+      "role": "text",
+      "name": "9/22/2025 10:28:55 AM"
+    },
+    {
+      "role": "image",
+      "name": "profile"
+    },
+    {
+      "role": "text",
+      "name": ""
+    }
+  ]
+}

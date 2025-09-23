@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-19T10:22:18.329Z",
+  "testName": "TS002",
+  "error": "expect.toBeVisible: Error: strict mode violation: getByRole('button', { name: /Save/i }) resolved to 2 elements:\n    1) <button value=\"Save\" id=\"btna19b23b991591254ef86\" data-bind=\"click : btnSaveTruck\" class=\" btn btn-success vam-MR15 btnfos-4 save-btn\">Save</button> aka getByRole('button', { name: 'Save', exact: true })\n    2) <button id=\"btn706ab903b36fe64a7808\" value=\"Save & Add Another Vehicle\" class=\" btn btn-success btnfos-4 save-btn\" data-bind=\"click : btnSaveAndAddAnotherTruck\">Save & Add Another Vehicle</button> aka getByRole('button', { name: 'Save & Add Another Vehicle' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /Save/i })\u001b[22m\n",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=552f37d3-aae6-494a-a251-949343d370d7#/Truck",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\New folder (3)\\Test-Demo\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-19T10-22-16-925Z.html",
+  "screenshotPath": "C:\\New folder (3)\\Test-Demo\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-19T10-22-16-925Z.png"
+}

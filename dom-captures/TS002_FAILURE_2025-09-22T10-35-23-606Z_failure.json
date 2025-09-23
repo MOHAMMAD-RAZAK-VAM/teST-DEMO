@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-22T10:35:24.995Z",
+  "testName": "TS002",
+  "error": "\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  getByText('Truck Saved Successfully')\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  30000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Truck Saved Successfully')\u001b[22m\n",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=230b916b-e36d-45e0-9cc5-5202c1bfcd6e#/Truck",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\New folder (3)\\Test-Demo\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-22T10-35-23-606Z.html",
+  "screenshotPath": "C:\\New folder (3)\\Test-Demo\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-22T10-35-23-606Z.png"
+}

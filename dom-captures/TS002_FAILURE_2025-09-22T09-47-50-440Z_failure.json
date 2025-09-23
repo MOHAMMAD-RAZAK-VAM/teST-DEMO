@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-22T09:47:47.632Z",
+  "testName": "TS002",
+  "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.form-group:has(label span:has-text(\"Personal Injury Protection\")) .k-dropdown-wrap').nth(1)\u001b[22m\n\u001b[2m    - locator resolved to <span unselectable=\"on\" class=\"k-dropdown-wrap k-state-default\">…</span>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=5a7d11be-9ba5-4100-ad6a-8cdcfa6d8d8c#/LimitsDeductibles",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\New folder (3)\\Test-Demo\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-22T09-47-50-440Z.html",
+  "screenshotPath": "C:\\New folder (3)\\Test-Demo\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-22T09-47-50-440Z.png"
+}

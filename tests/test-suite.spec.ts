@@ -1314,17 +1314,12 @@ console.log('Moving to Garaging Location...');
     const vehicleClassInput = page.locator('input[id="txtauto7b27192a88ff7670d1dg"]');
     await expect(vehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    // Click to focus the Vehicle Classification input and place cursor inside
-    console.log('Clicking Vehicle Classification input to focus and place cursor...');
+    // Select the input box and after it is focused type letter "l"
+    console.log('Selecting Vehicle Classification input and typing l...');
     await vehicleClassInput.click({ force: true });
     await page.waitForTimeout(200);
 
-    // Now that cursor is focused in the Vehicle Classification input box, do ctrl+a, delete, and type
-    console.log('Clearing existing value and typing l...');
-    await page.keyboard.press('Control+a');
-    await page.waitForTimeout(100);
-    await page.keyboard.press('Delete');
-    await page.waitForTimeout(100);
+    // Type letter "l" to trigger dropdown
     await page.keyboard.type('l');
     await page.waitForTimeout(500); // Wait for dropdown to appear
 
@@ -1335,6 +1330,30 @@ console.log('Moving to Garaging Location...');
     await page.waitForTimeout(100);
     await page.keyboard.press('Enter');
     console.log('Selected Vehicle Classification with "l"');
+
+    // Wait to load (give some seconds)
+    await page.waitForTimeout(500);
+
+    // Scroll down for Secondary Vehicle Classification
+    await page.evaluate(() => window.scrollBy(0, 200));
+
+    // Secondary Vehicle Classification
+    const secondaryVehicleClassificationInput = page.locator('input').filter({ hasText: /Secondary Vehicle Classification/i }).first();
+    await expect(secondaryVehicleClassificationInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await secondaryVehicleClassificationInput.click();
+    console.log('Clicked on Secondary Vehicle Classification input');
+
+    // Type 'l' to open dropdown
+    await page.keyboard.type('l');
+    await page.waitForTimeout(200);
+
+    // Use down arrow 2 times and click enter
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(100);
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(100);
+    await page.keyboard.press('Enter');
+    console.log('Selected Secondary Vehicle Classification with "l"');
 
     // Wait to load (give some seconds)
     await page.waitForTimeout(500);
@@ -1374,7 +1393,7 @@ console.log('Moving to Garaging Location...');
 });
 
     // Test 3: Customer Accounts Menu Navigation
-    test('TS004: Customer Accounts Menu Redirect', async ({ page }) => {
+    test('TS003: Customer Accounts Menu Redirect', async ({ page }) => {
         // Set longer timeout for this test
         test.setTimeout(180000);
         const start = Date.now();
@@ -1418,7 +1437,7 @@ console.log('Moving to Garaging Location...');
     });
 
     // Test 4: Customer Accounts Filter Search
-    test('TS005: Verify Customer Accounts Filter Search', async ({ page }) => {
+    test('TS004: Verify Customer Accounts Filter Search', async ({ page }) => {
         // Set longer timeout for this test
         test.setTimeout(180000);
         
@@ -1456,17 +1475,17 @@ console.log('Moving to Garaging Location...');
                 const maxRetries = 3;
                 
                 while (retryCount < maxRetries) {
-                    try {
-                        await homePage.navigateToCustomerAccounts();
-                        await accountsPage.waitForPageLoad();
-                        console.log('Successfully navigated to Customer Accounts');
-                        break;
-                    } catch (error) {
-                        retryCount++;
-                        console.log(`Navigation attempt ${retryCount} failed: ${error}`);
-                        if (retryCount === maxRetries) throw new Error(`Navigation failed after ${maxRetries} attempts: ${error}`);
-                        await page.waitForTimeout(2000);
-                    }
+                  try {
+                    await homePage.navigateToCustomerAccounts();
+                    await accountsPage.waitForPageLoad();
+                    console.log('Successfully navigated to Customer Accounts');
+                    break;
+                  } catch (error) {
+                    retryCount++;
+                    console.log(`Navigation attempt ${retryCount} failed: ${error}`);
+                    if (retryCount === maxRetries) throw new Error(`Navigation failed after ${maxRetries} attempts: ${error}`);
+                    await page.waitForTimeout(2000);
+                  }
                 }
             });
 
@@ -1496,7 +1515,7 @@ console.log('Moving to Garaging Location...');
             const errorMessage = err instanceof Error ? err.message : String(err);
             
             // Capture DOM on test failure
-            await DOMCapture.captureOnFailure(page, 'TS005', err);
+            await DOMCapture.captureOnFailure(page, 'TS004', err);
             
             console.error('TS004 failed:', errorMessage);
             results.push({
@@ -1510,7 +1529,7 @@ console.log('Moving to Garaging Location...');
     });
 
     // Test 5: Quotes Navigation
-    test('TS006: Verify Quotes Navigation', async ({ page }) => {
+    test('TS005: Verify Quotes Navigation', async ({ page }) => {
         // Set longer timeout for this test
         test.setTimeout(180000);
         
@@ -1529,7 +1548,7 @@ console.log('Moving to Garaging Location...');
                     .toBeVisible({ timeout: 60000 });
                 
                 // Capture DOM after login
-                await DOMCapture.capture(page, 'TS006', 'Login_Successful', true);
+                await DOMCapture.capture(page, 'TS005', 'Login_Successful', true);
             });
             
             // Step 2: Navigate to Quotes
@@ -1549,7 +1568,7 @@ console.log('Moving to Garaging Location...');
             const errorMessage = err instanceof Error ? err.message : String(err);
             
             // Capture DOM on test failure
-            await DOMCapture.captureOnFailure(page, 'TS006', err);
+            await DOMCapture.captureOnFailure(page, 'TS005', err);
             
             console.error('TS005 failed:', errorMessage);
             results.push({
@@ -1563,7 +1582,7 @@ console.log('Moving to Garaging Location...');
     });
 
     // Test 6: Quotes Filter
-    test('TS007: Verify Quotes Filter', async ({ page }) => {
+    test('TS006: Verify Quotes Filter', async ({ page }) => {
         // Set longer timeout for this test
         test.setTimeout(180000);
         
@@ -1613,8 +1632,8 @@ console.log('Moving to Garaging Location...');
             const errorMessage = err instanceof Error ? err.message : String(err);
             
             // Capture DOM on test failure
-            await DOMCapture.captureOnFailure(page, 'TS007', err);
-            
+            await DOMCapture.captureOnFailure(page, 'TS006', err);
+
             console.error('TS006 failed:', errorMessage);
             results.push({
                 testId: 'TS006',

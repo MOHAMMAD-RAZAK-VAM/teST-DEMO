@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-22T06:28:22.915Z",
+  "testName": "TS002",
+  "error": "locator.scrollIntoViewIfNeeded: Error: strict mode violation: locator('label').filter({ hasText: 'Secondary Vehicle Classification' }) resolved to 2 elements:\n    1) <label for=\"txtauto7b27192a88ff7670d1di\" class=\"col-lg-4 col-md-4 col-sm-4 col-xs-12 vam-MB5 vam-PL0\">…</label> aka locator('label').filter({ hasText: 'Secondary Vehicle' }).first()\n    2) <label for=\"txtauto7b27192a88ff7670d1dk\" class=\"col-lg-4 col-md-4 col-sm-4 col-xs-12 vam-MB5 vam-PL0\">…</label> aka locator('label').filter({ hasText: 'Secondary Vehicle' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for locator('label').filter({ hasText: 'Secondary Vehicle Classification' })\u001b[22m\n",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=f1c72b70-cb5f-4fdf-95a1-05ba18638dfb#/Truck",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\New folder (3)\\Test-Demo\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-22T06-28-21-571Z.html",
+  "screenshotPath": "C:\\New folder (3)\\Test-Demo\\teST-DEMO-master\\dom-captures\\TS002_FAILURE_2025-09-22T06-28-21-571Z.png"
+}
