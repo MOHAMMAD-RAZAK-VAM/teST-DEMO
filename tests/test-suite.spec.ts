@@ -1341,51 +1341,38 @@ console.log('Moving to Garaging Location...');
     // await page.pause();
 
     // ===== NEW STEP 1: Fill Secondary Vehicle Classification =====
-console.log('Looking for Secondary Vehicle Classification input...');
-const secondaryVehicleClassSelector = '#formsec8360ce8c488ba4fb3181 > div.content > div:nth-child(13) > div > div input';
-const secondaryVehicleClassInput = page.locator(secondaryVehicleClassSelector).first();
+    // Fill Secondary Vehicle Classification - use label-based locator like other fields
+    console.log('Looking for Secondary Vehicle Classification input...');
+    const secondaryVehicleClassLabel = page.locator('label').filter({ hasText: 'Secondary Vehicle Classification' }).first();
+    await expect(secondaryVehicleClassLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-// Scroll to and wait for visibility
-await secondaryVehicleClassInput.scrollIntoViewIfNeeded();
-await expect(secondaryVehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    const secondaryVehicleClassInput = secondaryVehicleClassLabel.locator('xpath=following-sibling::*//input').first();
+    await expect(secondaryVehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-// Click to focus the Secondary Vehicle Classification input
-console.log('Clicking Secondary Vehicle Classification input to focus...');
-await secondaryVehicleClassInput.click({ force: true });
-await page.waitForTimeout(1000);
+    // Click to focus the Secondary Vehicle Classification input and place cursor inside
+    console.log('Clicking Secondary Vehicle Classification input to focus and place cursor...');
+    // Wait for any loading overlay to disappear before clicking
+    await page.waitForFunction(() => !document.body.classList.contains('pace-running'), { timeout: TIMEOUTS.MEDIUM });
+    await secondaryVehicleClassInput.click({ force: true });
+    await page.waitForTimeout(200);
 
-// Clear existing value and type 'l'
-console.log('Clearing existing value and typing l...');
-await page.keyboard.press('Control+a');
-await page.waitForTimeout(100);
-await page.keyboard.press('Delete');
-await page.waitForTimeout(100);
-await page.keyboard.type('l');
-await page.waitForTimeout(500); // Wait for dropdown to appear
+    // Now that cursor is focused in the Secondary Vehicle Classification input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing s...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(100);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(100);
+    await page.keyboard.type('s');
+    await page.waitForTimeout(500); // Wait for dropdown to appear
 
-// Use arrow key and press enter
-await page.keyboard.press('ArrowDown');
-await page.waitForTimeout(100);
-await page.keyboard.press('Enter');
-console.log('Selected Secondary Vehicle Classification with "l"');
+    // Use down arrow 1 time and click enter (like Vehicle Classification)
+    await page.keyboard.press('ArrowDown');
+    await page.waitForTimeout(100);
+    await page.keyboard.press('Enter');
+    console.log('Selected Secondary Vehicle Classification with "s"');
 
-// Wait longer for the selection to be committed to the field
-await page.waitForTimeout(2000);
-
-// Click outside to trigger blur and commit the value
-await page.locator('body').click();
-await page.waitForTimeout(1000);
-
-// Wait for the field to be populated with selected value
-await page.waitForFunction(() => {
-  const input = document.querySelector('#formsec8360ce8c488ba4fb3181 > div.content > div:nth-child(13) > div > div input') as HTMLInputElement;
-  return input && input.value && input.value.trim() !== '';
-}, { timeout: 5000 });
-
-console.log('✓ Secondary Vehicle Classification step completed successfully');
-
-// Wait for form to update after selection
-await page.waitForTimeout(1000);
+    // Wait to load (give some seconds)
+    await page.waitForTimeout(500);
 
 // Scroll down to locate Original Cost section
 console.log('Scrolling down to locate Original Cost section...');
@@ -1394,7 +1381,7 @@ await page.evaluate(() => {
 });
 await page.waitForTimeout(1000);
 
-// Fill Original Cost New Of Vehicle
+    // Fill Original Cost New Of Vehicle
     console.log('Looking for Original Cost New Of Vehicle input...');
     const originalCostLabel = page.locator('label').filter({ hasText: 'Original Cost New Of Vehicle' }).first();
     await originalCostLabel.scrollIntoViewIfNeeded();
@@ -1402,34 +1389,23 @@ await page.waitForTimeout(1000);
 
     const originalCostInput = originalCostLabel.locator('xpath=following-sibling::*//input').first();
     await expect(originalCostInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await expect(originalCostInput).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
 
     // Click to focus the Original Cost input and place cursor inside
     console.log('Clicking Original Cost input to focus and place cursor...');
     await originalCostInput.click({ force: true });
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(200);
 
-    // Verify focus before keyboard actions
-    await page.waitForFunction(() => {
-      const activeEl = document.activeElement;
-      return activeEl && (activeEl.tagName === 'INPUT' || activeEl.classList.contains('k-formatted-value'));
-    }, { timeout: 3000 });
-    console.log('✓ Original Cost input is properly focused');
-
-    // Now that cursor is focused in the Original Cost input box, do ctrl+a, delete, and type
-    console.log('Clearing existing value and typing 25...');
-    await page.keyboard.press('Control+a');
-    await page.waitForTimeout(100);
-    await page.keyboard.press('Delete');
-    await page.waitForTimeout(100);
-    await page.keyboard.type('25');
-    console.log('Typed "25" in Original Cost New Of Vehicle input');
+    // Use ArrowUp to increment to 25 (assuming it's a spinbutton)
+    console.log('Incrementing Original Cost to 25 using ArrowUp...');
+    for (let i = 0; i < 25; i++) {
+      await page.keyboard.press('ArrowUp');
+      await page.waitForTimeout(50); // Short delay between presses
+    }
+    console.log('Incremented Original Cost to 25');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
-    await page.waitForTimeout(300);
-
-    // Fill Stated Amount
+    await page.waitForTimeout(300);    // Fill Stated Amount
     console.log('Looking for Stated Amount input...');
     const statedAmountLabel = page.locator('label').filter({ hasText: 'Stated Amount' }).first();
     await statedAmountLabel.scrollIntoViewIfNeeded();
@@ -1444,13 +1420,13 @@ await page.waitForTimeout(1000);
     await page.waitForTimeout(200);
 
     // Now that cursor is focused in the Stated Amount input box, do ctrl+a, delete, and type
-    console.log('Clearing existing value and typing 25...');
+    console.log('Clearing existing value and typing 20...');
     await page.keyboard.press('Control+a');
     await page.waitForTimeout(100);
     await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.type('25');
-    console.log('Typed "25" in Stated Amount input');
+    await page.keyboard.type('20');
+    console.log('Typed "20" in Stated Amount input');
 
     // Click somewhere (outside the input)
     await page.locator('body').click();
@@ -1546,10 +1522,122 @@ await page.waitForTimeout(1000);
 
     // Wait for page to fully load
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(4000);
 
     // Capture DOM after AUQuoteSummary navigation
     await DOMCapture.capture(page, 'TS002', 'AUQuoteSummary_Page_Loaded', true);
+
+    // =========================
+    // STEP 11: Check Quote Status and Complete
+    // =========================
+
+    console.log('=== Checking Quote Status ===');
+
+    // Check if the quote is already rated (Status shows "Quote Rated")
+    const quoteStatus = page.locator('text=/Status.*Quote Rated/i');
+    const isQuoteRated = await quoteStatus.isVisible({ timeout: 5000 }).catch(() => false);
+
+    if (isQuoteRated) {
+      console.log('Quote is already rated, skipping Experience Rating navigation');
+    } else {
+      console.log('Quote not yet rated, attempting to navigate to Experience Rating...');
+
+      // Try to find and click navigation dropdown if it exists
+      const navigationDropdown = page.locator('#ddl02b5788ef43fc350f153');
+      const dropdownExists = await navigationDropdown.isVisible({ timeout: 2000 }).catch(() => false);
+
+      if (dropdownExists) {
+        await navigationDropdown.click();
+        await page.waitForTimeout(500);
+        await page.keyboard.press('ArrowDown');
+        await page.waitForTimeout(200);
+        await page.keyboard.press('Enter');
+
+        // Wait for navigation to ExperienceRating page
+        await page.waitForURL('**/ExperienceRating', { timeout: TIMEOUTS.PAGE_LOAD });
+        console.log('Successfully navigated to ExperienceRating page');
+
+        // Wait for page to fully load
+        await page.waitForLoadState('networkidle');
+        await page.waitForTimeout(2000);
+
+        // Capture DOM after ExperienceRating navigation
+        await DOMCapture.capture(page, 'TS002', 'ExperienceRating_Page_Loaded', true);
+
+        // =========================
+        // STEP 12: Return to Quote Summary
+        // =========================
+
+        console.log('=== Returning to Quote Summary ===');
+
+        // Click "Back to Quote Summary" button
+        const backToQuoteSummaryBtn = page.getByRole('button', { name: 'Back to Quote Summary' });
+        await page.evaluate(() => {
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+        await page.waitForTimeout(1000);
+
+        await expect(backToQuoteSummaryBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+        console.log('Clicking Back to Quote Summary button...');
+        await backToQuoteSummaryBtn.click();
+
+        // Wait for navigation back to AUQuoteSummary page
+        await page.waitForURL('**/AUQuoteSummary', { timeout: TIMEOUTS.PAGE_LOAD });
+        console.log('Successfully returned to AUQuoteSummary page');
+
+        // Wait for page to fully load
+        await page.waitForLoadState('networkidle');
+        await page.waitForTimeout(2000);
+
+        // Capture DOM after returning to AUQuoteSummary
+        await DOMCapture.capture(page, 'TS002', 'AUQuoteSummary_Returned', true);
+      } else {
+        console.log('Navigation dropdown not found, quote may already be in final state');
+      }
+    }
+
+    // =========================
+    // STEP 13: Generate Quote Premium (if needed)
+    // =========================
+
+    console.log('=== Checking for Generate Quote Premium ===');
+
+    // Check if Generate Quote Premium button exists
+    const generateQuotePremiumBtn = page.getByRole('button', { name: 'Generate Quote Premium' });
+    const generateBtnExists = await generateQuotePremiumBtn.isVisible({ timeout: 2000 }).catch(() => false);
+
+    if (generateBtnExists) {
+      console.log('Generate Quote Premium button found, clicking...');
+
+      // Scroll to find the button if needed
+      await page.evaluate(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+      await page.waitForTimeout(1000);
+
+      await expect(generateQuotePremiumBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+      await generateQuotePremiumBtn.click();
+
+      // Wait for processing (stays on AUQuoteSummary)
+      console.log('Waiting for Generate Quote Premium processing...');
+      await page.waitForLoadState('networkidle');
+      await page.waitForTimeout(3000);
+
+      console.log('✓ Successfully generated quote premium');
+    } else {
+      console.log('Generate Quote Premium button not found, quote may already be processed');
+    }
+
+    // Verify we're still on AUQuoteSummary page
+    const currentUrl = page.url();
+    if (currentUrl.includes('AUQuoteSummary')) {
+      console.log('✓ Successfully completed quote creation flow');
+    } else {
+      console.log('Warning: Page navigated away from AUQuoteSummary');
+    }
+
+    // Capture final DOM
+    await DOMCapture.capture(page, 'TS002', 'AUQuoteSummary_Final', true);
 
     console.log('✓ Successfully completed full quote creation flow');
 

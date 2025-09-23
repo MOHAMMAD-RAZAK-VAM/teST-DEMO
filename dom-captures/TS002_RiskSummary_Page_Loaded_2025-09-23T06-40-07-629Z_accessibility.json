@@ -1,0 +1,235 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "QCA011812-1"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "NY-New York"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Location"
+    },
+    {
+      "role": "text",
+      "name": "Auto Exposure"
+    },
+    {
+      "role": "text",
+      "name": "Vehicles"
+    },
+    {
+      "role": "textbox",
+      "name": "Search by Location,Vehicle Type,VIN,Year-Make-Model"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "Reset"
+    },
+    {
+      "role": "text",
+      "name": "Add Vehicle"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "image",
+      "name": "Export",
+      "description": "Export"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "Export"
+    },
+    {
+      "role": "image",
+      "name": "Import",
+      "description": "Import"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "Import"
+    },
+    {
+      "role": "link",
+      "name": "Filter"
+    },
+    {
+      "role": "link",
+      "name": "Location"
+    },
+    {
+      "role": "link",
+      "name": "Filter"
+    },
+    {
+      "role": "text",
+      "name": "Vehicle Type"
+    },
+    {
+      "role": "link",
+      "name": "Filter"
+    },
+    {
+      "role": "text",
+      "name": "VIN"
+    },
+    {
+      "role": "link",
+      "name": "Filter"
+    },
+    {
+      "role": "text",
+      "name": "Year - Make - Model"
+    },
+    {
+      "role": "text",
+      "name": "Actions"
+    },
+    {
+      "role": "text",
+      "name": "No items to display."
+    },
+    {
+      "role": "button",
+      "name": "Back to Location"
+    },
+    {
+      "role": "button",
+      "name": "Proceed to Endorsement"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "Choose the Vehicle Type"
+    },
+    {
+      "role": "dialog",
+      "name": "Choose the Vehicle Type",
+      "focused": true,
+      "children": [
+        {
+          "role": "image",
+          "name": "Close",
+          "description": "Close"
+        },
+        {
+          "role": "text",
+          "name": "Select the Location"
+        },
+        {
+          "role": "text",
+          "name": "*"
+        },
+        {
+          "role": "listbox",
+          "name": "",
+          "haspopup": "menu",
+          "orientation": "vertical"
+        },
+        {
+          "role": "listbox",
+          "name": "",
+          "orientation": "vertical"
+        },
+        {
+          "role": "text",
+          "name": "Cancel"
+        },
+        {
+          "role": "button",
+          "name": "Add Vehicle"
+        }
+      ]
+    }
+  ]
+}
