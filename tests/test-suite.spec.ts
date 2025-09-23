@@ -1314,12 +1314,17 @@ console.log('Moving to Garaging Location...');
     const vehicleClassInput = page.locator('input[id="txtauto7b27192a88ff7670d1dg"]');
     await expect(vehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    // Select the input box and after it is focused type letter "l"
-    console.log('Selecting Vehicle Classification input and typing l...');
+    // Click to focus the Vehicle Classification input and place cursor inside
+    console.log('Clicking Vehicle Classification input to focus and place cursor...');
     await vehicleClassInput.click({ force: true });
     await page.waitForTimeout(200);
 
-    // Type letter "l" to trigger dropdown
+    // Now that cursor is focused in the Vehicle Classification input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing l...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(100);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(100);
     await page.keyboard.type('l');
     await page.waitForTimeout(500); // Wait for dropdown to appear
 
@@ -1332,38 +1337,221 @@ console.log('Moving to Garaging Location...');
     console.log('Selected Vehicle Classification with "l"');
 
     // Wait to load (give some seconds)
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1000);
+    // await page.pause();
 
-    // Scroll down for Secondary Vehicle Classification
-    await page.evaluate(() => window.scrollBy(0, 200));
+    // ===== NEW STEP 1: Fill Secondary Vehicle Classification =====
+console.log('Looking for Secondary Vehicle Classification input...');
+const secondaryVehicleClassSelector = '#formsec8360ce8c488ba4fb3181 > div.content > div:nth-child(13) > div > div input';
+const secondaryVehicleClassInput = page.locator(secondaryVehicleClassSelector).first();
 
-    // Secondary Vehicle Classification
-    const secondaryVehicleClassificationInput = page.locator('input').filter({ hasText: /Secondary Vehicle Classification/i }).first();
-    await expect(secondaryVehicleClassificationInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
-    await secondaryVehicleClassificationInput.click();
-    console.log('Clicked on Secondary Vehicle Classification input');
+// Scroll to and wait for visibility
+await secondaryVehicleClassInput.scrollIntoViewIfNeeded();
+await expect(secondaryVehicleClassInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
 
-    // Type 'l' to open dropdown
-    await page.keyboard.type('l');
+// Click to focus the Secondary Vehicle Classification input
+console.log('Clicking Secondary Vehicle Classification input to focus...');
+await secondaryVehicleClassInput.click({ force: true });
+await page.waitForTimeout(1000);
+
+// Clear existing value and type 'l'
+console.log('Clearing existing value and typing l...');
+await page.keyboard.press('Control+a');
+await page.waitForTimeout(100);
+await page.keyboard.press('Delete');
+await page.waitForTimeout(100);
+await page.keyboard.type('l');
+await page.waitForTimeout(500); // Wait for dropdown to appear
+
+// Use arrow key and press enter
+await page.keyboard.press('ArrowDown');
+await page.waitForTimeout(100);
+await page.keyboard.press('Enter');
+console.log('Selected Secondary Vehicle Classification with "l"');
+
+// Wait longer for the selection to be committed to the field
+await page.waitForTimeout(2000);
+
+// Click outside to trigger blur and commit the value
+await page.locator('body').click();
+await page.waitForTimeout(1000);
+
+// Wait for the field to be populated with selected value
+await page.waitForFunction(() => {
+  const input = document.querySelector('#formsec8360ce8c488ba4fb3181 > div.content > div:nth-child(13) > div > div input') as HTMLInputElement;
+  return input && input.value && input.value.trim() !== '';
+}, { timeout: 5000 });
+
+console.log('✓ Secondary Vehicle Classification step completed successfully');
+
+// Wait for form to update after selection
+await page.waitForTimeout(1000);
+
+// Scroll down to locate Original Cost section
+console.log('Scrolling down to locate Original Cost section...');
+await page.evaluate(() => {
+  window.scrollBy(0, 300); // Scroll down by 300 pixels
+});
+await page.waitForTimeout(1000);
+
+// Fill Original Cost New Of Vehicle
+    console.log('Looking for Original Cost New Of Vehicle input...');
+    const originalCostLabel = page.locator('label').filter({ hasText: 'Original Cost New Of Vehicle' }).first();
+    await originalCostLabel.scrollIntoViewIfNeeded();
+    await expect(originalCostLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    const originalCostInput = originalCostLabel.locator('xpath=following-sibling::*//input').first();
+    await expect(originalCostInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    await expect(originalCostInput).toBeEnabled({ timeout: TIMEOUTS.MEDIUM });
+
+    // Click to focus the Original Cost input and place cursor inside
+    console.log('Clicking Original Cost input to focus and place cursor...');
+    await originalCostInput.click({ force: true });
+    await page.waitForTimeout(1000);
+
+    // Verify focus before keyboard actions
+    await page.waitForFunction(() => {
+      const activeEl = document.activeElement;
+      return activeEl && (activeEl.tagName === 'INPUT' || activeEl.classList.contains('k-formatted-value'));
+    }, { timeout: 3000 });
+    console.log('✓ Original Cost input is properly focused');
+
+    // Now that cursor is focused in the Original Cost input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing 25...');
+    await page.keyboard.press('Control+a');
+    await page.waitForTimeout(100);
+    await page.keyboard.press('Delete');
+    await page.waitForTimeout(100);
+    await page.keyboard.type('25');
+    console.log('Typed "25" in Original Cost New Of Vehicle input');
+
+    // Click somewhere (outside the input)
+    await page.locator('body').click();
+    await page.waitForTimeout(300);
+
+    // Fill Stated Amount
+    console.log('Looking for Stated Amount input...');
+    const statedAmountLabel = page.locator('label').filter({ hasText: 'Stated Amount' }).first();
+    await statedAmountLabel.scrollIntoViewIfNeeded();
+    await expect(statedAmountLabel).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    const statedAmountInput = statedAmountLabel.locator('xpath=following-sibling::*//input').first();
+    await expect(statedAmountInput).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+
+    // Click to focus the Stated Amount input and place cursor inside
+    console.log('Clicking Stated Amount input to focus and place cursor...');
+    await statedAmountInput.click({ force: true });
     await page.waitForTimeout(200);
 
-    // Use down arrow 2 times and click enter
-    await page.keyboard.press('ArrowDown');
+    // Now that cursor is focused in the Stated Amount input box, do ctrl+a, delete, and type
+    console.log('Clearing existing value and typing 25...');
+    await page.keyboard.press('Control+a');
     await page.waitForTimeout(100);
-    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Delete');
     await page.waitForTimeout(100);
-    await page.keyboard.press('Enter');
-    console.log('Selected Secondary Vehicle Classification with "l"');
+    await page.keyboard.type('25');
+    console.log('Typed "25" in Stated Amount input');
 
-    // Wait to load (give some seconds)
-    await page.waitForTimeout(500);
+    // Click somewhere (outside the input)
+    await page.locator('body').click();
+    await page.waitForTimeout(300);
 
-    // Save vehicle
-    const saveBtn = page.getByRole('button', { name: /Save/i });
+    // Save vehicle - use specific ID selector
+    const saveBtn = page.locator('#btna19b23b991591254ef86');
     await expect(saveBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
     await saveBtn.click();
     
     await helpers.verifyAlert('Truck Saved Successfully');
+
+    // =========================
+    // STEP 8: Navigate to RiskSummary and Proceed to Endorsement
+    // =========================
+    
+    console.log('=== Navigating to RiskSummary and Proceeding to Endorsement ===');
+
+    // Wait for navigation to RiskSummary page
+    console.log('Waiting for navigation to RiskSummary...');
+    await page.waitForURL('**/RiskSummary', { timeout: TIMEOUTS.PAGE_LOAD });
+    console.log('Successfully navigated to RiskSummary page');
+
+    // Wait for page to fully load
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    // Capture DOM after RiskSummary navigation
+    await DOMCapture.capture(page, 'TS002', 'RiskSummary_Final_Page_Loaded', true);
+
+    // Look for "Proceed to Endorsement" button at the bottom right corner
+    console.log('Looking for Proceed to Endorsement button...');
+    const proceedToEndorsementBtn = page.locator('#btn16a087200d1eea9affc6');
+    
+    // Scroll to the bottom of the page to find the button
+    await page.evaluate(() => {
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+    await page.waitForTimeout(1000);
+
+    // Wait for button to be visible and click it
+    await expect(proceedToEndorsementBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    console.log('Clicking Proceed to Endorsement button...');
+    await proceedToEndorsementBtn.click();
+
+    console.log('✓ Successfully clicked Proceed to Endorsement button');
+
+    // =========================
+    // STEP 9: Navigate to AutoEndorsements and Proceed to Quote Summary
+    // =========================
+
+    console.log('=== Navigating to AutoEndorsements and Proceeding to Quote Summary ===');
+
+    // Wait for navigation to AutoEndorsements page
+    console.log('Waiting for navigation to AutoEndorsements...');
+    await page.waitForURL('**/AutoEndorsements', { timeout: TIMEOUTS.PAGE_LOAD });
+    console.log('Successfully navigated to AutoEndorsements page');
+
+    // Wait for page to fully load
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    // Capture DOM after AutoEndorsements navigation
+    await DOMCapture.capture(page, 'TS002', 'AutoEndorsements_Page_Loaded', true);
+
+    // Look for "Proceed to Quote Summary" button
+    console.log('Looking for Proceed to Quote Summary button...');
+    const proceedToQuoteSummaryBtn = page.getByRole('button', { name: 'Proceed to Quote Summary' });
+
+    // Scroll to the bottom of the page to find the button
+    await page.evaluate(() => {
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+    await page.waitForTimeout(1000);
+
+    // Wait for button to be visible and click it
+    await expect(proceedToQuoteSummaryBtn).toBeVisible({ timeout: TIMEOUTS.MEDIUM });
+    console.log('Clicking Proceed to Quote Summary button...');
+    await proceedToQuoteSummaryBtn.click();
+
+    console.log('✓ Successfully clicked Proceed to Quote Summary button');
+
+    // =========================
+    // STEP 10: Navigate to AUQuoteSummary
+    // =========================
+
+    console.log('=== Navigating to AUQuoteSummary ===');
+
+    // Wait for navigation to AUQuoteSummary page
+    console.log('Waiting for navigation to AUQuoteSummary...');
+    await page.waitForURL('**/AUQuoteSummary', { timeout: TIMEOUTS.PAGE_LOAD });
+    console.log('Successfully navigated to AUQuoteSummary page');
+
+    // Wait for page to fully load
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    // Capture DOM after AUQuoteSummary navigation
+    await DOMCapture.capture(page, 'TS002', 'AUQuoteSummary_Page_Loaded', true);
+
+    console.log('✓ Successfully completed full quote creation flow');
 
     results.push({
       testId: 'TS002',
@@ -1393,7 +1581,7 @@ console.log('Moving to Garaging Location...');
 });
 
     // Test 3: Customer Accounts Menu Navigation
-    test('TS003: Customer Accounts Menu Redirect', async ({ page }) => {
+    test('TS004: Customer Accounts Menu Redirect', async ({ page }) => {
         // Set longer timeout for this test
         test.setTimeout(180000);
         const start = Date.now();
@@ -1437,7 +1625,7 @@ console.log('Moving to Garaging Location...');
     });
 
     // Test 4: Customer Accounts Filter Search
-    test('TS004: Verify Customer Accounts Filter Search', async ({ page }) => {
+    test('TS005: Verify Customer Accounts Filter Search', async ({ page }) => {
         // Set longer timeout for this test
         test.setTimeout(180000);
         
@@ -1475,17 +1663,17 @@ console.log('Moving to Garaging Location...');
                 const maxRetries = 3;
                 
                 while (retryCount < maxRetries) {
-                  try {
-                    await homePage.navigateToCustomerAccounts();
-                    await accountsPage.waitForPageLoad();
-                    console.log('Successfully navigated to Customer Accounts');
-                    break;
-                  } catch (error) {
-                    retryCount++;
-                    console.log(`Navigation attempt ${retryCount} failed: ${error}`);
-                    if (retryCount === maxRetries) throw new Error(`Navigation failed after ${maxRetries} attempts: ${error}`);
-                    await page.waitForTimeout(2000);
-                  }
+                    try {
+                        await homePage.navigateToCustomerAccounts();
+                        await accountsPage.waitForPageLoad();
+                        console.log('Successfully navigated to Customer Accounts');
+                        break;
+                    } catch (error) {
+                        retryCount++;
+                        console.log(`Navigation attempt ${retryCount} failed: ${error}`);
+                        if (retryCount === maxRetries) throw new Error(`Navigation failed after ${maxRetries} attempts: ${error}`);
+                        await page.waitForTimeout(2000);
+                    }
                 }
             });
 
@@ -1515,7 +1703,7 @@ console.log('Moving to Garaging Location...');
             const errorMessage = err instanceof Error ? err.message : String(err);
             
             // Capture DOM on test failure
-            await DOMCapture.captureOnFailure(page, 'TS004', err);
+            await DOMCapture.captureOnFailure(page, 'TS005', err);
             
             console.error('TS004 failed:', errorMessage);
             results.push({
@@ -1529,7 +1717,7 @@ console.log('Moving to Garaging Location...');
     });
 
     // Test 5: Quotes Navigation
-    test('TS005: Verify Quotes Navigation', async ({ page }) => {
+    test('TS006: Verify Quotes Navigation', async ({ page }) => {
         // Set longer timeout for this test
         test.setTimeout(180000);
         
@@ -1548,7 +1736,7 @@ console.log('Moving to Garaging Location...');
                     .toBeVisible({ timeout: 60000 });
                 
                 // Capture DOM after login
-                await DOMCapture.capture(page, 'TS005', 'Login_Successful', true);
+                await DOMCapture.capture(page, 'TS006', 'Login_Successful', true);
             });
             
             // Step 2: Navigate to Quotes
@@ -1568,7 +1756,7 @@ console.log('Moving to Garaging Location...');
             const errorMessage = err instanceof Error ? err.message : String(err);
             
             // Capture DOM on test failure
-            await DOMCapture.captureOnFailure(page, 'TS005', err);
+            await DOMCapture.captureOnFailure(page, 'TS006', err);
             
             console.error('TS005 failed:', errorMessage);
             results.push({
@@ -1582,7 +1770,7 @@ console.log('Moving to Garaging Location...');
     });
 
     // Test 6: Quotes Filter
-    test('TS006: Verify Quotes Filter', async ({ page }) => {
+    test('TS007: Verify Quotes Filter', async ({ page }) => {
         // Set longer timeout for this test
         test.setTimeout(180000);
         
@@ -1632,8 +1820,8 @@ console.log('Moving to Garaging Location...');
             const errorMessage = err instanceof Error ? err.message : String(err);
             
             // Capture DOM on test failure
-            await DOMCapture.captureOnFailure(page, 'TS006', err);
-
+            await DOMCapture.captureOnFailure(page, 'TS007', err);
+            
             console.error('TS006 failed:', errorMessage);
             results.push({
                 testId: 'TS006',

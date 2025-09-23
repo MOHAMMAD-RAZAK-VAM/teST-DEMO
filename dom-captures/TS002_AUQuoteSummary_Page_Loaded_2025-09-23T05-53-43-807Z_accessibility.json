@@ -1,0 +1,202 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "QCA011794-1"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "NY-New York"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Auto"
+    },
+    {
+      "role": "text",
+      "name": "Commercial Automobile"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Policy Period :"
+    },
+    {
+      "role": "text",
+      "name": "-"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "Vehicle Type Coverage"
+    },
+    {
+      "role": "text",
+      "name": "Truck"
+    },
+    {
+      "role": "text",
+      "name": "Zone Rated"
+    },
+    {
+      "role": "text",
+      "name": "Private Passenger"
+    },
+    {
+      "role": "text",
+      "name": "Special"
+    },
+    {
+      "role": "text",
+      "name": "Hired Auto"
+    },
+    {
+      "role": "text",
+      "name": "Non Owned Auto"
+    },
+    {
+      "role": "text",
+      "name": "Term Premium"
+    },
+    {
+      "role": "text",
+      "name": "No items to display."
+    },
+    {
+      "role": "text",
+      "name": "Composite Rating & Underwriting Credits & Debits"
+    },
+    {
+      "role": "text",
+      "name": "Liability Schedule Rating Modification Factor"
+    },
+    {
+      "role": "text",
+      "name": "Liability Experience Rating Modification Factor"
+    },
+    {
+      "role": "text",
+      "name": "Physical Damage Schedule Rating Modification Factor"
+    },
+    {
+      "role": "text",
+      "name": "Physical Damage Experience Rating Modification Factor"
+    },
+    {
+      "role": "text",
+      "name": "DeRegulation factor"
+    },
+    {
+      "role": "text",
+      "name": "ExpReduction factor"
+    },
+    {
+      "role": "text",
+      "name": "Composite Rating Eligibility"
+    },
+    {
+      "role": "button",
+      "name": "Back To Endorsement"
+    },
+    {
+      "role": "button",
+      "name": "Submit"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "text",
+      "name": "Status"
+    },
+    {
+      "role": "dialog",
+      "name": "Status"
+    }
+  ]
+}
