@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-22T07:35:10.822Z",
+  "testName": "TS002",
+  "error": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until \"load\"\n  navigated to \"https://mk-bd-dev-uwapp.azurewebsites.net/assets/identity-server/callback.html?code=A659D053425BD7CBD915A60B1661DE396DFD7A152E37FADA3370200E5F01F1D9&scope=openid%20ManagementApi%20UCTDFAPI&state=455a45158a76426ab565af79c95ac342&session_state=BUG4K18APbJIy2hRVPlSyXP6qMh09y-2FbIftSfY3DY.8BEEDCF7C3E48D614578AD02B33B070E\"\n============================================================",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/assets/identity-server/callback.html?code=A659D053425BD7CBD915A60B1661DE396DFD7A152E37FADA3370200E5F01F1D9&scope=openid%20ManagementApi%20UCTDFAPI&state=455a45158a76426ab565af79c95ac342&session_state=BUG4K18APbJIy2hRVPlSyXP6qMh09y-2FbIftSfY3DY.8BEEDCF7C3E48D614578AD02B33B070E",
+  "title": "",
+  "consoleLogs": [],
+  "htmlPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-22T07-34-54-093Z.html",
+  "screenshotPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-22T07-34-54-093Z.png"
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-23T05:20:51.544Z",
+  "testName": "TS002",
+  "error": "\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m()\u001b[22m failed\n\nLocator:  locator('label').filter({ hasText: 'Select the Garaging location' }).first()\nExpected: visible\nReceived: <element(s) not found>\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('label').filter({ hasText: 'Select the Garaging location' }).first()\u001b[22m\n",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=d6a95f31-97b7-43e3-8f53-b3b53e2c7e65#/NonOwnedAuto",
+  "title": "ACME",
+  "consoleLogs": [],
+  "htmlPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-23T05-20-51-013Z.html",
+  "screenshotPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-23T05-20-51-013Z.png"
+}

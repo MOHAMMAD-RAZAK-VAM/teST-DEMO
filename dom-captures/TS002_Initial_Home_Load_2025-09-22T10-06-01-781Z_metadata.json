@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-22T10:06:02.388Z",
+  "testName": "TS002",
+  "stepName": "Initial_Home_Load",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/Index.html#/home",
+  "title": "ACME | Insurance",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36"
+}

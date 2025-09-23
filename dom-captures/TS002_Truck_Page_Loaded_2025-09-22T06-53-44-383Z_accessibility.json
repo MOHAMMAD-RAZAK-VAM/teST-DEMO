@@ -1,0 +1,351 @@
+{
+  "role": "WebArea",
+  "name": "ACME",
+  "children": [
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi teja"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Quote ID :"
+    },
+    {
+      "role": "text",
+      "name": "QCA011711-1"
+    },
+    {
+      "role": "text",
+      "name": "Insured :"
+    },
+    {
+      "role": "text",
+      "name": "Hospital for Special Surgery - Radiology"
+    },
+    {
+      "role": "text",
+      "name": "Transaction :"
+    },
+    {
+      "role": "text",
+      "name": "New Business"
+    },
+    {
+      "role": "text",
+      "name": "Status :"
+    },
+    {
+      "role": "text",
+      "name": "Quote Incomplete"
+    },
+    {
+      "role": "text",
+      "name": "State :"
+    },
+    {
+      "role": "text",
+      "name": "NY-New York"
+    },
+    {
+      "role": "text",
+      "name": "LOB"
+    },
+    {
+      "role": "text",
+      "name": "Account"
+    },
+    {
+      "role": "text",
+      "name": "Application"
+    },
+    {
+      "role": "text",
+      "name": "Endorsement"
+    },
+    {
+      "role": "text",
+      "name": "Quote Summary"
+    },
+    {
+      "role": "text",
+      "name": "Location"
+    },
+    {
+      "role": "text",
+      "name": "Auto Exposure"
+    },
+    {
+      "role": "text",
+      "name": "Vehicles"
+    },
+    {
+      "role": "text",
+      "name": "Basic Information"
+    },
+    {
+      "role": "text",
+      "name": "Select the Garaging location"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "disabled": true,
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Is the truck operated beyond 200 miles from the garaging location and gross vehicle weight is more than 10,000 pounds?"
+    },
+    {
+      "role": "text",
+      "name": "No"
+    },
+    {
+      "role": "text",
+      "name": "Vehicle Characteristics"
+    },
+    {
+      "role": "text",
+      "name": "Year"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "textbox",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Increase value"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Decrease value"
+    },
+    {
+      "role": "text",
+      "name": "Make"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "textbox",
+      "name": "Make*",
+      "required": true
+    },
+    {
+      "role": "text",
+      "name": "Model"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "textbox",
+      "name": "Model*",
+      "required": true
+    },
+    {
+      "role": "text",
+      "name": "Vehicle Identification Number"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "textbox",
+      "name": "Vehicle Identification Number*",
+      "required": true
+    },
+    {
+      "role": "text",
+      "name": "Select the Vehicle Classification"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "generic",
+      "name": "",
+      "children": [
+        {
+          "role": "textbox",
+          "name": "Select the Vehicle Classification*",
+          "required": true,
+          "autocomplete": "list",
+          "haspopup": "menu"
+        }
+      ]
+    },
+    {
+      "role": "text",
+      "name": "Fleet"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "listbox",
+      "name": "",
+      "disabled": true,
+      "haspopup": "menu",
+      "orientation": "vertical"
+    },
+    {
+      "role": "text",
+      "name": "Secondary Vehicle Classification"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "generic",
+      "name": "",
+      "children": [
+        {
+          "role": "textbox",
+          "name": "Secondary Vehicle Classification*",
+          "required": true,
+          "autocomplete": "list",
+          "haspopup": "menu"
+        }
+      ]
+    },
+    {
+      "role": "text",
+      "name": "Exposure"
+    },
+    {
+      "role": "text",
+      "name": "Original Cost New Of Vehicle"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "textbox",
+      "name": "",
+      "value": "$0"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Increase value"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Decrease value"
+    },
+    {
+      "role": "text",
+      "name": "Stated Amount"
+    },
+    {
+      "role": "text",
+      "name": "*"
+    },
+    {
+      "role": "text",
+      "name": " "
+    },
+    {
+      "role": "textbox",
+      "name": "",
+      "value": "$0"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Increase value"
+    },
+    {
+      "role": "text",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Decrease value"
+    },
+    {
+      "role": "text",
+      "name": "View/Update Additional Information"
+    },
+    {
+      "role": "button",
+      "name": "View/Update"
+    },
+    {
+      "role": "text",
+      "name": "Cancel"
+    },
+    {
+      "role": "button",
+      "name": "Save"
+    },
+    {
+      "role": "button",
+      "name": "Save & Add Another Vehicle"
+    },
+    {
+      "role": "text",
+      "name": "Form CA 99 60 and CA 99 61 can only be selected when Physical Damage Coverages are written on an actual cash value basis"
+    },
+    {
+      "role": "text",
+      "name": "Stated Amount must be 0 when Coverage Type is ACV."
+    }
+  ]
+}

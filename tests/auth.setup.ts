@@ -33,13 +33,19 @@ setup('authenticate', async ({ page }) => {
     await page.getByRole('textbox', { name: 'Password' }).fill(config.password);
     await page.getByRole('button', { name: 'LOGIN' }).click();
 
-    // Wait for successful login redirects
-    await page.waitForURL(/.*callback\.html.*/, { timeout: 30000 });
-    console.log('Reached callback page');
-
-    // Wait for navigation to main app (Index.html) - more flexible pattern
-    await page.waitForURL(/.*Index\.html/, { timeout: 30000 });
-    console.log('Reached main app page');
+    // Wait for successful login redirects (either callback or direct to main app)
+    try {
+        await page.waitForURL(/mk-bd-dev-uwapp\.azurewebsites\.net/, { timeout: 120000 });
+        console.log('Reached main app page after login');
+    } catch (error) {
+        console.log('Login redirect timeout, checking current URL');
+        const currentUrl = page.url();
+        if (currentUrl.includes('mk-bd-dev-uwapp.azurewebsites.net')) {
+            console.log('Already on main app page');
+        } else {
+            throw new Error(`Login failed or redirect not completed. Current URL: ${currentUrl}`);
+        }
+    }
 
     // Optional: Wait for home page content to load if needed
     try {

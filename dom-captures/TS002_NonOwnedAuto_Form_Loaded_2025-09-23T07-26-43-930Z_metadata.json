@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-09-23T07:26:44.757Z",
+  "testName": "TS002",
+  "stepName": "NonOwnedAuto_Form_Loaded",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/BD/McKee/index.html?key=fb95482a-0f23-4834-9e52-69d646b5b2cc#/NonOwnedAuto",
+  "title": "ACME",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.7339.16 Safari/537.36"
+}

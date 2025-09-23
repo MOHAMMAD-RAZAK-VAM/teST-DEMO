@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-09-23T07:14:35.642Z",
+  "testName": "TS002",
+  "error": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"**/RiskSummary\" until \"load\"\n============================================================",
+  "url": "https://mk-bd-dev-uwapp.azurewebsites.net/#/home",
+  "title": "ACME | Insurance",
+  "consoleLogs": [],
+  "htmlPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-23T07-14-34-979Z.html",
+  "screenshotPath": "C:\\Users\\MohammadRazakAbdulRa\\OneDrive - ValueMomentum, Inc\\Documents\\mcp-playwright\\dom-captures\\TS002_FAILURE_2025-09-23T07-14-34-979Z.png"
+}

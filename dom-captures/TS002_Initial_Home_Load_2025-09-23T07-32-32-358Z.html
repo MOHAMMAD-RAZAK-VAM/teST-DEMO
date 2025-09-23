@@ -1,0 +1,167 @@
+<!DOCTYPE html><html ng-app="app" class="ng-scope"><head><style type="text/css">[uib-typeahead-popup].dropdown-menu{}</style><style type="text/css">.uib-time input{width:50px;}</style><style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style><style type="text/css">.uib-datepicker-popup.dropdown-menu{display:block;float:none;margin:0;}.uib-button-bar{padding:10px 9px 2px;}</style><style type="text/css">.uib-position-measure{display:block !important;visibility:hidden !important;position:absolute !important;top:-9999px !important;left:-9999px !important;}.uib-position-scrollbar-measure{position:absolute !important;top:-9999px !important;width:50px !important;height:50px !important;overflow:scroll !important;}.uib-position-body-scrollbar-measure{overflow:scroll !important;}</style><style type="text/css">.uib-datepicker .uib-title{width:100%;}.uib-day button,.uib-month button,.uib-year button{min-width:100%;}.uib-left,.uib-right{width:100%}</style><style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=11,IE=10,IE=9">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>ACME | Insurance </title>
+    <link href="assets/css/default-theme.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script>
+        paceOptions = {
+            ajax: {
+                trackMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+                ignoreURLs: ['Notification']
+            },
+            elements: false,
+            restartOnPushState: true,
+            catchupTime: 50,
+            minTime: 250,
+            restartOnRequestAfter: 400
+
+        }
+    </script>
+    <script src="assets/js/pace.min.js"></script>
+</head>
+<body class="pace-running" style="display: block;"><nav id="menu" class="vam-topNav mm-menu mm-offcanvas"><div class="mm-panels"><div class="mm-panel mm-hasnavbar mm-opened mm-current" id="mm-1"><div class="mm-navbar"><a class="mm-title">Menu</a></div><ul class="mm-listview">
+            <li ng-class="{active:$root.activeTab=='home'}"><a ui-sref="home" href="/home">Home</a></li>
+            <li ng-class="{active:$root.activeTab=='accounts'}"><a ui-sref="accounts" href="/accounts">Customer Accounts</a></li>
+            <li ng-class="{active:$root.activeTab=='submissions'}" ng-show="$root.userContext.DfRole == 'Underwriter' &amp;&amp; $root.quoteflow == false" class="ng-hide"><a ui-sref="submissions" href="/submissions">Submissions</a></li>
+            <li ng-class="{active:$root.activeTab=='quotes'}"><a ui-sref="quotes" href="/quotes">Quotes</a></li>
+            <!--<li ng-class="{active:$root.activeTab=='policies'}"><a ng-show="$root.contentType.type=='NONISO'" ui-sref="policies">Policies</a></li>-->
+            <!--<li ng-class="{active:$root.activeTab=='claims'}"><a ng-show="$root.contentType.type=='NONISO'" ui-sref="claims">Claims</a></li>-->
+            <li ng-class="{active:$root.activeTab=='quoteSummaryReport'}"><a ui-sref="quoteSummaryReport" href="/reports/summary">Reports</a></li>
+            <li ng-class="{active:$root.activeTab=='appetiteGuide'}" ng-show="$root.contentType.type=='NONISO' &amp;&amp; $root.userContext.DfRole != 'Underwriter'" class="ng-hide"><a ui-sref="appetiteGuide" href="/appetiteGuide">Appetite Guide</a></li>
+        </ul></div></div></nav><div id="mm-0" class="mm-page mm-slideout"><div class="pace pace-active"><div class="pace-progress" data-progress-text="84%" data-progress="84" style="transform: translate3d(84.0691%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div><div class="container-fluid" id="page">
+        
+        <!--<div class="vam-loader-bg" id="ajaxLoader">
+                    <div class="lds-roller">
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                    </div>
+                </div>-->
+        <!-- ui-view-anchor --><div ui-view=""></div>
+        <page-footer></page-footer>
+    </div></div>
+
+    
+
+    
+    <!--<chat-view></chat-view>-->
+    <!--Jquery references-->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/jquery.mmenu.min.all.js"></script>
+    <script src="assets/js/jquery.flexslider-min.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!--AngularJs  references-->
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-ui-router@0.2.8.min.js"></script>
+    <script src="assets/js/angular-animate.min.js"></script>
+    <script src="assets/js/angular-toastr.tpls@2.1.1.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/angular-datepicker.min.js"></script>
+    <script src="assets/js/angular-sanitize.min.js"></script>
+    <script src="assets/js/angular-ui-utils.min.js"></script>
+    <script src="assets/js/ui-bootstrap-tpls.min.js"></script>
+
+    <script src="assets/js/lodash.min.js"></script>
+    <script src="assets/js/re-tree.js"></script>
+    <script src="assets/js/ng-device-detector.min.js"></script>
+    <script src="assets/js/ng-map.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/datetimepicker.min.js"></script>
+    <!--<script src="assets/js/socket.io.js"></script>-->
+    <!--reports module dependencies-->
+    <script src="assets/js/chart@2.4.0.min.js"></script>
+    <script src="assets/js/exceljs.min.js"></script>
+    <script src="assets/js/FileSaver.min.js"></script>
+    <script src="assets/js/pdfmake.min.js"></script>
+    <script src="assets/js/vfs_fonts.js"></script>
+
+    <script src="assets/js/oidc-client.min.js"></script>
+    <script src="assets/js/plugin-easy-responsive-tabs.min.js"></script>
+    <script src="assets/js/common-script.js"></script>
+    <script src="assets/js/aes.js"></script>
+
+    <!--app modules-->
+    <script src="Services/TokenService.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/components/reports/reports.module.js"></script>
+
+    <!--identity-server-->
+    <script src="assets/identity-server/identity-server.js"></script>
+
+    <!--socket client-->
+    <!--<script src="assets/js/socket-client.js"></script>-->
+    <!--app dependencies-->
+    <script src="app/app.module.routing.js"></script>
+    <script src="app/app.module.config.js"></script>
+    <script src="app/app.module.service.js"></script>
+    <script src="app/app.module.filter.js"></script>
+    <!--directives-->
+    <!--shared-->
+    <script src="app/shared/shared-directive/shared.directive.js"></script>
+    <script src="app/shared/autocomplete/autocomplete.directive.js"></script>
+    <script src="app/shared/file-model/file-model.directive.js"></script>
+    <script src="app/shared/pagination/pagination.directive.js"></script>
+    <script src="app/shared/reassignmodal/reassignmodal.directive.js"></script>
+
+    <!--common-->
+    <script src="app/common/appetite-guide/appetite-guide.directive.js"></script>
+    <!--<script src="app/common/chat-view/chat-view.directive.js"></script>-->
+    <script src="app/common/notifications/notifications.directive.js"></script>
+    <script src="app/common/nav-bar/nav-bar.directive.js"></script>
+    <script src="app/common/profile-preferences/profile-preferences.directive.js"></script>
+
+    <!--app-->
+    <script src="app/app.directive.js"></script>
+
+    <!--home-->
+    <script src="app/components/home/right-panel/right-panel.directive.js"></script>
+    <script src="app/components/home/recent-quotes/recent-quotes.directive.js"></script>
+    <script src="app/components/home/reassign-quote/reassign-quote.directive.js"></script>
+
+    <!--accounts-->
+    <script src="app/components/accounts/account-details/account-details.directive.js"></script>
+    <script src="app/components/accounts/account-name-search/account-name-search.directive.js"></script>
+    <script src="app/components/accounts/advanced-search/advanced-search.directive.js"></script>
+    <script src="app/components/accounts/customer-accounts/customer-accounts.directive.js"></script>
+    <script src="app/components/accounts/customer-detail/customer-detail.directive.js"></script>
+    <script src="app/components/accounts/lob-contents/lob-contents.directive.js"></script>
+
+    <!--policies-->
+    <script src="app/components/policies/policies/policies.directive.js"></script>
+    <script src="app/components/policies/policy-activity/policy-activity.directive.js"></script>
+    <script src="app/components/policies/policy-details/policy-details.directive.js"></script>
+
+    <!--claims-->
+    <script src="app/components/claims/claims-details/claims-details.directive.js"></script>
+    <script src="app/components/claims/view-claim/view-claim.directive.js"></script>
+
+    <!--quotes-->
+    <script src="app/components/quotes/basic-quote-search/basic-quote-search.directive.js"></script>
+    <script src="app/components/quotes/customer-policy-search/customer-policy-search.directive.js"></script>
+    <script src="app/components/quotes/portfolio/portfolio.directive.js"></script>
+
+    <!--reports-->
+    <script src="app/components/reports/quote/quote.controller.js"></script>
+    <script src="app/components/reports/commission/commission.controller.js"></script>
+
+    <!--submission-->
+    <script src="app/components/submissions/submission-information/submission-information.directive.js"></script>
+    <script src="app/components/home/recent-submissions/recent-submissions.directive.js"></script>
+    <script src="app/components/submissions/submission-summary/submission-summary.directive.js"></script>
+    <script src="app/components/submissions/submission-version/submission-version.directive.js"></script>
+    <script src="app/components/submissions/submission-products/submission-products.directive.js"></script>
+    <script src="app/components/submissions/submission-portfolio/submission-portfolio.directive.js"></script>
+    <script src="app/components/submissions/submission-search/submission-search.directive.js"></script>
+    <!--need to load at the end due to module dependency-->
+    <script src="app/shared/multiselect-dropdown/multiselect.dropdown.directive.js"></script>
+    <!--<script src="assets/js/common-script.js"></script>-->
+
+<div id="mm-blocker" class="mm-slideout"></div><div class="row vam-header vam-ML0 mm-slideout">
+            <nav-bar></nav-bar>
+        </div></body></html>

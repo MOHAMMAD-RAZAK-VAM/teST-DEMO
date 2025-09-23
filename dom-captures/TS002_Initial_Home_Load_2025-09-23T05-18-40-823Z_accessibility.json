@@ -1,0 +1,42 @@
+{
+  "role": "WebArea",
+  "name": "ACME | Insurance",
+  "children": [
+    {
+      "role": "text",
+      "name": "© 2021 ValueMomentum. All Rights Reserved"
+    },
+    {
+      "role": "link",
+      "name": ""
+    },
+    {
+      "role": "text",
+      "name": "Welcome "
+    },
+    {
+      "role": "text",
+      "name": "Ravi Teja"
+    },
+    {
+      "role": "LineBreak",
+      "name": "\n"
+    },
+    {
+      "role": "text",
+      "name": "Last Login : "
+    },
+    {
+      "role": "text",
+      "name": "9/23/2025 5:15:47 AM"
+    },
+    {
+      "role": "image",
+      "name": "profile"
+    },
+    {
+      "role": "text",
+      "name": ""
+    }
+  ]
+}
